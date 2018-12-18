@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Questioner | User | Meetup</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="header-logo"> <span class="q">Q</span><span class="uestioner">UESTIONER</span> </h2>
+
+            <div class="profile"> <span>Welcome, Guest</i></span> <br> <span class="time" id="currentTime"></span>
+
+            </div>
+
+    </header>
+
+    <section class="container">
+        <div class="body-wrapper">
+            <div class="login-div">
+                <div class="topic-list-header">SIGNUP FORM</div>
+                <p class="terms-checked">Fields with * are required</p>
+                <form action="" class="signupForm">
+                    <div class="form-group">
+                        <label for="firstname">Firstname <span>*</span></label>
+                        <input type="text" required name="firstname" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastname">Lastname <span>*</span></label>
+                        <input type="text" required name="lastname" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="othername">Othername</label>
+                        <input type="text" name="firstname" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">Username <span>*</span></label>
+                        <input type="text" required name="username" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email <span>*</span></label>
+                        <input type="email" required name="email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="text" name="phone" class="form-control">
+                    </div>
+                    <div class="form-group">
+
+                        <div class="form-group">
+
+
+                            <p>
+                                <ul class="terms-div">
+                                    <li>Do not use any vulgar or inapproriate language </li>
+                                    <li>Kindly read through a meetup previous question, to ensure your
+                                        question has not been asked by another user</li>
+
+                                </ul>
+                            </p>
+                            <p class="terms-checked"> <input type="checkbox" name="terms" class="checkmark">
+                                I agree to the <a href="#"> Terms and Conditions </a></p>
+                        </div>
+                        <button type="submit" name="signup" class="submitButton">SIGNUP </button>
+                        <button type="reset" name="cancel" class="cancelButton">CANCEL </button>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        copyright @ Adebajo Oluwaseyi  | Andela 2018
+    </footer>
+
+    <script src="./js/general.js"></script>
+</body>
+
+</html>
