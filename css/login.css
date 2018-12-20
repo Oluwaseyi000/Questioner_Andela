@@ -1,0 +1,57 @@
+.login-div{
+    min-height: 400px;
+    background:#fff;
+    width: 50%;
+    margin: 0 auto;
+    border-radius: 2px;
+    
+}
+
+label{
+	display: inline-block;
+	padding: 12px 12px 12px 0;
+	min-width: 110px;
+	text-align: right;
+}
+
+.submitButton{
+    margin-left: 116px;
+    margin-right: 3px
+}
+
+.signupForm{
+    padding-left: 20px
+}
+
+
+
+label span{
+    color: rgb(214, 51, 51)
+}
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+.terms-div{
+   display: none;
+    margin: 5px 40px;
+    align-content: center;
+    font-size: 12px
+}
+.terms-checked{
+    margin: 11px 118px;
+    font-size: 12px;   
+}
+.terms-checked a{
+    text-decoration: none
+}
+.terms-checked a{
+    color: #03A9F4
+}
+
+.topic-warning{
+    font-size:11px;
+    padding-left: 25px;
+}

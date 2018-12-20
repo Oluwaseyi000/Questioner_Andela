@@ -8,7 +8,9 @@ body{
 	background: rgba(240, 240, 240, 1.0);
 	color: #28313f;
 }
-
+a{
+	text-decoration: none
+}
 .container{
 	width: 90%;
 	margin: auto;
@@ -71,7 +73,8 @@ body{
 }
 
  .aside-content{
-	min-height: 225px;
+	/* min-height: 225px; */
+	margin-bottom: 20px
 } 
 
 
@@ -180,3 +183,38 @@ padding-top: 10px;
 .cancelButton:hover{
 	border: 2px solid #03A9F4;
 }
+
+#loader-overlay{
+	height: 100%;
+	width: 100%;
+	background: rgba(4, 176, 249, 0.3);
+	/* z-index: 9999; */
+	position: fixed;
+	left: 0;
+	top: 0px;
+}
+.loader{
+	margin: 15em auto;
+	border: 16px solid #e3e3e3;
+	border-radius: 50%;
+	border-top: 16px solid #3498db;
+	width: 100px;
+	height: 100px;
+	animation: spin 2s linear infinite;
+	
+}
+
+@keyframes spin{
+	0%{
+		transform: rotate(0deg);
+	}
+	100%{
+		transform: rotate(360deg);
+	}
+}
+
+.upcoming-meetup span, .stats-list a span{
+	color: #DF3C3C;
+	/* background-color: blue */
+}
+
