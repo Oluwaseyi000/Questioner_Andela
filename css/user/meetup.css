@@ -122,6 +122,6 @@ display: none
 }
 
 
-.details {
-    margin: 10px 
+.details, .discussion {
+    margin: 20px 
 }
