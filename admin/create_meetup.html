@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Questioner | User | Meetups</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/user/meetups.css">
+    <link rel="stylesheet" href="../css/signup.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+</head>
+
+<body>
+    <div id="loader-overlay">
+        <div class="loader"></div>
+    </div>
+    <header class="header">
+        <h1 class="header-logo"> <span class="q">Q</span><span class="uestioner">UESTIONER</span> </h2>
+
+            <div class="profile"> <span>Welcome, Admin</i></span> <br> <span class="time" id="currentTime"></span>
+
+            </div>
+
+    </header>
+
+
+    <section class="container">
+        <div class="body-wrapper">
+
+
+            <div class="container-page">
+
+                <div class="topic-list-header">CREATE NEW MEETUP</div>
+                <div class="meetup-list">
+Fields with * are required
+                <!-- </div>
+                <div class="login-div"> -->
+                        
+                        <p class="terms-checked"></p>
+                        <form action="" class="signupForm">
+                            <div class="form-group">
+                                <label for="topic">Topic <span>*</span></label>
+                                <input type="text" required name="topic" class="form-control">
+                            </div>
+        
+                            <div class="form-group">
+                                <label for="location">Location <span>*</span></label>
+                                <input type="text" required name="location" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Happening on <span>*</span></label>
+                                <input type="datetime-local" required name="datetime" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="othername">Details</label>
+                                <textarea name="detail" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                    <label for="host">Host</label>
+                                    <input type="text"  name="host" class="form-control">                                </div>
+        
+                            
+        
+                            <div class="form-group">
+                                <label for="image">images <span>*</span></label>
+                                <input type="file" multiple  name="images" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="tags">Tags <span>*</span></label>
+                                <input type="" required name="password" class="form-control">
+                            </div>
+                            <button type="submit" name="signup" id="createMeetup" class="submitButton">CREATE </button>
+                            <button type="reset" name="cancel" class="cancelButton">CANCEL </button>
+                            
+                           
+        
+                        </form>
+                    </div>
+
+
+            </div>
+            <aside class="aside">
+                <div class="aside-header">
+                    Upcoming Meetups</div>
+                <div class="aside-body">
+                    <div class="aside-content upcoming-meetup">
+                        <p><a href="./meetups-stats.html"> Today: <span> 0</span></a></p>
+                        <p><a href="./meetups-stats.html"> This Week:<span> 23</span></a></p>
+                        <p><a href="./meetups-stats.html"> This Month:<span> 123</span></a></p>
+                    </div>
+                    <div class="aside-header"> Your Stats
+                    </div>
+                    <div class="aside-body">
+                        <div class="aside-content">
+
+                            <p class="stats-list"><a href="#">Question Posted: <span>10</span> </a> </p>
+                            <p class="stats-list"><a href=""> Question Commented On:<span> 23</span> </a></p>
+                            <p class="stats-list"><a href="#"> Total Upvote:P <span>123 </span> </a></p>
+                            <p class="stats-list"><a href="#">Total Downvote: <span>34 </span> </a> </p>
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+                <div class="aside-header">
+                    ADVERTS</div>
+                <div class="aside-body">
+                    <img src="https://i.imgur.com/XaKeYJE.png" alt="advert">
+                </div>
+
+
+            </aside>
+        </div>
+    </section>
+    <footer class="footer">
+        copyright @ Adebajo Oluwaseyi | Andela 2018
+    </footer>
+    <script src="../js/general.js"></script>
+</body>
