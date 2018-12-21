@@ -1,5 +1,7 @@
-document.getElementById('askQuestionButton').addEventListener('click', function displayQuestionForm() {
+var button = document.getElementById('askQuestionButton')
+
+if(button){addEventListener('click', function displayQuestionForm() {
     document.getElementById('postQuestionForm').style.display="block"
 }
 )
-
+}
