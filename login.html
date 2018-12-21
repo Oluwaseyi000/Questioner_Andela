@@ -20,15 +20,19 @@
             <div class="profile"> <span>Welcome, Guest</i></span> <br> <span class="time" id="currentTime"></span>
 
             </div>
-
+            <div id="loader-overlay">
+                <div class="loader"></div>
+            </div>
     </header>
+    
 
     <section class="container">
         <div class="body-wrapper">
             <div class="login-div">
                 <div class="topic-list-header">Login Form</div>
                
-                <form action="" class="loginForm">
+                <form action="" id="login" name="login" class="loginForm">
+                    <p class="new-to-us"><h6>Note: for user: Username is user. For admin, username is admin </h6> </p>
                     <div class="form-group">
                         <label for="username">Username <span>*</span></label>
                         <input type="text" required name="username" class="form-control">
@@ -38,10 +42,13 @@
                         <label for="password">Password <span>*</span></label>
                         <input type="password" required name="password" class="form-control">
                     </div>
-                    
-                    <a href="./user/meetups.html" class="submitButton">SIGN IN </a>
+                  <div>
+                       <button class="submitButton" id="signin" name="signin">SIGN IN </button>
                     
                         <button type="reset" name="cancel" class="cancelButton">CANCEL </button>
+                        <h6 class="new-to-us">New to Questioner? <a href="./signup.html"> Signup Now!</a></h6>
+                  </div>
+                   
 
                 </form>
             </div>
@@ -52,6 +59,7 @@
         copyright @ Adebajo Oluwaseyi  | Andela 2018
     </footer>
 
+    <script src="./js/general.js"></script>
 </body>
 
 </html>

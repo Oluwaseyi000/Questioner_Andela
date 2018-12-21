@@ -74,7 +74,8 @@ a{
 
  .aside-content{
 	/* min-height: 225px; */
-	margin-bottom: 20px
+	margin-bottom: 20px;
+	padding-left: 7px;
 } 
 
 
@@ -98,6 +99,17 @@ a{
 	float: left;
 	margin: auto;
 	font-family: 'Anto';
+}
+.header .profile img{
+	/* display: inline-block; */
+	width: 50px;
+	height:50px;
+	border-radius: 50%;
+	padding-top: 10px;
+  
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
 }
 .header-logo .uestioner{
 	text-decoration: underline;
@@ -218,3 +230,46 @@ padding-top: 10px;
 	/* background-color: blue */
 }
 
+#alert{
+	width: 100%;
+	background: #4CAF50;
+	color:#fff;
+	padding: 10px 5px 8px 10px;
+	margin-bottom: 10px	
+}
+
+
+
+  
+  .dropdown{
+	
+	  position: absolute;
+	  top: 71px;
+	  right:10px;
+	  
+  }
+
+  .dropdown ul{
+	  background-color: rgba(3,169,244, 0.81);
+	list-style-type: none;
+	border: rgba(40, 40, 211, 0.3) 1px solid;
+  }
+  .dropdown ul li{
+	  width: 130px;
+	  border-bottom: rgba(40, 40, 211, 0.3) 1px solid
+	  /* display: block */
+	
+	
+  }
+
+  .dropdown ul li a{
+	  text-align: center;
+	display: block;
+	color: #fff;
+	padding: 10px ;
+  }
+
+  .dropdown ul li a:hover{
+	  background:#DF3C3C;
+	  color: #03A9F4
+  }

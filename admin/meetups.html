@@ -17,10 +17,18 @@
         <div class="loader"></div>
     </div>
     <header class="header">
-        <h1 cölass="header-logo"> <span class="q">Q</span><span class="uestioner">UESTIONER</span> </h2>
+        <h1 class="header-logo"> <span class="q">Q</span><span class="uestioner">UESTIONER</span> </h2>
 
-            <div class="profile"> <span>Welcome, User</i></span> <br> <span class="time" id="currentTime"></span>
+            <div class="profile"> <span>Welcome, Admin</i></span> <br> <span class="time" id="currentTime"></span>
 
+            </div>
+            
+            <div class="dropdown">
+                <ul>
+                    <li> <a href="../user/profile.html">Profile</a> </li>
+                    <li> <a href="../user/reset-password.html">Setting</a> </li>
+                    <li> <a href="../login.html">Logout</a> </li>
+                </ul>
             </div>
 
     </header>
@@ -28,10 +36,12 @@
 
     <section class="container">
         <div class="body-wrapper">
-
+            <div id="alert">
+               Are you sure?
+            </div>
 
             <div class="container-page">
-
+<a href="./create_meetup.html" class="submitButton">+ CREATE MEETUP</a>
                 <div class="topic-list-header">MEETUPS</div>
                 <table class="meetup-list">
                     <tr class=" topic-list-content--title" colspan="2">
@@ -52,6 +62,9 @@
                         <td>
                             <div class="question-stat"><strong>133</strong><br /> Attendees</div>
                         </td>
+                        <td>
+                                <div class="question-stat"><button class="delete-meetup cancelButton">Delete</button></div>
+                            </td>
 
 
 
@@ -75,6 +88,10 @@
                             <div class="question-stat"><strong>13</strong><br /> upvote</div>
                         </td>
 
+                        <td>
+                                <div class="question-stat"><button class="delete-meetup cancelButton">Delete</button></div>
+                            </td>
+
 
 
                     </tr>
@@ -96,7 +113,9 @@
                         <td>
                             <div class="question-stat"><strong>13</strong><br /> Going</div>
                         </td>
-
+                        <td>
+                                <div class="question-stat"><button class="delete-meetup cancelButton">Delete</button></div>
+                            </td>
 
 
                     </tr>
@@ -118,7 +137,9 @@
                             <td>
                                 <div class="question-stat"><strong>3</strong><br /> Going</div>
                             </td>
-    
+                            <td>
+                                    <div class="question-stat"><button class="delete-meetup cancelButton">Delete</button></div>
+                                </td>
     
     
                         </tr>
@@ -140,7 +161,9 @@
                                     <div class="question-stat"><strong>13</strong><br /> Going</div>
                                 </td>
         
-        
+                                <td>
+                                        <div class="question-stat"><button class="delete-meetup cancelButton">Delete</button></div>
+                                    </td>
         
                             </tr>
                             <tr class=" topic-list-content--title" colspan="2">
@@ -159,7 +182,10 @@
                                     </td>
                                     <td>
                                         <div class="question-stat"><strong>13</strong><br /> Going</div>
-                                    </td>
+                                    </td>   
+                                    <td>
+                                            <div class="question-stat"><button id="delee" class="delete-meetup cancelButton">Deletse</button></div>
+                                        </td>
             
             
             
@@ -181,7 +207,9 @@
                         <td>
                             <div class="question-stat"><strong>13</strong><br /> Going</div>
                         </td>
-
+                        <td>
+                                <div class="question-stat "><button class="delete-meetup cancelButton">Delete</button></div>
+                            </td>
 
 
                     </tr>
