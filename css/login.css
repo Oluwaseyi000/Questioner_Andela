@@ -29,7 +29,7 @@ label span{
     color: rgb(214, 51, 51)
 }
 .footer{
-    position: fixed;
+   
     left: 0;
     bottom: 0;
 }
@@ -54,4 +54,11 @@ label span{
 .topic-warning{
     font-size:11px;
     padding-left: 25px;
+}
+
+.already-a-member{
+    margin-left: 120px;
+    font-size: 13px;
+    padding-top: 5px;
+
 }
