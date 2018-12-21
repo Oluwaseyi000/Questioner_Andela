@@ -244,8 +244,9 @@ padding-top: 10px;
   .dropdown{
 	
 	  position: absolute;
-	  top: 71px;
+	  top: 60px;
 	  right:10px;
+	  display: none
 	  
   }
 

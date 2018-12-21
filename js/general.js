@@ -71,3 +71,12 @@ window.onload = function () {setTimeout(function(){
     if(alert){alert.style.display='none';}
     }, 4000) 
 }
+
+let drop = document.getElementById('dropdown');
+if(drop){
+    drop.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.getElementById('dropdownNav').style.display="block"
+        
+    })
+}
