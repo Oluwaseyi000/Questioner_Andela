@@ -4,6 +4,8 @@ let meetupController=require('./controller/Meetup');
 
 router.post('/meetups', meetupController.createMeetup);
 router.get('/meetups/:meetupId', meetupController.getASpecificMeetupRecord);
+router.get('/meetups', getAllMeetupsRecord);
+
 
 
 router.route('*')
