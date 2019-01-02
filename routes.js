@@ -7,6 +7,7 @@ router.get('/meetups/:meetupId', meetupController.getASpecificMeetupRecord);
 router.get('/meetups', getAllMeetupsRecord);
 
 
+
 router.route('*')
    .get((req, res) => {
       res.json({
