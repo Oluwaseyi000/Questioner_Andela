@@ -90,7 +90,7 @@ describe('/GET A SPECIFIC MEETUP', () => {
 
                if (res.body.data.length === 0) {
                   assert.equal(res.body.status, 204);
-                  assert.equal(res.body.message, 'Request successful but result contains no data, probably a case of non existence meetup id');
+                  assert.include(res.body.message, 'Request successful but result contains no data, no meetup record found for id');
 
                } else {
                   assert.equal(res.body.data.length, 1);
@@ -144,7 +144,7 @@ describe('/GET ALL MEETUPS ', () => {
                      assert.nestedProperty(res.body.data[i], 'coverImage');
                      assert.isNotEmpty(res.body.data[i].happeningOn);
                      assert.isArray(res.body.data[i].tag);
-   
+
                   }
                }
             });
@@ -187,7 +187,6 @@ describe('/GET UPCOMING MEETUPS ', () => {
                      assert.nestedProperty(res.body.data[i], 'coverImage');
                      assert.isNotEmpty(res.body.data[i].happeningOn);
                      assert.isArray(res.body.data[i].tag);
-   
                   }
                }
             });
@@ -195,4 +194,32 @@ describe('/GET UPCOMING MEETUPS ', () => {
       })
    })
 
+})
+
+describe('/DELETE A SPECIFIC MEETUP', () => {
+
+   describe('/controller has deleteMeetup function', done => {
+      it('Assert controller has a deleteMeetup function ', done => {
+         assert.isFunction(meetupController.deleteMeetup);
+         done();
+      })
+   })
+
+   describe('/DELETE a specific record ', done => {
+      it('delete a specific record ', done => {
+         chai.request(server)
+            .delete('/api/v1/meetups/:meetupId')
+            .end((err, res) => {
+               assert.isObject(res.body);
+               assert.equal(res.status, 200);
+               if (res.body.status === 404) {
+                  assert.include(res.body.error, 'Request unsuccessful');
+               } else {
+                  assert.equal(res.body.status, 204);
+                  assert.include(res.body.message, 'Delete Successful');
+               }
+            });
+         done();
+      })
+   })
 })
