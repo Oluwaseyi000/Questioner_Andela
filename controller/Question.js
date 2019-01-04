@@ -36,12 +36,10 @@ voteQuestion = (req, res) => {
          error: 'Bad Request, please include meetup Id, user id, title, body, vote type in your request as parameter'
       })
    } else {
-      console.log(Questions)
 
       const question = Questions.find(question => question.id === Number(req.params.questionId));
 
       if (!question || question === -1) {
-         console.log('meetup not found');
          res.json({
             status: 404,
             error: `question with id ${req.params.questionId} not found`
@@ -84,8 +82,6 @@ voteQuestion = (req, res) => {
          }
       }
    }
-
-
 }
 module.exports = {
    createQuestion,
