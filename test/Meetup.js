@@ -1,14 +1,18 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let assert = chai.assert;
+let expect = chai.expect;
 let server = require('../server');
 let Meetups = require('../model/Meetup');
 let meetupController = require('../controller/Meetup');
 let routes = require('../routes');
+let sinon = require('sinon');
 
 chai.use(chaiHttp);
 describe('/NON-PERSISTENCE DATABASE', () => {
+
    it('Assert non-persistence database using array', done => {
+
       assert.isArray(Meetups);
       done();
    })
@@ -26,7 +30,7 @@ describe('/POST A MEETUP', () => {
       Meetups = [];
       done();
    });
-   describe('create/post a new meetup', done => {
+   describe('create/post a new meetup', () => {
       it(' create/post a new meetup', done => {
          let newMeetup = {
             id: Date.now(),
@@ -37,6 +41,7 @@ describe('/POST A MEETUP', () => {
          }
 
          chai.request(server)
+
             .post('/api/v1/meetups')
             .send(newMeetup)
             .end((err, res) => {
@@ -83,7 +88,6 @@ describe('/GET A SPECIFIC MEETUP', () => {
          chai.request(server)
             .get('/api/v1/meetups/:meetupId')
             .end((err, res) => {
-
                assert.isObject(res.body);
                assert.equal(res.status, 200);
                assert.isArray(res.body.data);
@@ -141,10 +145,9 @@ describe('/GET ALL MEETUPS ', () => {
                      assert.isNumber(res.body.data[i].id);
                      assert.nestedProperty(res.body.data[i], 'host');
                      assert.nestedProperty(res.body.data[i], 'details');
-                     assert.nestedProperty(res.body.data[i], 'coverImage');
+                     assert.nestedProperty(res.body.data[i], 'coverImage', 'hHAS');
                      assert.isNotEmpty(res.body.data[i].happeningOn);
                      assert.isArray(res.body.data[i].tag);
-
                   }
                }
             });

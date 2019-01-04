@@ -10,7 +10,8 @@ createMeetup = (req, res) => {
       tag: tags || null,
       details: req.body.details || null,
       coverImage: req.body.coverImage || null,
-      host: req.body.host || null
+      host: req.body.host || null, 
+      createdOn: new Date()
    }
 
    if (!newMeetup.topic || !newMeetup.location || !newMeetup.happeningOn) {
