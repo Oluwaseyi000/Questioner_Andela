@@ -12,7 +12,12 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  - nyc --reporter=lcov npm run unit
+  -  "scripts": {
+    "start": "SET NODE_ENV=production && node server.js",
+    "test": "nyc mocha test/**/*.js  --exit",
+    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha",
+    "coveralls": "npm run cover -- --report lcovonsly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+  },
     
     # Pipe the coverage data to Code Climate
 
