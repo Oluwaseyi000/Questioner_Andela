@@ -7,13 +7,31 @@ let questionController=require('./controller/Question');
 router.get('/meetups/upcomingmeetups', meetupController.upcomingMeetups);
 router.post('/meetups', meetupController.createMeetup);
 router.get('/meetups/:meetupId', meetupController.getASpecificMeetupRecord);
-router.get('/meetups', getAllMeetupsRecord);
+router.get('/meetups', meetupController.getAllMeetupsRecord);
 router.delete('/meetups/:meetupId', meetupController.deleteMeetup);
 
 router.post('/questions', questionController.createQuestion);
+router.patch('/questions/:questionId/upvote', questionController.voteQuestion);
+router.patch('/questions/:questionId/downvote', questionController.voteQuestion);
 
-
-
+router.patch('/questions/:questionId/*', (req, res)=>{
+   res.json({
+      status:400,
+      error: 'vote type incorrect, it could only be upvote or downvote'
+   })
+});
+router.patch('/questions/:questionId', (req, res)=>{
+   res.json({
+      status:400,
+      error: 'vote type missing, it could only be upvote or downvote'
+   })
+});
+router.patch('/questions/*', (req, res)=>{
+   res.json({
+      status:400,
+      error: 'meetup id and vote type missing, vote type could only be upvote or downvote'
+   })
+});
 router.route('/meetups')
    .delete((req, res) => {
       res.json({
@@ -43,11 +61,11 @@ router.route('*')
          error: 'Incorrect API endpoint,  Preceed your API endpoint with API please check your api URL (preceed your request url with api/v1)'
       });
    })
-   .delete((req, res) => {
-      res.json({
-         status: 404,
-         error: 'Incorrect API endpoint,  Preceed your API endpoint with API please check your api  URL(preceed your request url with api/v1)'
-      });
-   });
+   // .delete((req, res) => {
+   //    res.json({
+   //       status: 404,
+   //       error: 'Incorrect API endpoint,  Preceed your API endpoint with API please check your api  URL(preceed your request url with api/v1)'
+   //    });
+   // });
 
 module.exports = router;
