@@ -1,0 +1,16 @@
+.login-div{
+    min-height: 200px;
+}
+
+.new-to-us{
+    margin-left: 120px;
+    font-size: 13px;
+    padding-top: 5px;
+
+}
+
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
