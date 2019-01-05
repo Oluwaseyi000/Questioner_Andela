@@ -74,8 +74,28 @@ getAllMeetupsRecord = (req, res) => {
    }
 }
 
+upcomingMeetups=(req, res)=>{
+   const meetup = Meetups.filter(meetup =>(new Date(meetup.happeningOn) > new Date()));
+   if (meetup.length>0) {
+      res.json({
+         status: 200,
+         data: meetup,
+         
+      })
+   } else {
+      res.json({
+         status: 204,
+         message: 'Request successful but result contains no data, probably no upcoming meetup',
+         data: [],
+         
+      })
+   }
+
+}
+
 module.exports = {
    createMeetup,
    getASpecificMeetupRecord,
-   getAllMeetupsRecord
+   getAllMeetupsRecord,
+   upcomingMeetups
 }

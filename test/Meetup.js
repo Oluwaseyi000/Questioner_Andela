@@ -153,3 +153,46 @@ describe('/GET ALL MEETUPS ', () => {
    })
 
 })
+
+describe('/GET UPCOMING MEETUPS ', () => {
+
+   describe('/controller has upcomingMeetups function', done => {
+      it('Assert controller has a upcomingMeetups function ', done => {
+         assert.isFunction(meetupController.upcomingMeetups);
+         done();
+      })
+   })
+
+   describe('get all upcomingMeetups', done => {
+      it('get all upcomingMeetups', done => {
+         chai.request(server)
+            .get('/api/v1/meetups/upcomingmeetups')
+            .end((err, res) => {
+
+               assert.isObject(res.body);
+               assert.equal(res.status, 200);
+               assert.isArray(res.body.data);
+
+               if (res.body.data.length === 0) {
+                  assert.equal(res.body.status, 204);
+                  assert.equal(res.body.message, 'Request successful but result contains no data, probably no upcoming meetup');
+
+               } else {
+                  for (let i = 0; i < res.body.data.length; i++) {
+                     assert.isNotEmpty(res.body.data[i].location);
+                     assert.isNotEmpty(res.body.data[i].topic);
+                     assert.isNumber(res.body.data[i].id);
+                     assert.nestedProperty(res.body.data[i], 'host');
+                     assert.nestedProperty(res.body.data[i], 'details');
+                     assert.nestedProperty(res.body.data[i], 'coverImage');
+                     assert.isNotEmpty(res.body.data[i].happeningOn);
+                     assert.isArray(res.body.data[i].tag);
+   
+                  }
+               }
+            });
+         done();
+      })
+   })
+
+})
