@@ -2,12 +2,15 @@ let express = require('express');
 let router = express.Router();
 
 let meetupController=require('./controller/Meetup');
+let questionController=require('./controller/Question');
 
 router.get('/meetups/upcomingmeetups', meetupController.upcomingMeetups);
 router.post('/meetups', meetupController.createMeetup);
 router.get('/meetups/:meetupId', meetupController.getASpecificMeetupRecord);
 router.get('/meetups', getAllMeetupsRecord);
 router.delete('/meetups/:meetupId', meetupController.deleteMeetup);
+
+router.post('/questions', questionController.createQuestion);
 
 
 

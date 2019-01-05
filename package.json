@@ -27,8 +27,9 @@
   },
   "scripts": {
     "start": "SET NODE_ENV=dev && node server.js",
-    "test": "nyc mocha --exit",
+    "test": "nyc mocha test/**/*.js  --exit",
   
-   "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+   "cover": "istanbul cover ./node_modules/mocha/bin/_mocha",
+   "coveralls":"yarn run cover -- --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   }
 }
