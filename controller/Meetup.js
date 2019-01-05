@@ -37,7 +37,7 @@ getASpecificMeetupRecord = (req, res) => {
       res.json({
          status: 400,
          data: [Meetups],
-         message: 'Bad Request, please include meetup Id in your request as parameter'
+         error: 'Bad Request, please include meetup Id in your request as parameter'
       })
    } else {
       const meetup = Meetups.find((meetup) => meetup.id === Number(req.params.meetupId));
@@ -49,7 +49,7 @@ getASpecificMeetupRecord = (req, res) => {
       } else {
          res.json({
             status: 204,
-            message: 'Request successful but result contains no data, probably a case of non existence meetup id',
+            message: `Request successful but result contains no data, no meetup record found for id ${req.params.meetupId}`,
             data: []
          })
       }
@@ -74,28 +74,55 @@ getAllMeetupsRecord = (req, res) => {
    }
 }
 
-upcomingMeetups=(req, res)=>{
-   const meetup = Meetups.filter(meetup =>(new Date(meetup.happeningOn) > new Date()));
-   if (meetup.length>0) {
+upcomingMeetups = (req, res) => {
+   const meetup = Meetups.filter(meetup => (new Date(meetup.happeningOn) > new Date()));
+   if (meetup.length > 0) {
       res.json({
          status: 200,
          data: meetup,
-         
+
       })
    } else {
       res.json({
          status: 204,
          message: 'Request successful but result contains no data, probably no upcoming meetup',
          data: [],
-         
+
       })
    }
 
+}
+
+deleteMeetup = (req, res) => {
+
+   if (!req.params.meetupId) {
+      res.json({
+         status: 400,
+         error: 'meetup id not included, please add meetup id'
+      })
+   } else {
+      const meetup = Meetups.findIndex((meetup) => meetup.id === Number(req.params.meetupId));
+
+      if (meetup === -1) {
+         res.json({
+            status: 404,
+            error: `Request unsuccessful, meetup for id ${req.params.meetupId} not found`
+         })
+
+      } else {
+         Meetups.splice(meetup, 1);
+         res.json({
+            status: 204,
+            message: `Delete Successful. Meetup with id ${req.params.meetupId} successfully deleted`
+         })
+      }
+   }
 }
 
 module.exports = {
    createMeetup,
    getASpecificMeetupRecord,
    getAllMeetupsRecord,
-   upcomingMeetups
+   upcomingMeetups,
+   deleteMeetup
 }
