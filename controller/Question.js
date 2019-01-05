@@ -20,7 +20,6 @@ createQuestion = (req, res) => {
       })
    } else {
       Questions.push(newQuestion);
-      console.log(Questions);
       res.json({
          status: 201,
          message: 'Your questions is  successfully created',
@@ -40,7 +39,6 @@ voteQuestion = (req, res) => {
    } else {
 
       const question = Questions.find(question => question.id === Number(req.params.questionId));
-console.log(Questions);
       if (!question || question === -1) {
          res.json({
             status: 404,
