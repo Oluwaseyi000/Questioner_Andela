@@ -10,10 +10,7 @@ Questioner helps the meetup organizer prioritize questions to be answered. Other
 
 [![Coverage Status](https://coveralls.io/repos/github/Oluwaseyi000/API_Andela_Questioner/badge.svg?branch=develop)](https://coveralls.io/github/Oluwaseyi000/API_Andela_Questioner?branch=develop)
 
+<a href="https://codeclimate.com/github/Oluwaseyi000/Questioner_Andela/maintainability"><img src="https://api.codeclimate.com/v1/badges/6421d81752471fd6e8b6/maintainability" /></a>
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/665cb5d312fe38db7508/maintainability)](https://codeclimate.com/github/Oluwaseyi000/API_Andela_Questioner/maintainability)
-
-
-[![Test Coverage](https://api.codeclimate.com/v1/badges/665cb5d312fe38db7508/test_coverage)](https://codeclimate.com/github/Oluwaseyi000/API_Andela_Questioner/test_coverage)
-
+<a href="https://codeclimate.com/github/Oluwaseyi000/Questioner_Andela/test_coverage"><img src="https://api.codeclimate.com/v1/badges/6421d81752471fd6e8b6/test_coverage" /></a>
 
