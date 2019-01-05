@@ -8,6 +8,7 @@ router.get('/meetups/upcomingmeetups', meetupController.upcomingMeetups);
 router.post('/meetups', meetupController.createMeetup);
 router.get('/meetups/:meetupId', meetupController.getASpecificMeetupRecord);
 router.get('/meetups', meetupController.getAllMeetupsRecord);
+router.delete('/meetups/:meetupId', meetupController.deleteMeetup);
 
 router.post('/questions', questionController.createQuestion);
 router.patch('/questions/:questionId/upvote', questionController.voteQuestion);

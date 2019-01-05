@@ -20,10 +20,12 @@ createQuestion = (req, res) => {
       })
    } else {
       Questions.push(newQuestion);
+      console.log(Questions);
       res.json({
          status: 201,
          message: 'Your questions is  successfully created',
-         data: [newQuestion]
+         data: newQuestion,
+         all: Questions
       })
    }
 }
@@ -38,21 +40,22 @@ voteQuestion = (req, res) => {
    } else {
 
       const question = Questions.find(question => question.id === Number(req.params.questionId));
-
+console.log(Questions);
       if (!question || question === -1) {
          res.json({
             status: 404,
-            error: `question with id ${req.params.questionId} not found`
+            error: `question with id ${req.params.questionId} not found`,
+            data: Questions
          })
       } else {
          vote = {
             voteId: Date.now(),
-            userId: res.body.userId,
-            meetupId: res.body.meetupId,
-            questionId: res.params.questionId,
-            title: res.body.title,
-            body: res.body.body,
-            voteType: res.body.voteType
+            userId: req.body.userId,
+            meetupId: req.body.meetupId,
+            questionId: req.params.questionId,
+            title: req.body.title,
+            body: req.body.body,
+            voteType: req.body.voteType
          }
          Votes.push(vote)
          if (req.body.voteType === 'upvote') {
