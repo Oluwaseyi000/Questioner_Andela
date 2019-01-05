@@ -1,0 +1,276 @@
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+body{
+	font: 15px/1.5 'Roboto', Helvetica, verdana,sans-serif;	
+	background: rgba(240, 240, 240, 1.0);
+	color: #28313f;
+}
+a{
+	text-decoration: none
+}
+.container{
+	width: 90%;
+	margin: auto;
+	overflow: auto;
+	padding: 15px 0px;
+	
+}
+
+
+ .form-control{
+	width: 70%;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize: vertical;
+ }
+.container .body-wrapper{
+	margin-top: 80px
+}
+
+.container-page{
+	width: 75%;
+	float: left;
+	
+}
+.container .aside {
+	width: 22%;
+	float: right;
+	margin-top: 40px
+}
+
+.breadcrumb{
+   line-height: 20px;
+    padding: 1px 0;
+    /* background-color: #fff; */
+    border-bottom: 1px solid #e9e9e9;
+}
+
+.topic-list-header, .aside-header{
+	background:  rgba(76, 193, 244, 1);
+	border-left: rgba(8, 8, 200,  0.4) 1px solid;
+	font-weight: bolder;
+	letter-spacing: 4px;
+	font-size: 17px;
+	line-height: 35px;
+	color: #fff;
+	
+	padding-left: 30px;
+}
+.topic-list-header{
+	margin-top: 20px;
+}
+
+.meetup-list,.aside-body {
+	background-color: #fff;
+	margin-bottom: 20px;
+}
+.meetup-list{
+	width: 100%
+}
+
+ .aside-content{
+	/* min-height: 225px; */
+	margin-bottom: 20px;
+	padding-left: 7px;
+} 
+
+
+
+
+#bigContainer{
+	min-height: 500px;
+
+}
+.header, .footer{
+	background: #03A9F4;
+	border-left: rgba(8, 8, 200,  0.4) 2px solid;
+	color: #fff;
+	width:100%;
+	
+
+	min-height: 70px;
+	padding:  0 20px;
+}
+.header .header-logo{
+	float: left;
+	margin: auto;
+	font-family: 'Anto';
+}
+.header .profile img{
+	/* display: inline-block; */
+	width: 50px;
+	height:50px;
+	border-radius: 50%;
+	padding-top: 10px;
+  
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+}
+.header-logo .uestioner{
+	text-decoration: underline;
+	text-underline-position: above;
+	text-decoration-color: rgb(223, 60, 60);	
+}
+.header-logo .q{
+	color: rgb(223, 60,60);
+}
+
+.header .profile{
+	float:right;
+	text-align: right;
+	font-size: 13px;
+	/* position: absolute; */
+}
+.header{
+	border-bottom: rgba(40, 40, 211, 0.3) 2px solid; 
+	position: fixed;
+
+
+}
+.footer{
+	border-top: rgba(8, 8, 200,  0.3) 2px solid;
+	/* position: fixed; ; */
+	bottom: 0;
+	text-align: center;
+	line-height: 70px;
+}	
+.footer div{
+	text-align: center;
+padding-top: 10px;
+	font-size: 13px;
+
+}
+
+.time{
+	padding: 0%;
+	margin: 0;
+	line-height: 2px;
+}
+
+
+ .question-stat{
+	margin: 2px 27px;
+	text-align: center;
+	font-size: 13px
+}
+
+.footer .about-us{
+	float: left;
+	width: 40%;
+	line-height: 20px;
+	position: relative;
+	text-align: left
+}
+
+.footer .contact-us{
+	float: right;
+	text-align: right;
+	width: 30%;
+	line-height: 20px;
+	position: relative;
+}
+
+.submitButton , .cancelButton{
+    background-color: #4CAF50;
+    border: none;
+	color: white;
+	cursor: pointer;
+    padding: 10px 22px;
+    text-align: center;
+    margin: 0 auto;
+    display: inline-block;
+}
+
+.submitButton:hover{
+	border:2px solid #03A9F4;
+}
+.cancelButton{
+	background-color: rgb(223, 60, 60)
+}
+.cancelButton:hover{
+	border: 2px solid #03A9F4;
+}
+
+#loader-overlay{
+	height: 100%;
+	width: 100%;
+	background: rgba(4, 176, 249, 0.3);
+	/* z-index: 9999; */
+	position: fixed;
+	left: 0;
+	top: 0px;
+}
+.loader{
+	margin: 15em auto;
+	border: 16px solid #e3e3e3;
+	border-radius: 50%;
+	border-top: 16px solid #3498db;
+	width: 100px;
+	height: 100px;
+	animation: spin 2s linear infinite;
+	
+}
+
+@keyframes spin{
+	0%{
+		transform: rotate(0deg);
+	}
+	100%{
+		transform: rotate(360deg);
+	}
+}
+
+.upcoming-meetup span, .stats-list a span{
+	color: #DF3C3C;
+	/* background-color: blue */
+}
+
+#alert{
+	width: 100%;
+	background: #4CAF50;
+	color:#fff;
+	padding: 10px 5px 8px 10px;
+	margin-bottom: 10px	
+}
+
+
+
+  
+  .dropdown{
+	
+	  position: absolute;
+	  top: 60px;
+	  right:10px;
+	  display: none
+	  
+  }
+
+  .dropdown ul{
+	  background-color: rgba(3,169,244, 0.81);
+	list-style-type: none;
+	border: rgba(40, 40, 211, 0.3) 1px solid;
+  }
+  .dropdown ul li{
+	  width: 130px;
+	  border-bottom: rgba(40, 40, 211, 0.3) 1px solid
+	  /* display: block */
+	
+	
+  }
+
+  .dropdown ul li a{
+	  text-align: center;
+	display: block;
+	color: #fff;
+	padding: 10px ;
+  }
+
+  .dropdown ul li a:hover{
+	  background:#DF3C3C;
+	  color: #03A9F4
+  }
