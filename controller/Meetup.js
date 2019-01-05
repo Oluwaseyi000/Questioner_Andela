@@ -37,7 +37,6 @@ getASpecificMeetupRecord = (req, res) => {
    if (!req.params.meetupId) {
       res.json({
          status: 400,
-         data: [Meetups],
          error: 'Bad Request, please include meetup Id in your request as parameter'
       })
    } else {
@@ -119,6 +118,7 @@ deleteMeetup = (req, res) => {
       }
    }
 }
+
 
 module.exports = {
    createMeetup,
