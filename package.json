@@ -30,6 +30,9 @@
     "test": "nyc mocha test/**/*.js  --exit",
   
    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha",
-   "coveralls":"yarn run cover -- --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+   "coveralls":"yarn run cover -- --report lcovonsly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+  },
+  "engines": {
+    "node":"10.14.1"
   }
 }
