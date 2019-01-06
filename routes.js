@@ -44,6 +44,13 @@ router.route('/meetups')
    })
 
 
+   router.get('/',  (req, res) => {
+      res.json({
+         status: 200,
+         messgae: 'Welcome to questioner API'
+      });
+   })
+   
 router.route('*')
    .get((req, res) => {
       res.json({
@@ -70,5 +77,7 @@ router.route('*')
          error: 'Incorrect API endpoint,  Preceed your API endpoint with API please check your api  URL(preceed your request url with api/v1)'
       });
    });
+
+  
 
 module.exports = router;
