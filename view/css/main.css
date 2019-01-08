@@ -39,7 +39,10 @@ a{
 .container .aside {
 	width: 22%;
 	float: right;
-	margin-top: 40px
+	margin-top: 20px
+}
+.margin20{
+	margin-top: 20px;
 }
 
 .breadcrumb{
