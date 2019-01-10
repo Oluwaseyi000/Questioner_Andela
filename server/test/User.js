@@ -1,13 +1,12 @@
-let chai = require('chai');
-let chaiHttp = require('chai-http');
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import server from '../server';
+import routes from '../routes';
+
+import Meetups from '../model/Meetup';
+import userController from '../controller/User';
+
 let assert = chai.assert;
-
-let server = require('../server');
-
-let userController = require('../controller/User');
-let Meetups = require('../model/Meetup');
-let Rsvps = require('../model/Rsvps');
-
 
 describe('/RSVP A MEETUP', () => {
    describe('/user controller', done => {
@@ -20,6 +19,10 @@ describe('/RSVP A MEETUP', () => {
    describe('rsvps  a meetup', () => {
 
       it('rsvp a meetup', done => {
+         //const noMeetu='sdnhkdsjhk';
+
+       
+
          let newMeetup = {
             id: 4,
             topic: 'req.body.topic',
@@ -35,22 +38,35 @@ describe('/RSVP A MEETUP', () => {
          Meetups.push(newMeetup);
 
          chai.request(server)
-            .post('/api/v1//meetups/4/rsvps')
+            .post('/api/v1/meetups/4/rsvps')
             .send(rsvp)
             .end((err, res) => {
                assert.isObject(res.body);
                assert.equal(res.status, 200);
                assert.isArray(res.body.data),
-                  assert.isNotEmpty(res.body.data[0].meetup)
+               assert.isNotEmpty(res.body.data[0].meetup)
                assert.isNotEmpty(res.body.data[0].status)
                done();
             });
+
+            chai.request(server)
+            .post('/api/v1/meetups/sdnhkdsjhk/rsvps')
+            .send(rsvp)
+            .end((err, res) => {
+              
+               assert.equal(res.body.status, 204);
+               
+            })
+
+            const rsvpFail = {userId:3}
+            chai.request(server)
+            .post('/api/v1/meetups/4/rsvps')
+            .send(rsvpFail)
+            .end((err, res) => {
+             
+               assert.equal(res.body.status, 400);
+               
+            })
       })
    })
-
-
-
-
-
-
 })

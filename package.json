@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "nyc mocha test/**/*.js  --exit",
-    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha",
-    "coveralls": "npm run cover -- --report lcovonsly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "start": "nodemon --exec @babel-node server/server.js",
+    "build": "babel server/server.js -d src",
+    "test": "cross-env NODE_ENV=test nyc mocha server/test/*.js --out-dir --exit",
+    "prepublish": "npm run build",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "npm run coverage"
   },
   "author": "Adebajo Oluwaseyi",
   "license": "ISC",
@@ -25,14 +27,21 @@
   "homepage": "https://github.com/Oluwaseyi000/Questioner_Andela#readme",
   "description": "",
   "dependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/register": "^7.0.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4"
   },
   "devDependencies": {
+    "babel-plugin-istanbul": "^5.1.0",
     "chai": "4.1.2",
     "chai-http": "^2.0.1",
     "chai-param": "^0.1.2",
     "coveralls": "^3.0.2",
+    "cross-env": "^5.2.0",
     "eslint": "^5.12.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
@@ -43,6 +52,21 @@
     "object.assign": "4.1.0",
     "object.entries": "1.0.4",
     "sinon": "^7.2.2",
+    "supertest": "^3.3.0",
     "travis": "^0.1.1"
-  }
+  },
+  "nyc": {
+    "require": [
+      "@babel/register"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
+  "files": [
+    "src/index.js"
+  ]
 }

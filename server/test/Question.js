@@ -37,7 +37,21 @@ describe('/POST A QUESTION', () => {
             body: 'req.body.body',
             createdBy: 2
          }
+         chai.request(server)
 
+         .post('/api/v1/questions')
+         .send({})
+         .end((err, res)=>{
+            assert.equal(res.status, 200);
+         }); 
+
+         chai.request(server)
+
+            .post('/api/v1/questions')
+            .send(null)
+            .end((err, res) => {
+               assert.equal(res.body.status, 400);
+            })
          chai.request(server)
 
             .post('/api/v1/questions')
@@ -56,6 +70,8 @@ describe('/POST A QUESTION', () => {
                   assert.nestedProperty(res.body.data[i], 'votes');
                }
             });
+
+            
          done();
       })
    })
@@ -95,7 +111,31 @@ describe('/DOWNVOTE A QUESTION', () => {
             body: 'req.body.body',
             title: 'ftygh'
          }
+         let voteFalse = {
+            voteId: Date.now(),
+            userId: 2,
+            meetupId: 31,
+            questionId: 114,
+            voteType: 'upvote',
+            body: 'req.body.body',
+            title: 'ftygh'
+         }
          Questions.push(newQuestion);
+         chai.request(server)
+         .patch('/api/v1/questions/14/upvote')
+         .send(null)
+            
+         .end((err, res) => {
+            assert.equal(res.body.status, 400)
+         })
+
+         chai.request(server)
+         .patch('/api/v1/questions/14/upvote')
+         .send(voteFalse)
+            
+         .end((err, res) => {
+            assert.equal(res.body.status, undefined)
+         })
 
          chai.request(server)
             .patch('/api/v1/questions/14/upvote')
@@ -104,7 +144,7 @@ describe('/DOWNVOTE A QUESTION', () => {
             .end((err, res) => {
 
                assert.isObject(res.body);
-               // assert.equal(res.status, 200);
+               
                done();
             });
       })
@@ -149,7 +189,7 @@ describe('/DOWNVOTE A QUESTION', () => {
                .end((err, res) => {
 
                   assert.isObject(res.body);
-                  // assert.equal(res.status, 200);
+                  
                   done();
                });
          })
