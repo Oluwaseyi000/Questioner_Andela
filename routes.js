@@ -1,53 +1,29 @@
-let express = require('express');
+import express from 'express';
+import questionController from './controller/Question';
+import userController from './controller/User';
+import meetupController from './controller/Meetup';
+
 let router = express.Router();
 
-let meetupController=require('./controller/Meetup');
-let questionController=require('./controller/Question');
 
 router.get('/meetups/upcomingmeetups', meetupController.upcomingMeetups);
 router.post('/meetups', meetupController.createMeetup);
 router.get('/meetups/:meetupId', meetupController.getASpecificMeetupRecord);
-router.get('/meetups', getAllMeetupsRecord);
+router.get('/meetups', meetupController.getAllMeetupsRecord);
 router.delete('/meetups/:meetupId', meetupController.deleteMeetup);
 
 router.post('/questions', questionController.createQuestion);
+router.patch('/questions/:questionId/upvote', questionController.voteQuestion);
+router.patch('/questions/:questionId/downvote', questionController.voteQuestion);
 
+router.post('/meetups/:meetupId/rsvps', userController.rsvps);
 
-
-router.route('/meetups')
-   .delete((req, res) => {
-      res.json({
-         status: 400,
-         error: 'Meetup id missing in DELETE request, please add meetup id to your request'
-      });
-   })
-
-
-router.route('*')
-   .get((req, res) => {
-      res.json({
-         status: 404,
-         error: 'Incorrect API endpoint;  Preceed your API endpoint with API please check your api URL (even for as little thing as spelling)'
-      });
-   })
-
-   .post((req, res) => {
-      res.json({
-         status: 404,
-         error: 'Incorrect API endpoint,  Preceed your API endpoint with API please check your api  URL(preceed your request url with api/v1)'
-      });
-   })
-   .put((req, res) => {
-      res.json({
-         status: 404,
-         error: 'Incorrect API endpoint,  Preceed your API endpoint with API please check your api URL (preceed your request url with api/v1)'
-      });
-   })
-   .delete((req, res) => {
-      res.json({
-         status: 404,
-         error: 'Incorrect API endpoint,  Preceed your API endpoint with API please check your api  URL(preceed your request url with api/v1)'
-      });
+   
+router.all('*', (req, res) => {
+   res.json({
+      status: 404,
+      error: 'Incorrect API endpoint;  Preceed your API endpoint with API please check your api URL (even for as little thing as spelling)'
    });
-
-module.exports = router;
+})
+ 
+export default router;

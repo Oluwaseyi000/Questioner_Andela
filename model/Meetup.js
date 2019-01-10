@@ -1,3 +1,3 @@
-let Meetups = [];
+const Meetups = [];
 
-module.exports = Meetups;
+export default Meetups;

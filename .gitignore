@@ -1,3 +1,6 @@
 node_modules/
+node_modules1/
+test/
+coverage/
 .nyc_output/
 .coverals.yml

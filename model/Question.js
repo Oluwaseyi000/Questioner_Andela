@@ -1,3 +1,3 @@
 let Questions = [];
 
-module.exports = Questions;
+export default Questions;

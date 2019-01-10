@@ -1,18 +1,22 @@
-let express = require('express');
-let app = express();
-let bodyParser = require('body-parser');
-let port = 5000;
-let router = require('./routes');
+import express from 'express';
+import router from './routes';
+import bodyParser from 'body-parser'
 
+
+const app = express();
+
+
+app.use(express.json());   
 app.use(bodyParser.json());                     
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.text());   
-app.use(bodyParser.json({ type: 'application/json'}));  
+app.use(bodyParser.json({ type: 'application/json'}));                   
+//app.use(express.urlencoded({extended: true}));
 
 
 app.use('/api/v1', router);
 
+let port = process.env.PORT || 5000;
+const server = app.listen(port, ()=> console.log('server running'));
 
-if(!module.parent){app.listen(port)}
-
-module.exports = app;
+export default server;

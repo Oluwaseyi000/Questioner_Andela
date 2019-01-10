@@ -1,14 +1,12 @@
-let chai = require('chai');
-let chaiHttp = require('chai-http');
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import server from '../server';
+import routes from '../routes';
+
+import Meetups from '../model/Meetup';
+import questionController from '../controller/Question'; 
+import Questions from '../model/Question';
 let assert = chai.assert;
-
-let server = require('../server');
-
-let Questions = require('../model/Question');
-let questionController = require('../controller/Question');
-
-
-chai.use(chaiHttp);
 describe('/NON-PERSISTENCE DATABASE', () => {
 
    it('Assert non-persistence database using array', done => {
@@ -26,7 +24,7 @@ describe('/POST A QUESTION', () => {
       })
    })
    beforeEach(done => {
-      Questions = [];
+      //  Questions = [];
       done();
    });
    describe('create/post a new question', () => {
@@ -36,7 +34,8 @@ describe('/POST A QUESTION', () => {
             userId: 2,
             meetupId: 3,
             title: 'req.body.title',
-            body: 'req.body.body'
+            body: 'req.body.body',
+            createdBy: 2
          }
 
          chai.request(server)
@@ -48,14 +47,13 @@ describe('/POST A QUESTION', () => {
                assert.equal(res.status, 200);
                assert.equal(res.body.status, 201);
                assert.include(res.body.message, 'Your questions is  successfully created');
+               //assert.isArray(res.body.data);
 
-               for (let i = 0; i < res.body.data.length; i++) {                
-                    assert.isNumber(res.body.data[i].id);
-
-                  assert.isNotEmpty(res.body.data[i].createdBy);
-                  assert.isNotEmpty(res.body.data[i].createdOn);
-                  assert.nestedProperty(res.body.data[i],'votes');
-                  assert.nestedProperty(res.body.data[i], 'downvotes');
+               for (let i = 0; i < res.body.data.length; i++) {
+                  assert.isNumber(res.body.data[i].id);
+                  assert.exists(res.body.data[i].createdOn);
+                  assert.isNumber(res.body.data[i].createdBy);
+                  assert.nestedProperty(res.body.data[i], 'votes');
                }
             });
          done();
@@ -63,9 +61,110 @@ describe('/POST A QUESTION', () => {
    })
 
 
-   afterEach(done => {
-      Questions = [];
-      done();
-   });
+
 
 })
+
+
+
+describe('/DOWNVOTE A QUESTION', () => {
+   describe('/question controller', done => {
+      it('Assert question controller has a voteQuestion function ', done => {
+         assert.isFunction(questionController.voteQuestion);
+         done();
+      })
+   })
+  
+   describe('upvote a question', () => {
+
+      it(' upvote a question', done => {
+         let newQuestion = {
+            id: 14,
+            userId: 2,
+            meetupId: 3,
+            title: 'req.body.title',
+            body: 'req.body.body',
+            createdBy: 2
+         }
+         let vote = {
+            voteId: Date.now(),
+            userId: 2,
+            meetupId: 3,
+            questionId: 14,
+            voteType: 'upvote',
+            body: 'req.body.body',
+            title: 'ftygh'
+         }
+         Questions.push(newQuestion);
+
+         chai.request(server)
+            .patch('/api/v1/questions/14/upvote')
+            .send(vote)
+
+            .end((err, res) => {
+
+               assert.isObject(res.body);
+               // assert.equal(res.status, 200);
+               done();
+            });
+      })
+   })
+
+
+
+describe('/ DOWNVOTE A QUESTION', () => {
+   describe('/question controller', done => {
+      it('Assert question controller has a voteQuestion function ', done => {
+         assert.isFunction(questionController.voteQuestion);
+         done();
+      })
+   })
+  
+   describe('downvote  a question', () => {
+
+      it('downvote a question', done => {
+         let newQuestion = {
+            id: 14,
+            userId: 2,
+            meetupId: 3,
+            title: 'req.body.title',
+            body: 'req.body.body',
+            createdBy: 2
+         }
+         let vote = {
+            voteId: Date.now(),
+            userId: 2,
+            meetupId: 3,
+            questionId: 14,
+            voteType: 'downvote',
+            body: 'req.body.body',
+            title: 'ftygh'
+         }
+         Questions.push(newQuestion);
+
+         chai.request(server)
+            .patch('/api/v1/questions/14/downvote')
+            .send(vote)
+
+            .end((err, res) => {
+
+               assert.isObject(res.body);
+               // assert.equal(res.status, 200);
+               done();
+            });
+      })
+   })
+
+
+
+
+
+ 
+
+})
+
+
+})
+
+
+
