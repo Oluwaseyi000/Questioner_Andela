@@ -1,12 +1,13 @@
-import chai from 'chai';
-import chaiHttp from 'chai-http';
-import server from '../server';
-import routes from '../routes';
-
-import Meetups from '../model/Meetup';
-import userController from '../controller/User';
-
+let chai = require('chai');
+let chaiHttp = require('chai-http');
 let assert = chai.assert;
+
+let server = require('../server');
+
+let userController = require('../controller/User');
+let Meetups = require('../model/Meetup');
+let Rsvps = require('../model/Rsvps');
+
 
 describe('/RSVP A MEETUP', () => {
    describe('/user controller', done => {
@@ -46,4 +47,10 @@ describe('/RSVP A MEETUP', () => {
             });
       })
    })
+
+
+
+
+
+
 })
