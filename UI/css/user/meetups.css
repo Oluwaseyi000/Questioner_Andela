@@ -1,0 +1,44 @@
+.list{
+    padding: 10px 5-x 10px 10px;
+}
+a.question-header{
+    text-decoration: none;
+    font-weight: bold;
+    font-size: large;
+    color:rgba(58, 56, 56, 0.8);
+    text-transform: capitalize
+}
+p.posted-by{
+    font-size: 12px
+}
+a.question-header:hover{
+    
+    color: #03A9F4;
+}
+
+tr{
+    padding-left:12px 
+}
+
+table{
+    border-collapse: collapse
+}
+.list{
+    padding: 5px 2px 5px 20px;
+    line-height: 20px;
+}
+
+  .topic-list-content--title{
+  
+    border-bottom: rgba(240, 240, 240, 0.8) solid 1px;
+   
+
+ }
+
+ .posted-by{
+     margin-top:8px;
+     padding-left: 3px
+ }
+
+
+ 

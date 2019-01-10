@@ -1,0 +1,201 @@
+/* Large desktop */
+
+
+/* Portrait tablet to landscape and desktop */
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {     
+.meetup-list{
+    padding: 10px 0;
+}
+.QCDiv{
+    width: 100%;
+}
+.topic-list-header{
+    font-size: 15px;
+
+}
+.discussion{
+    margin: 4px
+}
+.aside header{
+font-size: 14px;
+}
+.form-control{
+    width: none
+}
+aside{
+    margin-left: 2px
+}
+.topic-list-header, .aside-header{
+    background-color: #fff;
+    color:rgba(76, 193, 244,0.8);
+    line-height: normal;
+    letter-spacing: 2px;
+    font-size: 13px
+}
+p.stats-list{
+    font-size: 12px;
+}
+.container .aside {
+    width: 24%;
+    float: right;
+
+ }
+ .upcoming-meetup p a{
+     font-size: 12px
+ }
+ a.question-header{
+     font-size: 13px
+ }
+ .form-control{
+     width:50%;
+     
+ }
+ label{
+    padding: 12px;
+ }
+ .submitButton, .cancelButton{
+     padding: 8px 18px
+ }
+ .list{
+     padding: 5px
+ }
+ .meetup-banner img{
+     max-width: 400px;
+ }
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {     
+
+aside{
+    display: none;
+}
+.container{
+    width:100%;
+    padding: 0 1px;
+}
+.header{
+   margin:  0px;
+}
+.questionDiv p a{
+    font-size: 11px;
+    margin: 0;
+    letter-spacing: 0
+
+}
+.breadcrumb{display: none}
+.container-page{
+    width: 100%;
+    float: none;
+   
+}
+.meetup-detail{
+    font-size: 13px
+}
+ .meetup-detail h1{
+     font-size: 14px;
+     
+ }
+ .meetup-banner{
+     display: none
+ }
+ .discussion{
+     margin: 0
+ }
+ p.details{
+     margin: 0
+ }
+ p.details a{
+     font-size: 12px;
+     text-align: center;
+
+ }
+
+ div.discussion{
+     width: 100%
+ }
+ td {display:block; box-sizing:border-box; clear:both}
+ a.question-header{
+     font-weight: bold;
+     font-size: 12px;
+     text-align: center
+
+ }
+
+ p.posted-by{
+     font-size: 10px;
+ }
+ .posted-by{
+     margin-top: 0px;
+     padding-left: 0px
+}
+ strong{
+     font-weight: normal
+ }
+
+td.question-stats{
+    float: left;
+}
+.commesntDiv span{
+    font-weight: normal
+}
+.topic-list-header{
+    background-color: #fff;
+    color: rgba(76, 193, 244,0.8);
+    font-size: 13px;
+    padding-left: 3px
+}
+label{
+    padding: 5px;
+    font-size: 13px;
+    display: inline;
+}
+.form-control{
+    width: 95%;
+    margin: 0 auto
+}
+.submitButton{
+    margin-top: 5px;
+    margin-left: 5px
+}
+.new-to-us{
+    margin-left: 5px;
+    font-size: 10px;
+    padding-top: 2px;
+    text-align: center
+}
+.submitButton, .cancelButton{
+    padding: 5px 11px;
+    font-size: 11px
+}
+.header{
+    position: relative;
+}
+.header, .footer{
+    min-height: 50px;
+    padding: 1px 5px;
+}
+.header h1{
+    font-size: 15px;
+    line-height: 100%
+}
+.header .profile{
+    font-size: 11px;
+
+}
+.footer{
+    display: none;
+}
+.container .body-wrapper{
+    margin-top: 0px
+}
+.login-div{
+    width: 100%;
+    margin: 0 auto;
+    padding: 3px 7px
+}
+.terms-checked{
+    margin: 0px;
+}} 

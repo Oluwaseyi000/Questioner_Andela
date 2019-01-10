@@ -1,6 +1,13 @@
 import Meetups from '../model/Meetup';
 
 class Meetup {
+
+   /**
+    * Create A Meetup
+    * @param {object} req 
+    * @param {object} res
+    * @returns {object} meetup object 
+    */
    static createMeetup(req, res) {
       let tags = req.body.tags instanceof Array ? req.body.tags : [req.body.tags]
       const newMeetup = {
@@ -16,14 +23,14 @@ class Meetup {
       }
 
       if (!newMeetup.topic || !newMeetup.location || !newMeetup.happeningOn) {
-       return  res.json({
+         return res.json({
             status: 400,
             error: 'Bad request error, missing required data. Note: topic, location and happeningOn are required'
 
          })
       } else {
          Meetups.push(newMeetup);
-       return   res.json({
+         return res.json({
             status: 201,
             message: 'New meetup successfully created ',
             data: [newMeetup]
@@ -32,6 +39,13 @@ class Meetup {
    }
 
    static getASpecificMeetupRecord(req, res) {
+
+      /**
+       * Get A Meetup
+       * @param {object} req 
+       * @param {object} res
+       * @returns {object} meetup object 
+       */
 
       if (!req.params.meetupId) {
          return res.json({
@@ -59,6 +73,14 @@ class Meetup {
    }
 
    static getAllMeetupsRecord(req, res) {
+
+      /**
+       * Get All Meetup
+       * @param {object} req 
+       * @param {object} res
+       * @returns {object} array of meetup objects
+       */
+
       if (Meetups.length > 0) {
          return res.json({
             status: 200,
@@ -74,6 +96,13 @@ class Meetup {
    }
 
    static upcomingMeetups(req, res) {
+
+      /**
+       * Get Upcoming Meetup
+       * @param {object} req 
+       * @param {object} res
+       * @returns {object} meetup object 
+       */
       const meetup = Meetups.filter(meetup => (new Date(meetup.happeningOn) > new Date()));
       if (meetup.length > 0) {
          return res.json({
@@ -94,6 +123,13 @@ class Meetup {
 
    static deleteMeetup(req, res) {
 
+      /**
+       * Delete A Meetup
+       * @param {object} req 
+       * @param {object} res
+       * @returns {object} return status code 204 
+       */
+
       if (!req.params.meetupId) {
          return res.json({
             status: 400,
@@ -111,7 +147,7 @@ class Meetup {
          } else {
             Meetups.splice(meetup, 1);
             return res.json({
-               status: 200,
+               status: 204,
                message: `Delete Successful. Meetup with id ${req.params.meetupId} successfully deleted`
             })
          }

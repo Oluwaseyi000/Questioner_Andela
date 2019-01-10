@@ -2,7 +2,12 @@ import Rsvps from '../model/Rsvps';
 import Meetups from '../model/Meetup';
 
 class userController {
-
+   /**
+    * Create A Rsvp
+    * @param {object} req 
+    * @param {object} res
+    * @returns {object} rsvp object 
+    */
    static rsvps(req, res) {
       const meetup = Meetups.find((meetup) => meetup.id === Number(req.params.meetupId));
       if (!req.body.userId || !req.params.meetupId || !req.body.status) {

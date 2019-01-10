@@ -1,11 +1,14 @@
 import Questions from '../model/Question';
 import Meetups from '../model/Meetup';
-// //import {
-//    push as _push
-// } from '../model/Vote';
 
 class questionController {
-  static createQuestion  (req, res) {
+   /**
+    * Create A Question
+    * @param {object} req 
+    * @param {object} res
+    * @returns {object} question object 
+    */
+   static createQuestion(req, res) {
       const newQuestion = {
          id: Date.now(),
          createdOn: new Date(),
@@ -32,7 +35,14 @@ class questionController {
       }
    }
 
-   static voteQuestion (req, res) {
+   static voteQuestion(req, res) {
+
+      /**
+       * Vote question: increase or decrease the vote count
+       * @param {object} req 
+       * @param {object} res
+       * @returns {object} vote counts
+       */
 
       if (!req.params.questionId || !req.body.userId || !req.body.body || !req.body.title || !req.body.voteType) {
          return res.json({
