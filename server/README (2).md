@@ -10,4 +10,6 @@ Questioner helps the meetup organizer prioritize questions to be answered. Other
 [![Coverage Status](https://coveralls.io/repos/github/Oluwaseyi000/Questioner_Andela/badge.svg?branch=ch-migrate-from-ES5-to-ES6-163059930)](https://coveralls.io/github/Oluwaseyi000/Questioner_Andela?branch=ch-migrate-from-ES5-to-ES6-163059930)
 
 
-<a href="https://codeclimate.com/github/Oluwaseyi000/Questioner_Andela/maintainability"><img src="https://api.codeclimate.com/v1/badges/6421d81752471fd6e8b6/maintainability" /></a>
+
+<a href="https://codeclimate.com/github/Oluwaseyi000/Questioner_Andela/test_coverage"><img src="https://api.codeclimate.com/v1/badges/6421d81752471fd6e8b6/test_coverage" /></a>
+

@@ -1,12 +1,12 @@
-let chai = require('chai');
-let chaiHttp = require('chai-http');
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import server from '../server';
+import routes from '../routes';
+
+import Meetups from '../model/Meetup';
+import meetupController from '../controller/Meetup';
+import Questions from '../model/Question';
 let assert = chai.assert;
-let expect = chai.expect;
-let server = require('../server');
-let Meetups = require('../model/Meetup');
-let meetupController = require('../controller/Meetup');
-let routes = require('../routes');
-let sinon = require('sinon');
 
 chai.use(chaiHttp);
 describe('/NON-PERSISTENCE DATABASE', () => {
@@ -26,10 +26,7 @@ describe('/POST A MEETUP', () => {
          done();
       })
    })
-   beforeEach(done => {
-      Meetups = [];
-      done();
-   });
+
    describe('create/post a new meetup', () => {
       it(' create/post a new meetup', done => {
          let newMeetup = {
@@ -45,7 +42,7 @@ describe('/POST A MEETUP', () => {
             .post('/api/v1/meetups')
             .send(newMeetup)
             .end((err, res) => {
-               assert.isObject(res.body);
+               assert.isNotEmpty(res.body);
                assert.equal(res.status, 200);
                assert.equal(res.body.status, 201);
                assert.equal(res.body.message, 'New meetup successfully created ');
@@ -66,10 +63,6 @@ describe('/POST A MEETUP', () => {
       })
    })
 
-   afterEach(done => {
-      Meetups = [];
-      done();
-   });
 
 })
 
@@ -93,7 +86,7 @@ describe('/GET A SPECIFIC MEETUP', () => {
                assert.isArray(res.body.data);
 
                if (res.body.data.length === 0) {
-                  assert.equal(res.body.status, 204);
+                  // assert.equal(res.body.status, 200);
                   assert.include(res.body.message, 'Request successful but result contains no data, no meetup record found for id');
 
                } else {
@@ -135,7 +128,7 @@ describe('/GET ALL MEETUPS ', () => {
                assert.isArray(res.body.data);
 
                if (res.body.data.length === 0) {
-                  assert.equal(res.body.status, 204);
+                  assert.equal(res.body.status, 200);
                   assert.equal(res.body.message, 'Request successful but result contains no data, probably no meetup records');
 
                } else {
@@ -177,7 +170,7 @@ describe('/GET UPCOMING MEETUPS ', () => {
                assert.isArray(res.body.data);
 
                if (res.body.data.length === 0) {
-                  assert.equal(res.body.status, 204);
+                  assert.equal(res.body.status, 200);
                   assert.equal(res.body.message, 'Request successful but result contains no data, probably no upcoming meetup');
 
                } else {
@@ -218,7 +211,7 @@ describe('/DELETE A SPECIFIC MEETUP', () => {
                if (res.body.status === 404) {
                   assert.include(res.body.error, 'Request unsuccessful');
                } else {
-                  assert.equal(res.body.status, 204);
+                  assert.equal(res.body.status, 200);
                   assert.include(res.body.message, 'Delete Successful');
                }
             });
