@@ -1,9 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../server';
-import routes from '../routes';
 
-import Meetups from '../model/Meetup';
 import questionController from '../controller/Question';
 import Questions from '../model/Question';
 let assert = chai.assert;
