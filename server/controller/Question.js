@@ -83,10 +83,8 @@ class questionController {
                question.votes = question.votes - 1;
                return res.status(200).json({
                   status: 200,
-                  message: `Question upvoted`,
+                  message: `Question downvoted`,
                   data: [{
-                     meetup: vote.meetupId,
-                     title: vote.title,
                      body: vote.body,
                      votes: question.votes
                   }]
