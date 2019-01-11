@@ -8,18 +8,12 @@ class userController {
     * @param {object} res
     * @returns {object} rsvp object 
     */
-   static rsvps(req, res) {
+   static createRsvps(req, res) {
       const meetup = Meetups.find((meetup) => meetup.id === Number(req.params.meetupId));
       if (!req.body.userId || !req.params.meetupId || !req.body.status) {
-         return res.json({
+         return res.status(400).json({
             status: 400,
             error: 'Bad request error, missing required data. Note: userId, meetupId and status are required'
-         })
-      } else if (!meetup) {
-         return res.json({
-            status: 204,
-            error: 'no meetup record for the specified id, wrong meetup id',
-            Rsvps: Meetups
          })
       } else {
          const rsvp = {
@@ -40,7 +34,6 @@ class userController {
                topic: rsvp.topic,
                status: rsvp.status
             }],
-
          })
       }
    }

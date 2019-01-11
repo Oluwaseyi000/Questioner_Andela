@@ -1,23 +1,19 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../server';
-import routes from '../routes';
 
 import Meetups from '../model/Meetup';
 import meetupController from '../controller/Meetup';
-import Questions from '../model/Question';
 let assert = chai.assert;
 
 chai.use(chaiHttp);
 describe('/NON-PERSISTENCE DATABASE', () => {
-
    it('Assert non-persistence database using array', done => {
 
       assert.isArray(Meetups);
       done();
    })
 })
-
 
 describe('/POST A MEETUP', () => {
    describe('/controller has createMeetup function', done => {
@@ -26,9 +22,7 @@ describe('/POST A MEETUP', () => {
          done();
       })
    })
-
-   describe('create/post a new meetup', () => {
-      it(' create/post a new meetup', done => {
+   describe('create/post a new meetup', () => {      it(' create/post a new meetup', done => {
          let newMeetup = {
             id: Date.now(),
             topic: "JS Meetup",
@@ -38,12 +32,11 @@ describe('/POST A MEETUP', () => {
          }
 
          chai.request(server)
-
             .post('/api/v1/meetups')
             .send(newMeetup)
             .end((err, res) => {
                assert.isNotEmpty(res.body);
-               assert.equal(res.status, 200);
+               assert.equal(res.status, 201);
                assert.equal(res.body.status, 201);
                assert.equal(res.body.message, 'New meetup successfully created ');
 
@@ -56,26 +49,19 @@ describe('/POST A MEETUP', () => {
                   assert.nestedProperty(res.body.data[i], 'coverImage');
                   assert.isNotEmpty(res.body.data[i].happeningOn);
                   assert.isArray(res.body.data[i].tag);
-
                }
             });
          done();
       })
    })
-
-
 })
-
-
 describe('/GET A SPECIFIC MEETUP', () => {
-
    describe('/controller has getAllMeetups function', done => {
       it('Assert controller has a getASpecificMeetupRecord function ', done => {
          assert.isFunction(meetupController.getASpecificMeetupRecord);
          done();
       })
    })
-
    describe('get a specific record in the database', done => {
       it('get a specific record in the database', done => {
          chai.request(server)
@@ -83,23 +69,20 @@ describe('/GET A SPECIFIC MEETUP', () => {
             .end((err, res) => {
                assert.isObject(res.body);
                assert.equal(res.status, 200);
-               assert.isArray(res.body.data);
 
-               if (res.body.data.length === 0) {
-                  // assert.equal(res.body.status, 200);
-                  assert.include(res.body.message, 'Request successful but result contains no data, no meetup record found for id');
-
+               if (res.body.data===undefined) {
+                  assert.equal(res.status, 200);
                } else {
-                  assert.equal(res.body.data.length, 1);
+                  assert.isObject(res.body.data);
                   assert.equal(res.body.status, 200);
-                  assert.isNotEmpty(res.body.data[0].location);
-                  assert.isNotEmpty(res.body.data[0].topic);
-                  assert.isNumber(res.body.data[0].id);
-                  assert.nestedProperty(res.body.data[0], 'host');
-                  assert.nestedProperty(res.body.data[0], 'details');
-                  assert.nestedProperty(res.body.data[0], 'coverImage');
-                  assert.isNotEmpty(res.body.data[0].happeningOn);
-                  assert.isArray(res.body.data[0].tags);
+                  assert.isNotEmpty(res.body.data.location);
+                  assert.isNotEmpty(res.body.data.topic);
+                  assert.isNumber(res.body.data.id);
+                  assert.nestedProperty(res.body.data, 'host');
+                  assert.nestedProperty(res.body.data, 'details');
+                  assert.nestedProperty(res.body.data, 'coverImage');
+                  assert.isNotEmpty(res.body.data.happeningOn);
+                  assert.isArray(res.body.data.tags);
                }
             });
          done();
@@ -107,7 +90,6 @@ describe('/GET A SPECIFIC MEETUP', () => {
    })
 
 })
-
 describe('/GET ALL MEETUPS ', () => {
 
    describe('/controller has getAllMeetupsRecord function', done => {
@@ -116,13 +98,11 @@ describe('/GET ALL MEETUPS ', () => {
          done();
       })
    })
-
    describe('get all meetups record in the database', done => {
       it('get all records in the database', done => {
          chai.request(server)
             .get('/api/v1/meetups')
             .end((err, res) => {
-
                assert.isObject(res.body);
                assert.equal(res.status, 200);
                assert.isArray(res.body.data);
@@ -130,7 +110,6 @@ describe('/GET ALL MEETUPS ', () => {
                if (res.body.data.length === 0) {
                   assert.equal(res.body.status, 200);
                   assert.equal(res.body.message, 'Request successful but result contains no data, probably no meetup records');
-
                } else {
                   for (let i = 0; i < res.body.data.length; i++) {
                      assert.isNotEmpty(res.body.data[i].location);
@@ -147,32 +126,26 @@ describe('/GET ALL MEETUPS ', () => {
          done();
       })
    })
-
 })
 
 describe('/GET UPCOMING MEETUPS ', () => {
-
    describe('/controller has upcomingMeetups function', done => {
       it('Assert controller has a upcomingMeetups function ', done => {
          assert.isFunction(meetupController.upcomingMeetups);
          done();
       })
    })
-
    describe('get all upcomingMeetups', done => {
       it('get all upcomingMeetups', done => {
          chai.request(server)
             .get('/api/v1/meetups/upcomingmeetups')
             .end((err, res) => {
-
                assert.isObject(res.body);
                assert.equal(res.status, 200);
                assert.isArray(res.body.data);
 
-               if (res.body.data.length === 0) {
+               if (res.body.data.length === undefined) {
                   assert.equal(res.body.status, 200);
-                  assert.equal(res.body.message, 'Request successful but result contains no data, probably no upcoming meetup');
-
                } else {
                   for (let i = 0; i < res.body.data.length; i++) {
                      assert.isNotEmpty(res.body.data[i].location);
@@ -189,25 +162,22 @@ describe('/GET UPCOMING MEETUPS ', () => {
          done();
       })
    })
-
 })
 
 describe('/DELETE A SPECIFIC MEETUP', () => {
-
    describe('/controller has deleteMeetup function', done => {
       it('Assert controller has a deleteMeetup function ', done => {
          assert.isFunction(meetupController.deleteMeetup);
          done();
       })
    })
-
    describe('/DELETE a specific record ', done => {
       it('delete a specific record ', done => {
          chai.request(server)
             .delete('/api/v1/meetups/:meetupId')
             .end((err, res) => {
                assert.isObject(res.body);
-               assert.equal(res.status, 200);
+               
                if (res.body.status === 404) {
                   assert.include(res.body.error, 'Request unsuccessful');
                } else {
