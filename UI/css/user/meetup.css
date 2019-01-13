@@ -125,3 +125,23 @@ display: none
 .details, .discussion {
     margin: 20px 
 }
+.brown{
+    color: #DF3C3C;
+    font-size: 14px;
+}
+.bold{
+   font-weight: bold;
+   font-size: 13px
+}
+
+.RSVPdiv{
+    border: 1px solid #03A9F4;
+    padding: 10px;
+    width: 64%;
+    border-radius: 5px;
+    margin: 10px
+}
+
+.margin40{
+    padding-top: 40px;
+}

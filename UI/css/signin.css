@@ -1,5 +1,11 @@
 .login-div{
-    min-height: 200px;
+    /* min-height: 200px; */
+        min-height: 200px;
+        
+        background:#fff;
+        width: 75%;
+        margin: 0 auto;
+        border-radius: 2px;    
 }
 
 .new-to-us{
