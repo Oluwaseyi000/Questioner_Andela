@@ -1,7 +1,10 @@
-let overlay = document.getElementById('loader-overlay')
-window.addEventListener('load', function(){
+let overlay = document.getElementById('loader-overlay');
+if(overlay){
+    window.addEventListener('load', function(){
 overlay.style.display = 'none';
 })
+}
+
 
 var terms= document.getElementById('terms-and-conditions');
 if(terms){terms.addEventListener('click', displayTermsAndConditions);
@@ -28,7 +31,7 @@ if(creatMeetup){
 }
 
 function createMeetup(e) {
-    console.log(creatMeetup);;
+   
     location.replace("/")
     
 }
@@ -53,13 +56,13 @@ function processLoginForm(e) {
    
 }
 
-var signup= document.getElementById('signup');
-if(signup){
-    signup.addEventListener('click', processSignUpForm)
-}
-function processSignUpForm(){
-    window.location.href = "./user/index.html"
-}
+// var signup= document.getElementById('signup');
+// if(signup){
+//     signup.addEventListener('click', processSignUpForm)
+// }
+// function processSignUpForm(){
+//     window.location.href = "./user/index.html"
+// }
 
 
 window.onload = function () {setTimeout(function(){
@@ -74,5 +77,25 @@ if(drop){
         e.preventDefault();
         document.getElementById('dropdownNav').style.display="block"
         
+    })
+}
+
+const goToSignup = document.getElementById('goToSignup');
+if(goToSignup){
+    goToSignup.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.getElementById('signup').style.display="block"
+        document.getElementById('signin').style.display="none";
+        
+    })
+}
+
+
+const goToSignin = document.getElementById('goToSignin');
+if(goToSignin){
+    goToSignin.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.getElementById('signup').style.display="none";
+        document.getElementById('signin').style.display="block"  
     })
 }

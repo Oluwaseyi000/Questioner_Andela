@@ -6,7 +6,8 @@ a.question-header{
     font-weight: bold;
     font-size: large;
     color:rgba(58, 56, 56, 0.8);
-    text-transform: capitalize
+    text-transform: capitalize;
+    padding-top: 5px;
 }
 p.posted-by{
     font-size: 12px
@@ -41,4 +42,31 @@ table{
  }
 
 
+ .single-meetup{
+    background-color:#fff;
+    display: flex;
+    justify-content: flex-start;
+    border: #ccc 1px solid;
+    border-radius: 5px;
+    margin-bottom: 7px;
+    margin-top: 7px;
+    padding-left: 4px;
+    border-left: #03A9F4 solid 2px;
  
+ }
+ .brown{
+    color: #DF3C3C;
+    font-size: 14px;
+ }
+ .bold{
+    font-weight: bold;
+    font-size: 13px
+ }
+
+ .single-meetup img{
+     margin-right: 20px;
+ }
+
+ .margin40{
+     padding-top: 40px;
+ }

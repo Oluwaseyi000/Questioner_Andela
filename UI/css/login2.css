@@ -1,0 +1,104 @@
+:root{
+   --container-bg-color:#333;
+   --left-bg-color:rgba(233, 39,39.0.7);
+}
+
+body{
+   margin: 0px;
+   padding: 0%;
+   height: 100%;
+   overflow: hidden;
+  
+}
+.h1{
+   font-size: 4rem;
+   color: aliceblue;
+   position: absolute;
+   left: 50%;
+   top: 20%;  
+}
+
+.login-container{
+   display: flex; 
+   /* justify-content: space-between;
+   
+   align-items: stretch
+   */   justify-content: space-around;
+  /* background-color: #333; */
+  height: 100%;
+   margin: 0%
+   
+}
+
+.info-container, .sign-container{
+ 
+   min-height: 650px;;
+    padding: 20px;
+   flex: 1;
+   
+   /* width: 40%; */
+   
+
+}
+ .content{
+   margin-top:15%; 
+  z-index: 10000;
+}
+.content-text{
+   color: #fff;
+   text-align: center;
+   /* color: #fff; */
+   /* z-index: 3; */
+   transform: translate(0%, -0%)
+}
+
+.content-text h2{
+   color: #4CC1F4;
+   padding-top: 10px;
+   font-size: 40px;
+   letter-spacing: 4px;
+   text-decoration: underline;
+   text-decoration-color: #fff
+}
+.content-text p{
+   font-size: 25px;
+   padding-top: 20px;
+   line-height: 40px;
+   /* letter-spacing:  */
+}
+.info-container{
+   background: url('../img/Meetups\ Image.jpg') center center no-repeat;
+   background-size: cover;
+}
+
+.already-a-member{
+   text-align: center;
+   padding-top: 5px
+}
+.info-container:before{
+   position: fixed;
+   content: "";
+   left:0;
+   top: 0;
+   width: 50%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.8);
+   /* z-index: 2 */
+ 
+} 
+.login-container{
+   background: rgba(104, 172, 201, 0.2);   
+}
+
+#signup{
+   display: none;
+   margin-top: -100px;
+}
+
+
+/* .themeetup-list{
+   display: flex;
+   
+
+} */
+
