@@ -1,6 +1,5 @@
 import Questions from '../model/Question';
 import Meetups from '../model/Meetup';
-
 class questionController {
    /**
     * Create A Question
@@ -20,13 +19,13 @@ class questionController {
       }
 
       if (!newQuestion.title || !newQuestion.body || !newQuestion.createdBy || !newQuestion.meetup) {
-         return res.json({
+         return res.status(400).json({
             status: 400,
             error: 'Bad request error, missing required data. Note: userId, MeetupId, title and body are required.'
          })
       } else {
          Questions.push(newQuestion);
-         return res.json({
+         return res.status(201).json({
             status: 201,
             message: 'Your questions is  successfully created',
             data: newQuestion,
@@ -36,7 +35,6 @@ class questionController {
    }
 
    static voteQuestion(req, res) {
-
       /**
        * Vote question: increase or decrease the vote count
        * @param {object} req 
@@ -45,15 +43,15 @@ class questionController {
        */
 
       if (!req.params.questionId || !req.body.userId || !req.body.body || !req.body.title || !req.body.voteType) {
-         return res.json({
+         return res.status(400).json({
             status: 400,
             error: 'Bad Request, please include meetup Id, user id, title, body, vote type in your request as parameter'
          })
       } else {
 
-         const question = Questions.find(question => question.id === Number(req.params.questionId));
+         const question = Questions.find(question => question.id === parseInt(req.params.questionId));
          if (!question || question === -1) {
-            return res.json({
+            return res.status(404).json({
                status: 404,
                error: `question with id ${req.params.questionId} not found`,
                data: Questions
@@ -71,7 +69,7 @@ class questionController {
             Votes.push(vote)
             if (req.body.voteType === 'upvote') {
                question.votes = question.votes + 1;
-               return res.json({
+               return res.status(200).json({
                   status: 200,
                   message: `Question upvoted`,
                   data: [{
@@ -83,12 +81,10 @@ class questionController {
                })
             } else if (req.body.voteType === 'downvote') {
                question.votes = question.votes - 1;
-               return res.json({
+               return res.status(200).json({
                   status: 200,
-                  message: `Question upvoted`,
+                  message: `Question downvoted`,
                   data: [{
-                     meetup: vote.meetupId,
-                     title: vote.title,
                      body: vote.body,
                      votes: question.votes
                   }]

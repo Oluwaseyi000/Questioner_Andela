@@ -11,19 +11,15 @@ let assert = chai.assert;
 describe('/RSVP A MEETUP', () => {
    describe('/user controller', done => {
       it('Assert user controller has a rsvps function ', done => {
-         assert.isFunction(userController.rsvps);
+         assert.isFunction(userController.createRsvps);
+
          done();
       })
    })
-
    describe('rsvps  a meetup', () => {
-
       it('rsvp a meetup', done => {
-         //const noMeetu='sdnhkdsjhk';
 
-       
-
-         let newMeetup = {
+         const newMeetup = {
             id: 4,
             topic: 'req.body.topic',
             location: 'req.body.location',
@@ -44,28 +40,26 @@ describe('/RSVP A MEETUP', () => {
                assert.isObject(res.body);
                assert.equal(res.status, 200);
                assert.isArray(res.body.data),
-               assert.isNotEmpty(res.body.data[0].meetup)
+                  assert.isNotEmpty(res.body.data[0].meetup)
                assert.isNotEmpty(res.body.data[0].status)
                done();
             });
 
-            chai.request(server)
+         chai.request(server)
             .post('/api/v1/meetups/sdnhkdsjhk/rsvps')
             .send(rsvp)
             .end((err, res) => {
-              
-               assert.equal(res.body.status, 204);
-               
+               assert.equal(res.status, 500);
             })
 
-            const rsvpFail = {userId:3}
-            chai.request(server)
+         const rsvpFail = {
+            userId: 3
+         }
+         chai.request(server)
             .post('/api/v1/meetups/4/rsvps')
             .send(rsvpFail)
             .end((err, res) => {
-             
                assert.equal(res.body.status, 400);
-               
             })
       })
    })

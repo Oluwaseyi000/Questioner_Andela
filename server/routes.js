@@ -5,7 +5,6 @@ import meetupController from './controller/Meetup';
 
 let router = express.Router();
 
-
 router.get('/meetups/upcomingmeetups', meetupController.upcomingMeetups);
 router.post('/meetups', meetupController.createMeetup);
 router.get('/meetups/:meetupId', meetupController.getASpecificMeetupRecord);
@@ -16,9 +15,8 @@ router.post('/questions', questionController.createQuestion);
 router.patch('/questions/:questionId/upvote', questionController.voteQuestion);
 router.patch('/questions/:questionId/downvote', questionController.voteQuestion);
 
-router.post('/meetups/:meetupId/rsvps', userController.rsvps);
+router.post('/meetups/:meetupId/rsvps', userController.createRsvps);
 
-   
 router.all('*', (req, res) => {
    res.json({
       status: 404,

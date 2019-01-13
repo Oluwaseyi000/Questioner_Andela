@@ -1,16 +1,12 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../server';
-import routes from '../routes';
 
-import Meetups from '../model/Meetup';
 import questionController from '../controller/Question';
 import Questions from '../model/Question';
 let assert = chai.assert;
 describe('/NON-PERSISTENCE DATABASE', () => {
-
    it('Assert non-persistence database using array', done => {
-
       assert.isArray(Questions);
       done();
    })
@@ -23,11 +19,7 @@ describe('/POST A QUESTION', () => {
          done();
       })
    })
-   beforeEach(done => {
-      //  Questions = [];
-      done();
-   });
-   describe('create/post a new question', () => {
+     describe('create/post a new question', () => {
       it(' create/post a new question', done => {
          let newQuestion = {
             id: Date.now(),
@@ -37,31 +29,29 @@ describe('/POST A QUESTION', () => {
             body: 'req.body.body',
             createdBy: 2
          }
-         chai.request(server)
 
+         chai.request(server)
          .post('/api/v1/questions')
          .send({})
          .end((err, res)=>{
-            assert.equal(res.status, 200);
+            assert.equal(res.status, 400);
          }); 
 
          chai.request(server)
-
             .post('/api/v1/questions')
             .send(null)
             .end((err, res) => {
                assert.equal(res.body.status, 400);
             })
-         chai.request(server)
 
+         chai.request(server)
             .post('/api/v1/questions')
             .send(newQuestion)
             .end((err, res) => {
                assert.isObject(res.body);
-               assert.equal(res.status, 200);
+               assert.equal(res.status, 201);
                assert.equal(res.body.status, 201);
                assert.include(res.body.message, 'Your questions is  successfully created');
-               //assert.isArray(res.body.data);
 
                for (let i = 0; i < res.body.data.length; i++) {
                   assert.isNumber(res.body.data[i].id);
@@ -70,8 +60,6 @@ describe('/POST A QUESTION', () => {
                   assert.nestedProperty(res.body.data[i], 'votes');
                }
             });
-
-            
          done();
       })
    })
