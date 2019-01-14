@@ -14,9 +14,16 @@ const Questions =
    details TEXT,
    host VARCHAR(50),
    createdOn TIMESTAMP
-    )`, (err, res) => {
-      console.log(err, res);
-     pool.end();
+    )`)
+    .then(res=>{
+console.log(res);
+    })
+       
+    
+   .catch(err=>{
+      console.log(err);
+      pool.end();
    });
+   console.log(Questions);
 
 export default Questions;
