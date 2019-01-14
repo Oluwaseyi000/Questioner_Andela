@@ -1,5 +1,7 @@
 import Rsvps from '../model/Rsvps';
 import Meetups from '../model/Meetup';
+import Users from '../model/User';
+import Votes from '../model/Vote';
 
 class userController {
    /**
