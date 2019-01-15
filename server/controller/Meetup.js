@@ -1,4 +1,5 @@
 import Meetups from '../model/Meetup';
+import jwt from 'jsonwebtoken';
 class Meetup {
    /**
     * Create A Meetup
@@ -65,10 +66,26 @@ class Meetup {
        * @param {object} res
        * @returns {object} array of meetup objects
        */
-      return res.status(200).json({
-         status: 200,
-         data: Meetups
+      const token = req.headers['x-access-token'];
+      jwt.verify(req.token, 'secretkey', (err, authData)=>{
+         if(err){
+            console.log(req);
+            
+            return res.status(403).json({
+               status: 403,
+               message: 'access forbiden, wrong token',
+               err,
+            })
+         }
+         else{
+            return res.status(200).json({
+               status: 200,
+               data: Meetups, 
+               // authData
+            })
+         }
       })
+      
    }
    static upcomingMeetups(req, res) {
       /**
