@@ -25,7 +25,7 @@ class userController {
          req.body.email,
          req.body.phonenumber,
          req.body.othername,
-         moment(new Date()),
+         new Date(),
          false,
          bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
       ];

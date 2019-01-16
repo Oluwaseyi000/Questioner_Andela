@@ -11,7 +11,7 @@ const jwt = authorize.verifyToken;
 let router = express.Router();
 
 // router.use('api/v1',  jwt);
-router.get('/meetups/upcomingmeetups', meetupController.upcomingMeetups);
+router.get('/meetups/upcomingmeetups', jwt, meetupController.upcomingMeetups);
 router.post('/meetups', jwt, meetupMiddleware.createMeetup, meetupController.createMeetup);
 router.get('/meetups/:meetupId', jwt, meetupMiddleware.getASpecificMeetupRecord, meetupController.getASpecificMeetupRecord);
 router.get('/meetups', jwt,meetupController.getAllMeetupsRecord);

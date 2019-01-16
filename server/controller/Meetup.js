@@ -1,4 +1,4 @@
-import Pool from '../model/db_connect';
+import pool from '../model/db_connect';
 import Meetups from '../model/Meetup';
 import Authenticate from '../middleware/authorize';
 
@@ -51,7 +51,7 @@ class Meetup {
       const text = `SELECT * FROM meetups WHERE id=$1`;
       const value = [req.params.meetupId];
 
-      Pool.query(text, value)
+      pool.query(text, value)
       .then(meetup => {
             if (meetup.rows.length > 0) {
                return res.status(200).json({
@@ -80,7 +80,7 @@ class Meetup {
       confirmToken(req, res);
       const text = `SELECT * FROM meetups`;
 
-      Pool.query(text)
+      pool.query(text)
       .then(meetup => {
                return res.status(200).json({
                   status: 200,
@@ -95,13 +95,18 @@ class Meetup {
        * @param {object} res
        * @returns {object} meetup object 
        */
-      const meetup = Meetups.filter(meetup => (new Date(meetup.happeningOn) > new Date()));
+      confirmToken(req, res);
+      const text = `SELECT * FROM meetups WHERE happeningOn>=$1`;
+      const value = [new Date()];
 
-      return res.status(200).json({
-         status: 200,
-         data: meetup,
+      pool.query(text, value)
+      .then(meetup => {
+               return res.status(200).json({
+                  status: 200,
+                  data: meetup.rows
+               })
+         })
 
-      })
    }
    static deleteMeetup(req, res) {
 
