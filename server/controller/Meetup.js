@@ -1,9 +1,8 @@
-import pool from '../model/db_connect';
-
+import Pool from '../model/db_connect';
 import Meetups from '../model/Meetup';
 import Authenticate from '../middleware/authorize';
 
-const confirmToken= Authenticate.confirmToken ;
+const confirmToken = Authenticate.confirmToken;
 
 class Meetup {
    /**
@@ -17,7 +16,7 @@ class Meetup {
       confirmToken(req, res);
 
       const tags = req.body.tags instanceof Array ? req.body.tags.join(';') : req.body.tags
-   
+
       const value = [
          req.body.topic,
          req.body.location,
@@ -27,22 +26,19 @@ class Meetup {
          req.body.image,
          req.body.host,
          new Date(),
-          new Date()
+         new Date()
       ]
       const text = `INSERT INTO meetups(topic, location, happeningOn, tags, details, images, host, createdOn, updatedOn) VALUES($1, $2, $3,$4, $5, $6, $7, $8, $9) returning id`;
-     
+
       pool.query(text, value)
-       .then(meetup=>{
-         return res.status(200).json({
-            status: 200,
-            message: 'New Meetup Created',  
+         .then(meetup => {
+            return res.status(200).json({
+               status: 200,
+               message: 'New Meetup Created',
+            })
          })
-      })
-       .catch(err=>{
-          console.log(err)
-       })
-      }
-   
+   }
+
    static getASpecificMeetupRecord(req, res) {
       /**
        * Get A Meetup
@@ -50,20 +46,29 @@ class Meetup {
        * @param {object} res
        * @returns {object} meetup object 
        */
-      if (!req.params.meetupId) {
-         return res.status(400).json({
-            status: 400,
-            error: 'Bad Request, please include meetup Id in your request as parameter'
-         })
-      } else {
-         const meetup = Meetups.find((meetup) => meetup.id === Number(req.params.meetupId));
+      confirmToken(req, res);
 
-         return res.status(200).json({
-            status: 200,
-            data: meetup
+      const text = `SELECT * FROM meetups WHERE id=$1`;
+      const value = [req.params.meetupId];
+
+      Pool.query(text, value)
+      .then(meetup => {
+            if (meetup.rows.length > 0) {
+               return res.status(200).json({
+                  status: 200,
+                  data: meetup.rows
+               })
+
+            } else {
+               return res.status(404).json({
+                  status: 404,
+                  error: 'no meetup found'
+               })
+            }
          })
-      }
    }
+
+
 
    static getAllMeetupsRecord(req, res, next) {
       /**
@@ -76,8 +81,8 @@ class Meetup {
 
       return res.status(200).json({
          status: 200,
-         data: Meetups, 
-         
+         data: Meetups,
+
       })
    }
    static upcomingMeetups(req, res) {

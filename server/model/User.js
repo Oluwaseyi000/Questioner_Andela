@@ -17,7 +17,7 @@ import pool from './db_connect';
    password TEXT
  )`)
     .then( () => {
-      pool.end();
+      // pool.end();
    })
    .catch(err=>{
       console.log(err);
