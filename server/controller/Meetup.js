@@ -62,7 +62,7 @@ class Meetup {
             } else {
                return res.status(404).json({
                   status: 404,
-                  error: 'no meetup found'
+                  error: 'meetup not found'
                })
             }
          })
@@ -78,11 +78,14 @@ class Meetup {
        * @returns {object} array of meetup objects
        */
       confirmToken(req, res);
+      const text = `SELECT * FROM meetups`;
 
-      return res.status(200).json({
-         status: 200,
-         data: Meetups,
-
+      Pool.query(text)
+      .then(meetup => {
+               return res.status(200).json({
+                  status: 200,
+                  data: meetup.rows
+               })
       })
    }
    static upcomingMeetups(req, res) {
