@@ -1,5 +1,10 @@
+import pool from '../model/db_connect';
+
 import Meetups from '../model/Meetup';
-import jwt from 'jsonwebtoken';
+import Authenticate from '../middleware/authorize';
+
+const confirmToken= Authenticate.confirmToken ;
+
 class Meetup {
    /**
     * Create A Meetup
@@ -8,35 +13,36 @@ class Meetup {
     * @returns {object} meetup object 
     */
    static createMeetup(req, res) {
-      const tags = req.body.tags instanceof Array ? req.body.tags : [req.body.tags]
-      const newMeetup = {
-         id: Date.now(),
-         topic: req.body.topic,
-         location: req.body.location,
-         happeningOn: req.body.happeningOn,
-         tag: tags || null,
-         details: req.body.details || null,
-         coverImage: req.body.coverImage || null,
-         host: req.body.host || null,
-         createdOn: new Date()
-      }
 
-      if (!newMeetup.topic || !newMeetup.location || !newMeetup.happeningOn) {
-         return res.status(400).json({
-            status: 400,
-            error: 'Bad request error, missing required data. Note: topic, location and happeningOn are required'
+      confirmToken(req, res);
 
+      const tags = req.body.tags instanceof Array ? req.body.tags.join(';') : req.body.tags
+   
+      const value = [
+         req.body.topic,
+         req.body.location,
+         req.body.happeningOn,
+         tags,
+         req.body.details,
+         req.body.image,
+         req.body.host,
+         new Date(),
+          new Date()
+      ]
+      const text = `INSERT INTO meetups(topic, location, happeningOn, tags, details, images, host, createdOn, updatedOn) VALUES($1, $2, $3,$4, $5, $6, $7, $8, $9) returning id`;
+     
+      pool.query(text, value)
+       .then(meetup=>{
+         return res.status(200).json({
+            status: 200,
+            message: 'New Meetup Created',  
          })
-      } else {
-         Meetups.push(newMeetup);
-         return res.status(201).json({
-            status: 201,
-            message: 'New meetup successfully created ',
-            data: [newMeetup]
-         })
+      })
+       .catch(err=>{
+          console.log(err)
+       })
       }
-   }
-
+   
    static getASpecificMeetupRecord(req, res) {
       /**
        * Get A Meetup
@@ -59,33 +65,20 @@ class Meetup {
       }
    }
 
-   static getAllMeetupsRecord(req, res) {
+   static getAllMeetupsRecord(req, res, next) {
       /**
        * Get All Meetups
        * @param {object} req 
        * @param {object} res
        * @returns {object} array of meetup objects
        */
-      const token = req.headers['x-access-token'];
-      jwt.verify(req.token, 'secretkey', (err, authData)=>{
-         if(err){
-            console.log(req);
-            
-            return res.status(403).json({
-               status: 403,
-               message: 'access forbiden, wrong token',
-               err,
-            })
-         }
-         else{
-            return res.status(200).json({
-               status: 200,
-               data: Meetups, 
-               // authData
-            })
-         }
+      confirmToken(req, res);
+
+      return res.status(200).json({
+         status: 200,
+         data: Meetups, 
+         
       })
-      
    }
    static upcomingMeetups(req, res) {
       /**

@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt-nodejs';
 import Rsvps from '../model/Rsvps';
 import Meetups from '../model/Meetup';
+import User from '../model/User';
 import Votes from '../model/Vote';
 import Pool from '../model/db_connect';
 import moment from 'moment';
