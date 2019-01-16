@@ -1,10 +1,8 @@
-
-import {hPool, pool} from '../../server/credentials'; 
 import dotenv from 'dotenv';
 import {Pool, Client} from 'pg';
 dotenv.config();  
 const pool = new Pool({
-   process.env.DATABASE_TEST_REMOTE_URL,
+   connectionString: process.env.DATABASE_REMOTE,
 });
 
 pool.connect((err, client, done)=>{

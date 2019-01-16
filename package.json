@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --exec @babel-node server/server.js",
+    "startw": "nodemon --exec @babel-node server/server.js",
     "build": "babel server/server.js -d src",
+    "start": "npm run build && node dist/server.js",
     "test": "cross-env NODE_ENV=test nyc mocha server/test/*.js --out-dir --exit",
     "prepublish": "npm run build",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
@@ -39,6 +40,7 @@
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.4.0",
     "moment": "^2.23.0",
+    "nodemon": "^1.18.9",
     "pg": "^7.8.0",
     "uuid": "^3.3.2"
   },

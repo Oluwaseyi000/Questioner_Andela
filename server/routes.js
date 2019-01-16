@@ -23,7 +23,7 @@ router.post('/meetups/:meetupId/rsvps', userController.createRsvps);
 
 router.post('/auth/signup', userMiddleware.userSignup,  userController.userSignup);
 
-router.get('/auth/login', userMiddleware.userLogin,  userController.userLogin);
+router.post('/auth/login', userMiddleware.userLogin,  userController.userLogin);
 
 router.all('*', (req, res) => {
    res.json({

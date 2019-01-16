@@ -18,7 +18,7 @@ const Meetups =
     )`)
    .catch(err=>{
       console.log(err);
-    
+    //  pool.end();
    });
 
 export default Meetups;

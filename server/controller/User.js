@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt-nodejs';
 import Rsvps from '../model/Rsvps';
 import Meetups from '../model/Meetup';
+import Votes from '../model/Vote';
 import Pool from '../model/db_connect';
 import moment from 'moment';
 import jwt from 'jsonwebtoken';
@@ -61,21 +62,34 @@ class userController {
     */
    static userLogin(req, res) {
      
-      const text = `SELECT * FROM users WHERE email=$1 AND password=$2`;
-      const value = [req.body.email, bcrypt.hashSync(req.body.passwords, bcrypt.genSaltSync(10))];
+      const text2 = `SELECT * FROM users WHERE email=$1 AND password=$2`;
+     
+      const text = `SELECT * FROM users`;
+
+      const value = [
+            req.body.email,
+           bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))]
+           ;
       
-      Pool.query(text, value)
-         .then((user) => {
-            jwt.sign({user}, 'secretkey', (err, token)=>{
-               if(err){console.log(err)}else{
-                  return res.status(200).json({
-               status: 200,
-               token,
-               user: user.id,
-               message: 'User successfully sign in',               
-            }) 
-             }
-            })
+      Pool.query(text2, value)
+         .then(
+            (user) => {
+              if(user.rows.length>0){
+               jwt.sign({user}, 'secretkey', (err, token)=>{
+                  if(err){console.log(err)}else{
+                     return res.status(200).json({
+                  status: 200,
+                  token,
+                  message: 'User successfully sign in',               
+               }) 
+                }
+               })
+               }else{
+                  return res.status(404).json({
+                     status:404,
+                     error: 'no user found'})
+               }
+            
 
            
             
