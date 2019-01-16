@@ -4,7 +4,7 @@ import pool from './db_connect';
  * Create Meetup Table
  */
 const Meetups =
-   pool.query(`CREATE TABLE IF NOT EXISTS meetups(
+   pool.query(`CREATE TABLE IF NOT EXISTS meetups1(
    id UUID PRIMARY KEY,
    location  VARCHAR(70) NOT NULL,
    images TEXT,
@@ -18,7 +18,7 @@ const Meetups =
     )`)
    .catch(err=>{
       console.log(err);
-    //  pool.end();
+    
    });
 
 export default Meetups;

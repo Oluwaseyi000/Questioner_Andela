@@ -13,7 +13,7 @@ const Rsvps =
       )`)
    .catch(err=>{
       console.log(err);
-      pool.end();
+      // pool.end();
    });
 
 export default Rsvps;
