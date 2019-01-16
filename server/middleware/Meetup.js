@@ -50,5 +50,28 @@ class Meetup {
       }
       next();
    }
+
+   static deleteMeetup(req, res, next) {
+      const meetupSchema = Joi.object().keys({
+         meetupId: Joi.required()
+      });
+      const {
+         error,
+         value
+      } = Joi.validate({
+         meetupId: req.params.meetupId,
+      }, meetupSchema, {
+         abortEarly: false
+      });
+
+      if (error) {
+         const errorMsgs = error.details.map(error => error.message)
+         return res.status(400).json({
+            status: 400,
+            error: errorMsgs,
+         })
+      }
+      next();
+   }
 }
    export default Meetup;

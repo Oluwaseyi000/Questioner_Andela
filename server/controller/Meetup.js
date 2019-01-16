@@ -117,28 +117,20 @@ class Meetup {
        * @returns {object} return status code 204 
        */
 
-      if (!req.params.meetupId) {
-         return res.json({
-            status: 400,
-            error: 'meetup id not included, please add meetup id'
-         })
-      } else {
-         const meetup = Meetups.findIndex((meetup) => meetup.id === Number(req.params.meetupId));
+      confirmToken(req, res);
 
-         if (meetup === -1) {
-            return res.status(404).json({
-               status: 404,
-               error: `Request unsuccessful, meetup for id ${req.params.meetupId} not found`
-            })
-         } else {
-            Meetups.splice(meetup, 1);
-            return res.status(200).json({
-               status: 200,
-               message: `Delete Successful. Meetup with id ${req.params.meetupId} successfully deleted`
-            })
-         }
+      const text = `DELETE FROM meetups WHERE id=$1`;
+      const value = [req.params.meetupId];
+
+      pool.query(text, value)
+      .then(()=>{
+               return res.status(200).json({
+                  status: 200,
+                  message: 'meetup deleted'
+               })
+
+         })
       }
-   }
 }
 
 export default Meetup;
