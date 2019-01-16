@@ -28,13 +28,13 @@ class Meetup {
          new Date(),
          new Date()
       ]
-      const text = `INSERT INTO meetups(topic, location, happeningOn, tags, details, images, host, createdOn, updatedOn) VALUES($1, $2, $3,$4, $5, $6, $7, $8, $9) returning id`;
+      const text = `INSERT INTO meetups(topic, location, happeningOn, tags, details, images, host, createdOn, updatedOn) VALUES($1, $2, $3,$4, $5, $6, $7, $8, $9) returning topic, location, happeningOn, tags`;
 
       pool.query(text, value)
          .then(meetup => {
             return res.status(200).json({
                status: 200,
-               message: 'New Meetup Created',
+               data: meetup.rows[0],
             })
          })
    }
@@ -48,7 +48,7 @@ class Meetup {
        */
       confirmToken(req, res);
 
-      const text = `SELECT * FROM meetups WHERE id=$1`;
+      const text = `SELECT * FROM meetups WHERE id=$1` ;
       const value = [req.params.meetupId];
 
       pool.query(text, value)
@@ -126,7 +126,7 @@ class Meetup {
       .then(()=>{
                return res.status(200).json({
                   status: 200,
-                  message: 'meetup deleted'
+                  data: 'meetup successfully deleted'
                })
 
          })
