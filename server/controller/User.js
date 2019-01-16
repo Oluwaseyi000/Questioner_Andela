@@ -15,13 +15,13 @@ class userController {
     */
    static userSignup(req, res) {
 
-      const text = `INSERT INTO users(firstname, lastName, email, phoneNumber, othername, registered, isAdmin, passwords) VALUES($1, $2, $3,$4, $5, $6, $7, $8) returning id`;
+      const text = `INSERT INTO users(firstname, lastName, email, phoneNumber, othername, registered, isadmin, password) VALUES($1, $2, $3,$4, $5, $6, $7, $8) returning id`;
 
       const value = [
          req.body.firstname,
          req.body.lastname,
          req.body.email,
-         req.body.phoneNumber,
+         req.body.phonenumber,
          req.body.othername,
          moment(new Date()),
          false,
@@ -45,6 +45,45 @@ class userController {
          .catch((err) => {
             return res.status(400).json({
                status: 400,
+               message: err
+            })
+
+         })
+
+
+   }
+
+   /**
+    * Login user 
+    * @param {object} req 
+    * @param {object} res
+    * @returns {object} user object 
+    */
+   static userLogin(req, res) {
+     
+      const text = `SELECT * FROM users WHERE email=$1 AND password=$2`;
+      const value = [req.body.email, bcrypt.hashSync(req.body.passwords, bcrypt.genSaltSync(10))];
+      
+      Pool.query(text, value)
+         .then((user) => {
+            jwt.sign({user}, 'secretkey', (err, token)=>{
+               if(err){console.log(err)}else{
+                  return res.status(200).json({
+               status: 200,
+               token,
+               user: user.id,
+               message: 'User successfully sign in',               
+            }) 
+             }
+            })
+
+           
+            
+         })
+         .catch((err) => {
+            return res.status(400).json({
+               status: 400,
+               ER: 'error',
                message: err
             })
 
