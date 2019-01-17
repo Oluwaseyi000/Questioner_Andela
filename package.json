@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nodemon --exec @babel-node server/server.js",
     "build": "babel server/server.js -d src",
+    "startw": "npm run build && node dist/server.js",
     "test": "cross-env NODE_ENV=test nyc mocha server/test/*.js --out-dir --exit",
     "prepublish": "npm run build",
     "coverage": "nyc report --reporter=text-lcov | coveralls",

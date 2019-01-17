@@ -1,4 +1,7 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();  
 class authorization {
 
    static verifyToken(req, res, next) {
@@ -17,9 +20,9 @@ class authorization {
       }
    }
 
-   static confirmToken(req, res, secretkey = 'secretkey', ) {
-      return ;
-      jwt.verify(req.token, 'secretkey', (err, authData) => {
+   static confirmToken(req, res) {
+
+      jwt.verify(req.token,  process.env.SECRET, (err, authData) => {
             if (err) {
                return res.status(403).json({
                   status: 403,
