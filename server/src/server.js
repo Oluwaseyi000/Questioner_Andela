@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _express = _interopRequireDefault(require("express"));
+var _express = _in1teropRequireDefault(require("express"));
 
 var _routes = _interopRequireDefault(require("./routes"));
 
