@@ -1,5 +1,9 @@
+import pool from '../model/db_connect';
 import Meetups from '../model/Meetup';
-import jwt from 'jsonwebtoken';
+import Authenticate from '../middleware/authorize';
+
+const confirmToken = Authenticate.confirmToken;
+
 class Meetup {
    /**
     * Create A Meetup
@@ -8,33 +12,31 @@ class Meetup {
     * @returns {object} meetup object 
     */
    static createMeetup(req, res) {
-      const tags = req.body.tags instanceof Array ? req.body.tags : [req.body.tags]
-      const newMeetup = {
-         id: Date.now(),
-         topic: req.body.topic,
-         location: req.body.location,
-         happeningOn: req.body.happeningOn,
-         tag: tags || null,
-         details: req.body.details || null,
-         coverImage: req.body.coverImage || null,
-         host: req.body.host || null,
-         createdOn: new Date()
-      }
 
-      if (!newMeetup.topic || !newMeetup.location || !newMeetup.happeningOn) {
-         return res.status(400).json({
-            status: 400,
-            error: 'Bad request error, missing required data. Note: topic, location and happeningOn are required'
+      confirmToken(req, res);
 
+      const tags = req.body.tags instanceof Array ? req.body.tags.join(';') : req.body.tags
+
+      const value = [
+         req.body.topic,
+         req.body.location,
+         req.body.happeningOn,
+         tags,
+         req.body.details,
+         req.body.image,
+         req.body.host,
+         new Date(),
+         new Date()
+      ]
+      const text = `INSERT INTO meetups(topic, location, happeningOn, tags, details, images, host, createdOn, updatedOn) VALUES($1, $2, $3,$4, $5, $6, $7, $8, $9) returning topic, location, happeningOn, tags`;
+
+      pool.query(text, value)
+         .then(meetup => {
+            return res.status(200).json({
+               status: 200,
+               data: meetup.rows[0],
+            })
          })
-      } else {
-         Meetups.push(newMeetup);
-         return res.status(201).json({
-            status: 201,
-            message: 'New meetup successfully created ',
-            data: [newMeetup]
-         })
-      }
    }
 
    static getASpecificMeetupRecord(req, res) {
@@ -44,48 +46,47 @@ class Meetup {
        * @param {object} res
        * @returns {object} meetup object 
        */
-      if (!req.params.meetupId) {
-         return res.status(400).json({
-            status: 400,
-            error: 'Bad Request, please include meetup Id in your request as parameter'
-         })
-      } else {
-         const meetup = Meetups.find((meetup) => meetup.id === Number(req.params.meetupId));
+      confirmToken(req, res);
 
-         return res.status(200).json({
-            status: 200,
-            data: meetup
+      const text = `SELECT * FROM meetups WHERE id=$1` ;
+      const value = [req.params.meetupId];
+
+      pool.query(text, value)
+      .then(meetup => {
+            if (meetup.rows.length > 0) {
+               return res.status(200).json({
+                  status: 200,
+                  data: meetup.rows
+               })
+
+            } else {
+               return res.status(404).json({
+                  status: 404,
+                  error: 'meetup not found'
+               })
+            }
          })
-      }
    }
 
-   static getAllMeetupsRecord(req, res) {
+
+
+   static getAllMeetupsRecord(req, res, next) {
       /**
        * Get All Meetups
        * @param {object} req 
        * @param {object} res
        * @returns {object} array of meetup objects
        */
-      const token = req.headers['x-access-token'];
-      jwt.verify(req.token, 'secretkey', (err, authData)=>{
-         if(err){
-            console.log(req);
-            
-            return res.status(403).json({
-               status: 403,
-               message: 'access forbiden, wrong token',
-               err,
-            })
-         }
-         else{
-            return res.status(200).json({
-               status: 200,
-               data: Meetups, 
-               // authData
-            })
-         }
+      confirmToken(req, res);
+      const text = `SELECT * FROM meetups`;
+
+      pool.query(text)
+      .then(meetup => {
+               return res.status(200).json({
+                  status: 200,
+                  data: meetup.rows
+               })
       })
-      
    }
    static upcomingMeetups(req, res) {
       /**
@@ -94,13 +95,18 @@ class Meetup {
        * @param {object} res
        * @returns {object} meetup object 
        */
-      const meetup = Meetups.filter(meetup => (new Date(meetup.happeningOn) > new Date()));
+      confirmToken(req, res);
+      const text = `SELECT * FROM meetups WHERE happeningOn>=$1`;
+      const value = [new Date()];
 
-      return res.status(200).json({
-         status: 200,
-         data: meetup,
+      pool.query(text, value)
+      .then(meetup => {
+               return res.status(200).json({
+                  status: 200,
+                  data: meetup.rows
+               })
+         })
 
-      })
    }
    static deleteMeetup(req, res) {
 
@@ -111,28 +117,20 @@ class Meetup {
        * @returns {object} return status code 204 
        */
 
-      if (!req.params.meetupId) {
-         return res.json({
-            status: 400,
-            error: 'meetup id not included, please add meetup id'
-         })
-      } else {
-         const meetup = Meetups.findIndex((meetup) => meetup.id === Number(req.params.meetupId));
+      confirmToken(req, res);
 
-         if (meetup === -1) {
-            return res.status(404).json({
-               status: 404,
-               error: `Request unsuccessful, meetup for id ${req.params.meetupId} not found`
-            })
-         } else {
-            Meetups.splice(meetup, 1);
-            return res.status(200).json({
-               status: 200,
-               message: `Delete Successful. Meetup with id ${req.params.meetupId} successfully deleted`
-            })
-         }
+      const text = `DELETE FROM meetups WHERE id=$1`;
+      const value = [req.params.meetupId];
+
+      pool.query(text, value)
+      .then(()=>{
+               return res.status(200).json({
+                  status: 200,
+                  data: 'meetup successfully deleted'
+               })
+
+         })
       }
-   }
 }
 
 export default Meetup;

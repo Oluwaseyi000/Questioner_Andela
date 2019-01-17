@@ -1,8 +1,9 @@
 import dotenv from 'dotenv';
 import {Pool, Client} from 'pg';
+
 dotenv.config();  
 const pool = new Pool({
-   connectionString: process.env.DATABASE_REMOTE,
+   connectionString: process.env.DATABASE_LOCAL,
 });
 
 pool.connect((err, client, done)=>{

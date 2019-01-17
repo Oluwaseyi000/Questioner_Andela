@@ -1,28 +1,35 @@
+import jwt from 'jsonwebtoken';
 class authorization {
 
    static verifyToken(req, res, next) {
 
-      //get the auth header value
       const bearerHeader = req.headers['authorization']
-
-      //if if bearer is undefiend
       if (typeof bearerHeader !== 'undefined') {
          const bearer = bearerHeader.split(' ');
-
-         //get token from array
-         const bearerToken = bearer[1];
-         //set the token
-         req.token = bearerToken;
-         // res.status(403).json({
-         //   res:req.token
-         // })
+         req.token = bearer[1];
          next();
       } else {
          res.status(403).json({
-            error: 'unauthorize fooooorbidden'
+            error: '403',
+            message: 'You do not have access to this page'
+
          })
       }
    }
-}
 
-export default authorization;
+   static confirmToken(req, res, secretkey = 'secretkey', ) {
+      return ;
+      jwt.verify(req.token, 'secretkey', (err, authData) => {
+            if (err) {
+               return res.status(403).json({
+                  status: 403,
+                  message: 'access forbiden, wrong token',
+                  err,
+               })
+            }else{return ; }
+            
+         })
+      }
+   }
+
+   export default authorization;

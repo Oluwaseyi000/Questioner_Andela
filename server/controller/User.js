@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt-nodejs';
 import Rsvps from '../model/Rsvps';
 import Meetups from '../model/Meetup';
+import User from '../model/User';
 import Votes from '../model/Vote';
 import Pool from '../model/db_connect';
 import moment from 'moment';
@@ -24,7 +25,7 @@ class userController {
          req.body.email,
          req.body.phonenumber,
          req.body.othername,
-         moment(new Date()),
+         new Date(),
          false,
          bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
       ];
