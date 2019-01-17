@@ -17,7 +17,7 @@ class userController {
     */
    static userSignup(req, res) {
 
-      const text = `INSERT INTO users(firstname, lastName, email, phoneNumber, othername, registered, isadmin, password) VALUES($1, $2, $3,$4, $5, $6, $7, $8) returning id`;
+      const text = `INSERT INTO users(firstname, lastName, email, phoneNumber, othername, registered, isadmin, password) VALUES($1, $2, $3,$4, $5, $6, $7, $8) returning id, email`;
 
       const value = [
          req.body.firstname,
@@ -32,12 +32,13 @@ class userController {
       
       Pool.query(text, value)
          .then((user) => {
-            jwt.sign({user}, 'secretkey', (err, token)=>{
+            const userDetail= user.rows[0];
+            jwt.sign({userDetail}, 'secretkey', (err, token)=>{
                if(err){console.log(err)}else{
                return res.status(200).json({
                   status: 200,
+                  message: 'New user successfull created',
                   token,
-                  message: 'New user successfull added',
                  
                   
                })}

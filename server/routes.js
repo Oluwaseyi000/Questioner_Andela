@@ -6,6 +6,7 @@ import meetupController from './controller/Meetup';
 import userMiddleware from './middleware/User';
 import meetupMiddleware from './middleware/Meetup';
 import authorize from './middleware/authorize';
+import questionMiddleware from './middleware/Question';
 const jwt = authorize.verifyToken;
 
 let router = express.Router();
@@ -17,7 +18,7 @@ router.get('/meetups/:meetupId', jwt, meetupMiddleware.getASpecificMeetupRecord,
 router.get('/meetups', jwt,meetupController.getAllMeetupsRecord);
 router.delete('/meetups/:meetupId', jwt,meetupMiddleware.deleteMeetup, meetupController.deleteMeetup);
 
-router.post('/questions', questionController.createQuestion);
+router.post('/questions', jwt, questionMiddleware.createQuestion, questionController.createQuestion);
 router.patch('/questions/:questionId/upvote', questionController.voteQuestion);
 router.patch('/questions/:questionId/downvote', questionController.voteQuestion);
 

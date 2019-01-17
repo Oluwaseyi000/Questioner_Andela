@@ -1,5 +1,9 @@
 import Questions from '../model/Question';
 import Meetups from '../model/Meetup';
+import Authenticate from '../middleware/authorize';
+import pool from '../model/db_connect';
+
+const confirmToken = Authenticate.confirmToken;
 class questionController {
    /**
     * Create A Question
@@ -8,30 +12,35 @@ class questionController {
     * @returns {object} question object 
     */
    static createQuestion(req, res) {
-      const newQuestion = {
-         id: Date.now(),
-         createdOn: new Date(),
-         createdBy: req.body.userId,
-         meetup: req.body.meetupId,
-         title: req.body.title,
-         body: req.body.body,
-         votes: 0
-      }
 
-      if (!newQuestion.title || !newQuestion.body || !newQuestion.createdBy || !newQuestion.meetup) {
-         return res.status(400).json({
-            status: 400,
-            error: 'Bad request error, missing required data. Note: userId, MeetupId, title and body are required.'
+      confirmToken(req, res);
+
+
+      const text = `INSERT INTO questions(createdBy,meetupId, title, body, vote) VALUES($1, $2, $3,$4, $5) returning id`;
+    
+      const value = [
+          
+        res.authData.userDetail.id,
+         req.body.meetupId,
+         req.body.title,
+          req.body.body,
+          0
+      ]
+
+      pool.query(text,value)
+      .then(question => {
+         // res.meetupId= meetup.rows[0].id;
+         return res.status(200).json({
+            status: 200,
+            message:'Question successfully added',
+            data: {userId:res.authData.userDetail.id,
+                  meetupId: req.body.meetupId,
+                  title: req.body.title,
+                  body:req.body.body},
          })
-      } else {
-         Questions.push(newQuestion);
-         return res.status(201).json({
-            status: 201,
-            message: 'Your questions is  successfully created',
-            data: newQuestion,
-            all: Questions
-         })
-      }
+      })
+        
+     // }
    }
 
    static voteQuestion(req, res) {

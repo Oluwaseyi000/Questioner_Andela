@@ -1,11 +1,11 @@
 import pool from './db_connect';
 
 /**
- * Create Meetup Table
+ * Create Vote Table
  */
-const Meetups = 
+const Vote = 
    pool.query(`CREATE TABLE IF NOT EXISTS Votes(
-         id UUID PRIMARY KEY,
+         id serial PRIMARY KEY,
          questionId VARCHAR(40) NOT NULL,
          voteType VARCHAR(10) NOT NULL,
          createdOn TIMESTAMP
@@ -15,4 +15,4 @@ const Meetups =
       // pool.end();
    });
 
-export default Meetups;
+export default Vote;
