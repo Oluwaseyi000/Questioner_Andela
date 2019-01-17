@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "startw": "nodemon --exec @babel-node server/server.js",
+    "start": "nodemon --exec @babel-node server/server.js",
     "build": "babel server/server.js -d src",
-    "start": "npm run build && node dist/server.js",
+    "startw": "npm run build && node dist/server.js",
     "test": "cross-env NODE_ENV=test nyc mocha server/test/*.js --out-dir --exit",
     "prepublish": "npm run build",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
