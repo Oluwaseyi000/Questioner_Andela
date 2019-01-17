@@ -32,6 +32,7 @@ class Meetup {
 
       pool.query(text, value)
          .then(meetup => {
+            // res.meetupId= meetup.rows[0].id;
             return res.status(200).json({
                status: 200,
                data: meetup.rows[0],
@@ -84,7 +85,8 @@ class Meetup {
       .then(meetup => {
                return res.status(200).json({
                   status: 200,
-                  data: meetup.rows
+                  data: meetup.rows,
+                  authData: res.authData
                })
       })
    }

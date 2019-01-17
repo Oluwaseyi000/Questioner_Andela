@@ -29,7 +29,9 @@ class authorization {
                   message: 'access forbiden, Unauthorize User. wrong token',
                   err,
                })
-            }else{return ; }
+            }else{
+               res.authData = authData;
+               return ; }
             
          })
       }
