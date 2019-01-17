@@ -24,12 +24,12 @@ class authorization {
 
       jwt.verify(req.token,  process.env.SECRET, (err, authData) => {
             if (err) {
-               return res.status(403).json({
-                  status: 403,
-                  message: 'access forbiden, wrong token',
+               return res.status(401).json({
+                  status: 401,
+                  message: 'access forbiden, Unauthorize User. wrong token',
                   err,
                })
-            }else{retPurn ; }
+            }else{return ; }
             
          })
       }
