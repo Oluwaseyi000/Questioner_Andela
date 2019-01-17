@@ -1,4 +1,4 @@
-import Joi from 'Joi';
+import Joi from 'joi';
 class userMiddleware {
    /**
     * Validate  user signup credentials

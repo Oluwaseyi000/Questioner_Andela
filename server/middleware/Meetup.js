@@ -1,4 +1,4 @@
-import Joi from 'Joi';
+import Joi from 'joi';
 class Meetup {
 
    static createMeetup(req, res, next) {
