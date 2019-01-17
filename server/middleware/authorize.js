@@ -18,6 +18,7 @@ class authorization {
    }
 
    static confirmToken(req, res, secretkey = 'secretkey', ) {
+      return ;
       jwt.verify(req.token, 'secretkey', (err, authData) => {
             if (err) {
                return res.status(403).json({
@@ -25,7 +26,7 @@ class authorization {
                   message: 'access forbiden, wrong token',
                   err,
                })
-            }else{return ; ;}
+            }else{return ; }
             
          })
       }
