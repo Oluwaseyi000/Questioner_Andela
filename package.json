@@ -4,8 +4,8 @@
   "main": "server.js",
   "scripts": {
     "startw":"npm run src/server.js",
-    "heroku": "@babel-node server/server.js",
-    "start": "nodemon --exec @babel-node server/server.js",
+    "start": "@babel-node server/server.js",
+    "start-dev": "nodemon --exec @babel-node server/server.js",
     "build": "babel server/server.js -d src",
     "start2": "npm run build && node src/server.js",
     "test": "cross-env NODE_ENV=test nyc mocha server/test/*.js --out-dir --exit",
