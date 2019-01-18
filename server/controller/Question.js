@@ -17,30 +17,33 @@ class questionController {
 
 
       const text = `INSERT INTO questions(createdBy,meetupId, title, body, vote) VALUES($1, $2, $3,$4, $5) returning id`;
-    
+
       const value = [
-          
-        res.authData.userDetail.id,
+
+         res.authData.userDetail.id,
          req.body.meetupId,
          req.body.title,
-          req.body.body,
-          0
+         req.body.body,
+         0
       ]
 
-      pool.query(text,value)
-      .then(question => {
-         // res.meetupId= meetup.rows[0].id;
-         return res.status(200).json({
-            status: 200,
-            message:'Question successfully added',
-            data: {userId:res.authData.userDetail.id,
+      pool.query(text, value)
+         .then(question => {
+            // res.meetupId= meetup.rows[0].id;
+            return res.status(200).json({
+               status: 200,
+               message: 'Question successfully added',
+               data: {
+                  userId: res.authData.userDetail.id,
+                  questionId: question.rows[0].id,
                   meetupId: req.body.meetupId,
                   title: req.body.title,
-                  body:req.body.body},
+                  body: req.body.body
+               },
+            })
          })
-      })
-        
-     // }
+
+      // }
    }
 
    static voteQuestion(req, res) {
@@ -51,55 +54,52 @@ class questionController {
        * @returns {object} vote counts
        */
 
-      if (!req.params.questionId || !req.body.userId || !req.body.body || !req.body.title || !req.body.voteType) {
+      if (!req.params.questionId || !req.params.voteType) {
          return res.status(400).json({
             status: 400,
-            error: 'Bad Request, please include meetup Id, user id, title, body, vote type in your request as parameter'
+            error: 'Bad Request, please include meetup Id and vote type in your request as parameter'
+         })
+      } else {
+         const text = `UPDATE questions SET vote=vote+1 where id=$1 RETURNING title,body, vote, meetupId`;
+         const value2 = [req.params.questionId];
+         pool.query(text, value2)
+            .then(ques => {
+
+               const value2 = [req.params.questionId];
+               const text2 = `SELECT id FROM meetups WHERE id=$1`;
+               pool.query(text2, ques.meetupId)
+                  .then()
+               return res.json({
+                  ques: ques.rows
+               })
+            });
+
+      }
+
+
+   }
+   static addComment(req, res) {
+      confirmToken(req, res);
+      if (!req.body.questionId || !req.body.comment) {
+         return res.status(400).json({
+            status: 400,
+            error: 'Bad Request, please include meetup question Id and comment in your request as parameter'
          })
       } else {
 
-         const question = Questions.find(question => question.id === parseInt(req.params.questionId));
-         if (!question || question === -1) {
-            return res.status(404).json({
-               status: 404,
-               error: `question with id ${req.params.questionId} not found`,
-               data: Questions
+         const text = `SELECT id,title,body FROM questions WHERE id=$1`;
+         const id = [req.body.questionId];
+
+         pool.query(text, id)
+            .then(meetup => {
+               return res.status(200).json({
+                  status: 200,
+                  message: "comment added",
+                  userId: res.authData.userDetail.id,
+                  comment: req.body.comment,
+                  question: meetup.rows[0],
+               })
             })
-         } else {
-            vote = {
-               voteId: Date.now(),
-               userId: req.body.userId,
-               meetupId: req.body.meetupId,
-               questionId: req.params.questionId,
-               title: req.body.title,
-               body: req.body.body,
-               voteType: req.body.voteType
-            }
-            Votes.push(vote)
-            if (req.body.voteType === 'upvote') {
-               question.votes = question.votes + 1;
-               return res.status(200).json({
-                  status: 200,
-                  message: `Question upvoted`,
-                  data: [{
-                     meetup: vote.meetupId,
-                     title: vote.title,
-                     body: vote.body,
-                     votes: question.votes
-                  }]
-               })
-            } else if (req.body.voteType === 'downvote') {
-               question.votes = question.votes - 1;
-               return res.status(200).json({
-                  status: 200,
-                  message: `Question downvoted`,
-                  data: [{
-                     body: vote.body,
-                     votes: question.votes
-                  }]
-               })
-            }
-         }
       }
    }
 }

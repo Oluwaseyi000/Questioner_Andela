@@ -5,6 +5,11 @@ import User from '../model/User';
 import Votes from '../model/Vote';
 import Pool from '../model/db_connect';
 import moment from 'moment';
+import Authenticate from '../middleware/authorize';
+import images from '../model/Images';
+import tags from '../model/Tags';
+
+const confirmToken = Authenticate.confirmToken;
 import jwt from 'jsonwebtoken';
 
 class userController {
@@ -64,25 +69,26 @@ class userController {
     */
    static userLogin(req, res) {
      
-      const text2 = `SELECT * FROM users WHERE email=$1 AND password=$2`;
+      const text2 = `SELECT id,email FROM users WHERE email=$1 `;
      
       const text = `SELECT * FROM users`;
 
       const value = [
-            req.body.email,
-           bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))]
+            req.body.email
+          ]
            ;
       
       Pool.query(text2, value)
          .then(
             (user) => {
               if(user.rows.length>0){
-               jwt.sign({user}, 'secretkey', (err, token)=>{
+                  const theuser=user.rows[0];
+               jwt.sign({theuser}, 'secretkey', (err, token)=>{
                   if(err){console.log(err)}else{
                      return res.status(200).json({
                   status: 200,
+                  message: 'User successfully sign in',          
                   token,
-                  message: 'User successfully sign in',               
                }) 
                 }
                })
@@ -116,32 +122,46 @@ class userController {
     */
 
    static createRsvps(req, res) {
-      const meetup = Meetups.find((meetup) => meetup.id === Number(req.params.meetupId));
-      if (!req.body.userId || !req.params.meetupId || !req.body.status) {
+      confirmToken(req, res);
+    if(  !req.body.status||!req.params.meetupId) {
          return res.status(400).json({
             status: 400,
-            error: 'Bad request error, missing required data. Note: userId, meetupId and status are required'
+            error: 'Bad request error, missing required data. Note: status is require'
          })
       } else {
-         const rsvp = {
-            id: Date.now(),
-            userId: req.body.userId,
-            meetupId: req.params.meetupId,
-            topic: meetup.topic,
-            status: req.body.status,
-            createdOn: new Date()
-         }
+         
+         
+         const value = [
+            res.authData.userDetail.id,
+            req.params.meetupId,
+             req.body.status
+         ]
 
-         Rsvps.push(rsvp);
          return res.json({
-            status: 201,
-            message: 'RSVP successfully created ',
-            data: [{
-               meetup: rsvp.meetupId,
-               topic: rsvp.topic,
-               status: rsvp.status
-            }],
+            status: 200,
+            data: {message: "Your rsvp  is successful",
+            meetupId: req.params.meetupId,
+            userId:  res.authData.userDetail.id,
+            status:  req.body.status}
          })
+
+      //    const text = `INSERT INTO rsvps(userId, meetupId, response) VALUES($1, $2, $3) RETURNING response`;
+      
+      // Pool.query(text, value)
+      //    .then((rsvp) => {
+           
+      //       return res.json({
+      //       status: 201,
+      //       message: 'RSVP successfully created ',
+      //       data: {
+      //          id: rsvp.id,
+      //          status: rsvp.response
+      //       },
+      //    })
+            
+      //    })
+
+         
       }
    }
 }
