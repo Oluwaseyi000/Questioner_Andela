@@ -17,16 +17,21 @@ router.post('/meetups', jwt, meetupMiddleware.createMeetup, meetupController.cre
 router.get('/meetups/:meetupId', jwt, meetupMiddleware.getASpecificMeetupRecord, meetupController.getASpecificMeetupRecord);
 router.get('/meetups', jwt,meetupController.getAllMeetupsRecord);
 router.delete('/meetups/:meetupId', jwt,meetupMiddleware.deleteMeetup, meetupController.deleteMeetup);
+router.post('/meetups/:meetupId/rsvps', jwt,userController.createRsvps);
 
 router.post('/questions', jwt, questionMiddleware.createQuestion, questionController.createQuestion);
-router.patch('/questions/:questionId/upvote', questionController.voteQuestion);
-router.patch('/questions/:questionId/downvote', questionController.voteQuestion);
+router.patch('/questions/:questionId/:voteType', jwt, questionController.voteQuestion);
+router.patch('/questions/:questionId/downvote', jwt, questionController.voteQuestion);
 
-router.post('/meetups/:meetupId/rsvps', userController.createRsvps);
+
 
 router.post('/auth/signup', userMiddleware.userSignup,  userController.userSignup);
 
 router.post('/auth/login', userMiddleware.userLogin,  userController.userLogin);
+
+router.post('/meetups/:meetupId/images', meetupController.addImage);
+router.post('/meetups/:meetupId/tags', jwt,meetupController.addTag);
+router.post('/comments', jwt, questionController.addComment);
 
 router.all('*', (req, res) => {
    res.json({

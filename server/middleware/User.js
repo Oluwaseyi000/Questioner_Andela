@@ -9,6 +9,7 @@ class userMiddleware {
    static userSignup(req, res, next) {
       const userSchema = Joi.object().keys({
          firstname: Joi.string().min(2).max(30).required(),
+         email: Joi.string().required(),
          lastname: Joi.string().min(2).max(30).required(),
          password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
          //   email:Joi.string().required()
@@ -20,7 +21,8 @@ class userMiddleware {
       } = Joi.validate({
          firstname: req.body.firstname,
          lastname: req.body.lastname,
-         password: req.body.password
+         password: req.body.password,
+         email: req.body.email
       }, userSchema, {
          abortEarly: false
       });

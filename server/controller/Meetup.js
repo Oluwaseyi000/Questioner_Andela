@@ -1,6 +1,9 @@
 import pool from '../model/db_connect';
 import Meetups from '../model/Meetup';
+import comments from '../model/Comment';
+import Images from '../model/Images';
 import Authenticate from '../middleware/authorize';
+
 
 const confirmToken = Authenticate.confirmToken;
 
@@ -15,20 +18,20 @@ class Meetup {
 
       confirmToken(req, res);
 
-      const tags = req.body.tags instanceof Array ? req.body.tags.join(';') : req.body.tags
+      const tags = req.body.tags instanceof Array ? req.body.tags.join(';') : req.body.tags;
 
       const value = [
          req.body.topic,
          req.body.location,
          req.body.happeningOn,
-         tags,
+         
          req.body.details,
-         req.body.image,
+     
          req.body.host,
          new Date(),
-         new Date()
+         new Date(),
       ]
-      const text = `INSERT INTO meetups(topic, location, happeningOn, tags, details, images, host, createdOn, updatedOn) VALUES($1, $2, $3,$4, $5, $6, $7, $8, $9) returning topic, location, happeningOn, tags`;
+      const text = `INSERT INTO meetups(topic, location, happeningOn,  details, host, createdOn, updatedOn) VALUES($1, $2, $3,$4, $5, $6, $7) returning id,topic, location, happeningOn`;
 
       pool.query(text, value)
          .then(meetup => {
@@ -57,7 +60,7 @@ class Meetup {
             if (meetup.rows.length > 0) {
                return res.status(200).json({
                   status: 200,
-                  data: meetup.rows
+                  data: meetup.rows[0]
                })
 
             } else {
@@ -133,6 +136,69 @@ class Meetup {
 
          })
       }
+
+      static addImage(req, res) {
+   
+         // const images = req.body.image instanceof Array ? req.body.image.join(';') : req.body.image;
+         // const imageDisplay=req.body.image;
+   
+         // const value = [
+         //    req.body.meetupId,
+         //    images
+           
+         // ]
+         // const text = `INSERT INTO images(meetupId, images) VALUES($1, $2) returning id`;
+   
+         // pool.query(text, value)
+         //    .then(meetup => {
+         //       // res.meetupId= meetup.rows[0].id;
+         //       return res.status(200).json({
+         //          status: 200,
+         //          data: meetup.rows[0],
+         //       })
+         //    })
+
+         return res.json({
+            status: 200,
+            message: 'Images added successfully',
+            meetupId: req.body.meetupId,
+            images: req.body.images
+         })
+      }
+
+     
+   
+         static addTag(req, res) {
+            confirmToken(req, res);
+            if (!req.body.tags || !req.body.meetupId) {
+               return res.status(400).json({
+                  status: 400,
+                  error: 'Bad Request, please include meetup meetupid Id and tags in your request as parameter'
+               })
+            } else {
+      
+               const text = `SELECT id,topic FROM meetups WHERE id=$1`;
+               const id = [req.body.meetupId];
+      
+               pool.query(text, id)
+                  .then(meetup => {
+                     return res.status(200).json({
+                        status: 200,
+                        data: {message: "tags added",
+                        userId: res.authData.userDetail.id,
+                        meetupId: req.body.meetupId,
+                        tags: req.body.tags,}
+                     })
+                  })
+            }
+         }
+      //    return res.json({
+      //       status: 200,
+      //       message: 'Tags added successfully',
+      //       meetupId: req.body.meetupId,
+      //       tags: req.body.tags
+      //    })
+      // }
 }
 
 export default Meetup;

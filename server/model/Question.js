@@ -9,7 +9,7 @@ const Questions =
    meetupId  VARCHAR(40) NOT NULL,
    title VARCHAR(70),
    body TEXT NOT NULL,
-   vote VARCHAR(60)
+   vote INTEGER
     )`)
     .then(res=>{
 
