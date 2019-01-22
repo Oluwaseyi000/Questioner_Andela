@@ -17,5 +17,28 @@
    font-weight: bold;
 }
 
+.getStarted{
+   background: rgb(223, 60, 60);
+   color: #fff;
+   padding: 5px 10px;
+   border-radius: 5px;
+   font-size: 25px;
+   margin-top: 20px;
+   line-height: 50px;
+  /* font-family: 'Roboto' */
+}
+a.getStarted{
+   font-weight:bold;
+   
+  
+}
+
+.getStarted:hover{
+ /* background: rgb(107, 2, 2); */
+ color:#fff;
+ border: 2px #fff solid;
+
+}
+
 
 

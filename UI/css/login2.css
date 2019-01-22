@@ -58,11 +58,11 @@ body{
    text-decoration-color: #fff
 }
 .content-text p{
-   font-size: 30px;
+   font-size: 35px;
    padding-top: 20px;
-   line-height: 40px;
-   /* letter-spacing:  */
-   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+   line-height: 50px;
+   /* letter-spacing: 1px; */
+   font-family: 'Open Sans Condensed', Tahoma, Geneva, Verdana, sans-serif
 }
 .info-container{
    background: url('../img/Meetups\ Image.jpg') center center no-repeat;
