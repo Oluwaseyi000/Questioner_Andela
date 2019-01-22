@@ -12,13 +12,14 @@
     <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/responsive.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
 </head>
 
 <body>
     <header class="header">
         <h1 class="header-logo"> <span class="q">Q</span><span class="uestioner">UESTIONER</span> </h2>
 
-            <div class="profile"> <span>Welcome, Guest</i></span> <br> <span class="time" id="currentTime"></span>
+            <div class="profile"> <span class="welcome">Welcome, Guest</i></span> <br> <span class="time" id="currentTime"></span>
 
             </div>
 
@@ -30,7 +31,7 @@
     <section class="container">
         <div class="body-wrapper">
             <div class="login-div">
-                <div class="topic-list-header">SIGNUP FORM</div>
+                <div class="topic-list-header">USER SIGNUP</div>
                 <p class="terms-checked">Fields with * are required</p>
                 <form action="" class="signupForm">
                     <div class="form-group">
@@ -61,7 +62,7 @@
                         <input type="password" required name="password" class="form-control">
                     </div>
                     <div class="form-group">
-                            <label for="confirm_email">Confirm <br> Password <span>*</span></label>
+                            <label class="confirmPassword" for="confirm_email">Confirm <br> Password <span>*</span></label>
                             <input type="password" required name="confirm_email" class="form-control">
                         </div>
                     <div class="form-group">
@@ -85,8 +86,8 @@
                                 I agree to the <a href="#" id="terms-and-conditions"> Terms and Conditions </a></p>
                         </div>
                         <button type="submit" name="signup" class="submitButton" id="signup">SIGNUP </button>
-                        <button type="reset" name="cancel" class="cancelButton">CANCEL </button>
-                        <h6 class="already-a-member">Already a member? <a href="./login.html">SIGN IN</a></h6>
+                        <a  href="./index.html" class="cancelButton">CANCEL </a >
+                        <h6 class="already-a-member  already-a-member2">Already a member? <a href="./login.html">SIGN IN</a></h6>
                     </div>
 
 
