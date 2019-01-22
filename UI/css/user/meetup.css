@@ -1,5 +1,6 @@
 .meetup-detail{
     display: inline; 
+    line-height: 35px
 }
 
 .meetup-detail h1{
@@ -13,6 +14,9 @@
 
 .meetup-list{
     padding: 10px 20px
+}
+.h1,h3{
+    color:  #03A9F4;
 }
 
 hr{
@@ -77,11 +81,13 @@ display: none
 }
 
 .questionDiv, .commentDiv{
-    background-color: #f0f0f0;
+    background-color: #fafaf1;
     border-radius: 3px;
     font-size: 14px;
     padding-left: 5px;
-    border-bottom: 1px #606 solid
+    border-bottom: 1px #ccc solid;
+    font-family:  sans-serif;
+    color: #555
 }
 .questionDiv p a{
     color: #0000EF;
@@ -94,18 +100,20 @@ display: none
 .questionDiv span, .commentDiv span{
     font-style: italic;
     font-size: 13px;
-    color: #606;
+    color: #666;
     font-weight: bold;
 }
 .commentDiv span{
     font-size: 12px
 }
-
+.h1{
+    margin: 20px 0 10px 0;
+}
 .questionDiv span a {
     padding-right: 5px
 }
 .commentDiv{
-    background-color: #f8f8f4; 
+    background-color: #fff; 
     padding-left: 15px;
     font-size: 13px;
     border-bottom: #ccc solid 1px;
@@ -113,7 +121,7 @@ display: none
 
 }
 .QCDiv{
-    border: 1px solid #606;
+    border: 1px solid #ccc;
     border-radius: 3px;
     margin-top: 10px;
 }
@@ -123,25 +131,102 @@ display: none
 
 
 .details, .discussion {
-    margin: 20px 
+    margin: 20px ;
+    line-height: 30p8
 }
 .brown{
-    color: #DF3C3C;
-    font-size: 14px;
+    color: rgb(87, 87, 87);
+    font-size: 17px;
 }
 .bold{
    font-weight: bold;
-   font-size: 13px
+   font-size: 16px;
+   margin-top: 0px
+  
+
 }
 
 .RSVPdiv{
-    border: 1px solid #03A9F4;
+    /* border: 1px solid #03A9F4; */
     padding: 10px;
     width: 64%;
     border-radius: 5px;
     margin: 10px
 }
+input.rsvpButton {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radioContainer{
+   
+        display: relative;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 18px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+}
+
+.radioContainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+    
+  }
+  
+  .radioContainer:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+
+  .radioContainer input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  /* Show the indicator (dot/circle) when checked */
+.radioContainer input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the indicator (dot/circle) */
+  .radioContainer .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+  }
+
 
 .margin40{
     padding-top: 40px;
+}
+
+.commentDiv a,.questionDiv span a{
+    color: #555;
+    
 }

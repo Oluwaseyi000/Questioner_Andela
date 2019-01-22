@@ -5,12 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Questioner | User | Login</title>
+    <title>Questioner | User | Meetup</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/user/meetup.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+
     <link rel="stylesheet" href="../css/responsive.css">
 </head>
 
@@ -44,24 +47,21 @@
                 <div class="meetup-list">
                     
                         <div class="meetup-detail">
-
-                            <h1>END OF YEAR UNITY 3D GAME DEVELOPERS MEETUP</h1>
-                            
-                            <p ><span class="bold">Date:</span>    <span class="brown">July, 4, 2015, 4:00pm</span>    </p>
-                            <p><span class="bold">Location:</span><span class="brown"> 2 Metal Box Road, Off Acme Road, Ogba, Ikeja · Lagos</span> </p>
-                            <p ><span class="bold">Host: </span>    <span class="brown">Adefarasin Oretope</span>    </p>
-                            <div><span class="bold"> Question:</span>  <span class="brown"> 26  </span>  <span class="bold">RSVPS: </span><span class="brown"> 34</span> </div>
+                                <div class="meetup-banner"> <img src="../img/unity3d.jpeg" alt="">
+                                </div>
+                            <div>
+                            <h1 class="h1">END OF YEAR UNITY 3D GAME DEVELOPERS MEETUP</h1>
+                            <div></div>
+                            <p ><span class="bold"><i class="far fa-calendar"></i> Date:</span>    <span class="brown"> July, 4, 2015, 4:00pm</span>    </p>
+                            <p><span class="bold"> <i class="fa fa-map-marker-alt"></i> Location:</span><span class="brown"> 2 Metal Box Road, Off Acme Road, Ogba, Ikeja · Lagos</span> </p>
+                            <p ><span class="bold"> <i class="fa fa-user"></i> Host: </span>    <span class="brown">Adefarasin Oretope</span>    </p>
+                            <div><span class="bold"> <i class="fa fa-question-circle"></i> Question:</span>  <span class="brown"> 26  </span>  <span class="bold"><br> <i class="fa fa-check"></i> RSVPS: </span><span class="brown"> 34</span> </div>
+                            </div>
                         </div>
                                             <br>
 
-                        <form action="" class="RSVPdiv">
-                            <span class="bold">RSVP: </span>    <input checked name="rsvp" type="radio">Attending
-                            <input name="rsvp" type="radio">Not Sure
-                            <input name="rsvp" type="radio">Not Attending
-                            <input class="submitButton" type="submit" value="submit">
-                        </form>
-                    <div class="meetup-banner"> <img src="../img/unity3d.jpeg" alt="">
-                    </div>
+                        
+                   
                     <div class="details">
                         <h3>Details</h3>
                         <div>
@@ -69,12 +69,12 @@
                             You are all invited to the end of year unity 3d game developers meetup.
 
                             The order of the programme is as follows:
-                            <ol>
+                            <ul>
                                 <li> Discussions on unity and unity technologies</li>
                                 <li>Panel session with game developers</li>
                                 <li>Game developer trainings/events</li>
                                 <li>Gaming competitions</li>
-                            </ol>
+                            </ul>
 
                             <br>
 
@@ -110,13 +110,34 @@
                             <img class="attendees" src="../img/coming(4).jpg" alt="">
                             <p>Valetyy</p>
                         </div>
+
+                        
                       
+                    </section>
+                    <section>
+                        <hr>
+                        <h3 class="details">RSVP</h3>  
+                        <form action="" class="RSVPdiv">
+                                <label class="radioContainer"> 
+                                    <input type="radio" name="rsvp" id="">
+                                    <span class="checkmark"></span>Attending
+                                </label>
+                                <label class="radioContainer">
+                                        <input type="radio"  checked name="rsvp" id="">Not Sure 
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="radioContainer">Not  
+                                            <input type="radio" name="rsvp" id="">Attending
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <input type="submit" value="RSVP" class="submitButton">
+                            </form>
                     </section>
                     <hr>
 
                     <div class="discussion">
                         <h3 class="details">Discussion</h3>
-                        <button class="submitButton" id="askQuestionButton">ASK QUESTION</button>
+                        <button class="submitButton" id="askQuestionButton">ASK QUESTION <i class="far fa-question-circle fa-1x"></i></button>
 
                         <form action="#" id="postQuestionForm">
                             <textarea contenteditable="true" name="post-question" placeholder="Your Question Here" id="post-question"
@@ -136,7 +157,7 @@
                                 VPS plans. And Cloudways' server config makes management secure and easy. Pricing is
                                 gooddd
                                 too. Especially compared to AWS and GCE which are crazy high.
-                                <p><a href="#">Comment(3)</a> | <a href="#">Upvote (21)</a> | <a href="#">Downvote (3)</a></p>
+                                <p><a href="#"><i class="far fa-comment fa-1x"></i>(3)</a> | <a href="#"><i class="far fa-thumbs-up fa-1x"></i> (21)</a> | <a href="#"><i class="far fa-thumbs-down "></i> (3)</a></p>
                             </div>
 
                             <div class="commentDiv"><span>Comment by <a href="#">Emmnuel Tega</a> on July 5, 2018</span>
@@ -157,14 +178,14 @@
                             </div>
                             <div class="commentDiv"><span>Comment by <a href="#">Blessing Emeka </a> on July 8, 2018</span>
                                 <br>
-                                good things about this
+                                gend food things about this
                                 setup! DO's performance will blow your doors off compared to typical shared hosting or
                                 slow
                                 VPS plans. And Cloudways' server config makes management secure and easy. Pricing is
                                 good
                             </div>
                            
-                            <textarea name="post-comment-textarea" class="post-comment-textarea" placeholder="Comment on  Adebajo Oluwaseyi's  Question"></textarea>
+                            <textarea name="post-comment-textarea" class="post-comment-textarea" placeholder="Comment on  Adebajo Oluwaseyi's  Question"></textarea> 
                         </div>
 
                         <div class="QCDiv">
@@ -179,7 +200,7 @@
                                 VPS plans. And Cloudways' server config makes management secure and easy. Pricing is
                                 good
                                 too. Especially compared to AWS and GCE which are crazy high.
-                                <p><a href="#">Comment(0)</a> | <a href="#">Upvote (3)</a> | <a href="#">Downvote (1)</a></p>
+                                <p><a href="#"><i class="far fa-comment fa-1x"></i>(0)</a> | <a href="#"><i class="far fa-thumbs-up fa-1x"></i> (4)</a> | <a href="#"><i class="far fa-thumbs-down "></i> (1)</a></p>
                             </div>
 
                             <textarea name="post-comment-textarea" class="post-comment-textarea" placeholder="Comment on Onyeneke Emeka Question"></textarea> 
@@ -197,43 +218,36 @@
 
         </div>
         <aside class="aside">
-            <div class="aside-header">
-                Upcoming Meetup</div>
-            <div class="aside-body">
-                <div class="aside-content upcoming-meetup">
-                    <p><a href="./meetups-stats.html"> Today: <span> 0</span></a></p>
-                    <p><a href="./meetups-stats.html"> This Week:<span> 23</span></a></p>
-                    <p><a href="./meetups-stats.html"> This Month:<span> 123</span></a></p>
-                </div>
-                <div class="aside-header"> Your Stats
-                </div>
+                <div class="aside-header">
+                    Upcoming Meetups</div>
                 <div class="aside-body">
-                    <div class="aside-content">
-                        <p class="stats-list"><a href="#">Total Invitation: <span> 23</span> </a></p>
-                        <p class="stats-list"><a href="#">Invitation Confirmed : <span>34 </span> </a></p>
-                        <p class="stats-list"><a href="#">Question Posted: <span>10</span> </a> </p>
-                        <p class="stats-list"><a href=""> Question Commented On:<span> 23</span> </a></p>
-                        <p class="stats-list"><a href="#"> Total Upvote:P <span>123 </span> </a></p>
-                        <p class="stats-list"><a href="#">Total Downvote: <span>34 </span> </a> </p>
+                    <div class="aside-content upcoming-meetup">
+                        <p> Today: <span> 0</span></p>
+                        <p> This Week:<span> 23</span></p>
+                        <p> This Month:<span> 123</span></p>
+                    </div>
+                    <div class="aside-header"> Your Stats
+                    </div>
+                    <div class="aside-body">
+                        <div class="aside-content">
+
+                            <p class="stats-list">Question Posted: <span>10</span>  </p>
+                            <p class="stats-list"> Question Commented On:<span> 23</span> </p>
+                            <p class="stats-list"> Total Upvote:P <span>123 </span> </p>
+                            <p class="stats-list">Total Downvote: <span>34 </span> </p>
+
+                        </div>
                     </div>
                 </div>
 
+                <div class="aside-header">
+                    ADVERTS</div>
+                <div class="aside-body">
+                    <img src="https://i.imgur.com/XaKeYJE.png" alt="advert">
+                </div>
 
 
-
-
-
-
-            </div>
-
-            <div class="aside-header">
-                ADVERTS</div>
-            <div class="aside-body">
-                <img src="https://i.imgur.com/XaKeYJE.png" alt="advert">
-            </div>
-
-
-        </aside>
+            </aside>
         </div>
     </section>
     <footer class="footer">
