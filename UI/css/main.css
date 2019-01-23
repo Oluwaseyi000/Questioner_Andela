@@ -127,6 +127,9 @@ a{
 	text-underline-position: above;
 	text-decoration-color: rgb(223, 60, 60);	
 }
+.uestioner{
+	color: #fff
+}
 .header-logo .q{
 	color: rgb(223, 60,60);
 }

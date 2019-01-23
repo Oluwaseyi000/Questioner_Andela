@@ -22,7 +22,8 @@ body{
    display: flex; 
    justify-content: space-around;
   /* background-color: #333; */
-  height: 120vh;
+  /* height: 50vh; */
+  overflow: hidden;
    margin: 0%
    
 }
@@ -54,8 +55,7 @@ body{
    font-weight: thin;
    
    letter-spacing: 4px;
-   text-decoration: underline;
-   text-decoration-color: #fff
+   
 }
 .content-text p{
    font-size: 35px;
@@ -93,7 +93,7 @@ body{
 
 #signup{
    display: none;
-   margin-top: -100px;
+   /* margin-top: -100px; */
 }
 
 

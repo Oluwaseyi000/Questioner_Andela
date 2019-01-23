@@ -8,6 +8,8 @@
     <title>Questioner | Admin | Log in</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/user/new2.css">
+    <link rel="stylesheet" href="./css/new.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,12 +19,9 @@
 
 <body>
     <header class="header">
-        <h1 class="header-logo"> <span class="q">Q</span><span class="uestioner">UESTIONER</span> </h2>
+            <h1 class="header-logo"><a href="./index.html"><span class="q">Q</span><span class="uestioner">UESTIONER</span> </a> </h1>
 
-            <div class="profile"> <span class="welcome">Welcome, Admin</i></span> <br> <span class="time" id="currentTime"></span>
-
-            </div>
-
+           
     </header>
     <div id="loader-overlay">
             <div class="loader"></div>
@@ -32,27 +31,29 @@
         <div class="body-wrapper">
             <div class="login-div">
                 <div class="topic-list-header">ADMIN LOGIN </div>
-                <p class="terms-checked">Fields with * are required</p>
+                
+        
                 <form action="" class="signupForm">
 
-                     <div class="form-group">
-                           <label for="username">Username <span>*</span></label>
-                           <input type="text" required name="username" class="form-control">
+                        <div class="form-group">
+                              <label for="username">Username </label>
+                              <input type="text" required="" name="username" class="form-control">
+                          </div>
+                       <div class="form-group">
+                           <label for="password">Password </label>
+                           <input type="password" required="" name="password" class="form-control">
                        </div>
-                    <div class="form-group">
-                        <label for="password">Password <span>*</span></label>
-                        <input type="password" required name="password" class="form-control">
-                    </div>
-                  
-                    <div class="form-group">
-
-                       
-                        <a  href="./admin/meetups.html" class="submitButton" id="signijn" name="signin">SIGN IN </a>
-                        <a  href="./index.html" class="cancelButton">CANCEL </a >
-                    </div>
-
-
-                </form>
+                     
+                       <div class="form-group margin40">
+   
+                          
+                           <a href="./admin/meetups.html"  class="submitButton" id="signijn" name="signin">SIGN IN </a>
+                           <a href="./index.html" class="cancelButton">CANCEL </a>
+                          
+                       </div>
+   
+   
+                   </form>
             </div>
         </div>
     </section>
