@@ -25,11 +25,20 @@ a{
 
 
  .form-control{
-	width: 70%;
+	width: 65%;
 	padding: 8px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
-	resize: vertical;
+	/* resize: vertical; */
+	
+
+ }
+ .form-group:first-child{
+	 padding-top: 20px;
+ }
+
+ .form-group:last-child{
+	 padding-bottom: 20px
  }
 .container .body-wrapper{
 	margin-top: 80px
