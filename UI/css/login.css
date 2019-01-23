@@ -1,11 +1,14 @@
 .login-div{
     /* min-height: 400px; */
     background:#fff;
-    width: 50%;
-    margin: 0 auto;
+    width: 40%;
+    margin: auto;
     border-radius: 2px;
     
 }
+
+
+
 
 label{
 	display: inline-block;
