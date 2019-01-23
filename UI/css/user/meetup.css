@@ -87,10 +87,13 @@ display: none
     padding-left: 5px;
     border-bottom: 1px #ccc solid;
     font-family:  sans-serif;
-    color: #555
+    color: #555;
+    line-height: 25px;
+    padding-top: 7px;
+    padding-bottom: 7px
 }
 .questionDiv p a{
-    color: #0000EF;
+    color: #03A9F4;
     margin: 7px 10px;
     letter-spacing: 1px;
     font-size: 13px;
