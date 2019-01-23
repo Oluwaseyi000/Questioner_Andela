@@ -22,7 +22,7 @@ class userController {
     */
    static userSignup(req, res) {
 
-      const text = `INSERT INTO users(firstname, lastName, email, phoneNumber, othername, registered, isadmin, password) VALUES($1, $2, $3,$4, $5, $6, $7, $8) returning id, email`;
+      const text = `INSERT INTO users(firstname, lastName, email, phoneNumber, othername, registered, isadmin, password) VALUES($1, $2, $3,$4, $5, $6, $7, $8) returning id, email, firstname, isadmin, lastname`;
 
       const value = [
          req.body.firstname,
@@ -34,26 +34,40 @@ class userController {
          false,
          bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
       ];
-      
+
       Pool.query(text, value)
          .then((user) => {
-            const userDetail= user.rows[0];
-            jwt.sign({userDetail}, 'secretkey', (err, token)=>{
-               if(err){console.log(err)}else{
-               return res.status(200).json({
-                  status: 200,
-                  message: 'New user successfull created',
-                  token,
+            const userDetail = user.rows[0];
+            jwt.sign({
+               userDetail
+            }, 'secretkey', (err, token) => {
+               if (err) {
                  
-                  
-               })}
+               } else {
+                  return res.status(200).json({
+                     status: 200,
+                     message: "New user created successfully",
+                     data: [{
+                                    token: token,
+                                    user: {
+                                    id: user.rows[0].id,
+                                    firstname:user.rows[0].firstname,
+                                    lastname:user.rows[0].lastname,
+                                    email:user.rows[0].email, 
+                                    isadmin: user.rows[0].isadmin
+                                 },
+                                 }]
+
+
+                  })
+               }
             })
-            
+
          })
          .catch((err) => {
             return res.status(400).json({
                status: 400,
-               message: err
+               message: "email already taken, choose another email"
             })
 
          })
@@ -68,40 +82,63 @@ class userController {
     * @returns {object} user object 
     */
    static userLogin(req, res) {
-     
-      const text2 = `SELECT id,email FROM users WHERE email=$1 `;
-     
-      const text = `SELECT * FROM users`;
+
+      const text2 = `SELECT id,password,firstname,lastname, email, isadmin FROM users WHERE email=$1`;
+
 
       const value = [
-            req.body.email
-          ]
-           ;
-      
+         req.body.email,
+      ];
+
       Pool.query(text2, value)
          .then(
             (user) => {
-              if(user.rows.length>0){
-                  const theuser=user.rows[0];
-               jwt.sign({theuser}, 'secretkey', (err, token)=>{
-                  if(err){console.log(err)}else{
-                     return res.status(200).json({
-                  status: 200,
-                  message: 'User successfully sign in',          
-                  token,
-               }) 
-                }
-               })
-               }else{
-                  return res.status(404).json({
-                     status:404,
-                     error: 'no user found'})
-               }
-            
+               if (user.rows.length > 0) {
+                  
+                  const theuser = user.rows[0];
+                  bcrypt.compare(req.body.password, user.rows[0].password, (err, authPwd) => {
+                     
+                     if (authPwd) {
+                        jwt.sign({
+                           theuser
+                        }, 'secretkey', (err, token) => {
+                           if (err) {
+                           } else {
+                              return res.status(200).json({
+                                 status: 200,
+                                 message: "User logged in successfully",
+                                 data: [{
+                                    token: token,
+                                    user: {
+                                    id: user.rows[0].id,
+                                    firstname:user.rows[0].firstname,
+                                    lastname:user.rows[0].lastname,
+                                    email:user.rows[0].email,
+                                    adminStatus:user.rows[0].isadmin,
+                                 },
+                                 }]
+                              })
+                           }
+                        })
+                     } else {
+                        return res.status(401).json({
+                           status: 401,
+                           error: 'wrong login credentials'
+                        })
+                     }
+                  })
 
-           
-            
-         })
+               } else {
+                  return res.status(401).json({
+                     status: 401,
+                     error: 'wrong login credentials'
+                  })
+               }
+
+
+
+
+            })
          .catch((err) => {
             return res.status(400).json({
                status: 400,
@@ -123,45 +160,47 @@ class userController {
 
    static createRsvps(req, res) {
       confirmToken(req, res);
-    if(  !req.body.status||!req.params.meetupId) {
+      if (!req.body.status || !req.params.meetupId) {
          return res.status(400).json({
             status: 400,
             error: 'Bad request error, missing required data. Note: status is require'
          })
       } else {
-         
-         
+
+
          const value = [
             res.authData.userDetail.id,
             req.params.meetupId,
-             req.body.status
+            req.body.status
          ]
 
          return res.json({
             status: 200,
-            data: {message: "Your rsvp  is successful",
-            meetupId: req.params.meetupId,
-            userId:  res.authData.userDetail.id,
-            status:  req.body.status}
+            data: {
+               message: "Your rsvp  is successful",
+               meetupId: req.params.meetupId,
+               userId: res.authData.userDetail.id,
+               status: req.body.status
+            }
          })
 
-      //    const text = `INSERT INTO rsvps(userId, meetupId, response) VALUES($1, $2, $3) RETURNING response`;
-      
-      // Pool.query(text, value)
-      //    .then((rsvp) => {
-           
-      //       return res.json({
-      //       status: 201,
-      //       message: 'RSVP successfully created ',
-      //       data: {
-      //          id: rsvp.id,
-      //          status: rsvp.response
-      //       },
-      //    })
-            
-      //    })
+         //    const text = `INSERT INTO rsvps(userId, meetupId, response) VALUES($1, $2, $3) RETURNING response`;
 
-         
+         // Pool.query(text, value)
+         //    .then((rsvp) => {
+
+         //       return res.json({
+         //       status: 201,
+         //       message: 'RSVP successfully created ',
+         //       data: {
+         //          id: rsvp.id,
+         //          status: rsvp.response
+         //       },
+         //    })
+
+         //    })
+
+
       }
    }
 }

@@ -31,6 +31,7 @@ class authorization {
                })
             }else{
                res.authData = authData;
+               req.authData = authData;
                return ; }
             
          })

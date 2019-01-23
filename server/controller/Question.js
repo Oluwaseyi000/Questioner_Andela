@@ -29,7 +29,6 @@ class questionController {
 
       pool.query(text, value)
          .then(question => {
-            // res.meetupId= meetup.rows[0].id;
             return res.status(200).json({
                status: 200,
                message: 'Question successfully added',
