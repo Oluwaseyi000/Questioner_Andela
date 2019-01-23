@@ -34,7 +34,7 @@ router.post('/meetups/:meetupId/tags', jwt,meetupController.addTag);
 router.post('/comments', jwt, questionController.addComment);
 
 router.all('*', (req, res) => {
-   res.json({
+   res.status(404).json({
       status: 404,
       error: 'Incorrect API endpoint;  Preceed your API endpoint with API please check your api URL (even for as little thing as spelling)'
    });
