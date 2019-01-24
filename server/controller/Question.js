@@ -18,9 +18,9 @@ class questionController {
 
       const text = `INSERT INTO questions(createdBy,meetupId, title, body, vote) VALUES($1, $2, $3,$4, $5) returning id`;
 
+     
       const value = [
-
-         res.authData.userDetail.id,
+         res.authData.theuser.id,
          req.body.meetupId,
          req.body.title,
          req.body.body,
@@ -29,17 +29,15 @@ class questionController {
 
       pool.query(text, value)
          .then(question => {
-            // res.meetupId= meetup.rows[0].id;
             return res.status(200).json({
                status: 200,
                message: 'Question successfully added',
-               data: {
-                  userId: res.authData.userDetail.id,
-                  questionId: question.rows[0].id,
-                  meetupId: req.body.meetupId,
+               data: [{
+                  user: res.authData.theuser.id,
+                  meetup: req.body.meetupId,
                   title: req.body.title,
                   body: req.body.body
-               },
+               }],
             })
          })
 

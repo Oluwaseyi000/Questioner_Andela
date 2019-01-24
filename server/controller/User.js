@@ -22,7 +22,7 @@ class userController {
     */
    static userSignup(req, res) {
 
-      const text = `INSERT INTO users(firstname, lastName, email, phoneNumber, othername, registered, isadmin, password) VALUES($1, $2, $3,$4, $5, $6, $7, $8) returning id, email`;
+      const text = `INSERT INTO users(firstname, lastName, email, phoneNumber, othername, registered, isadmin, password) VALUES($1, $2, $3,$4, $5, $6, $7, $8) returning email, firstname, lastname, isadmin`;
 
       const value = [
          req.body.firstname,
@@ -43,7 +43,15 @@ class userController {
                return res.status(200).json({
                   status: 200,
                   message: 'New user successfull created',
-                  token,
+                  data:[{
+                     token: token,
+                     user:{
+                        firstname:user.rows[0].firstname,
+                        lastname:user.rows[0].lastname,
+                        email:user.rows[0].email,
+                        isadmin:user.rows[0].isadmin
+                     }
+                  }],
                  
                   
                })}
@@ -69,7 +77,7 @@ class userController {
     */
    static userLogin(req, res) {
      
-      const text2 = `SELECT id,email FROM users WHERE email=$1 `;
+      const text2 = `SELECT id,email, firstname, lastname, isadmin FROM users WHERE email=$1 `;
      
       const text = `SELECT * FROM users`;
 
@@ -85,10 +93,20 @@ class userController {
                   const theuser=user.rows[0];
                jwt.sign({theuser}, 'secretkey', (err, token)=>{
                   if(err){console.log(err)}else{
+                     console.log('logged in')
                      return res.status(200).json({
                   status: 200,
                   message: 'User successfully sign in',          
-                  token,
+                  data:[{
+                     token: token,
+                     user:{
+                        
+                        firstname:user.rows[0].firstname,
+                        lastname:user.rows[0].lastname,
+                        email:user.rows[0].email,
+                        isadmin:user.rows[0].isadmin
+                     }
+                  }],
                }) 
                 }
                })
