@@ -45,18 +45,19 @@ class userController {
                if (err) {
                   console.log(err)
                } else {
-                  return res.status(200).json({
-                     status: 200,
-                     message: 'New user successfull created',
+                  return res.status(201).json({
+                     status: 201,
+                     message: "New user created successfully",
                      data: [{
-                        token: token,
-                        user: {
-                           firstname: user.rows[0].firstname,
-                           lastname: user.rows[0].lastname,
-                           email: user.rows[0].email,
-                           isadmin: user.rows[0].isadmin
-                        }
-                     }],
+                                    token: token,
+                                    user: {
+                                   
+                                    firstname:user.rows[0].firstname,
+                                    lastname:user.rows[0].lastname,
+                                    email:user.rows[0].email, 
+                                    isadmin: user.rows[0].isadmin
+                                 },
+                                 }]
 
 
                   })
@@ -94,13 +95,32 @@ class userController {
       pool.query(text2, value)
          .then(
             (user) => {
-               if (user.rows.userDetail > 0) {
+               if (user.rows.length > 0) {
+                  
                   const userDetail = user.rows[0];
-                  jwt.sign({
-                     userDetail
-                  }, 'secretkey', (err, token) => {
-                     if (err) {
-                        console.log(err)
+                  bcrypt.compare(req.body.password, user.rows[0].password, (err, authPwd) => {
+                     
+                     if (authPwd) {
+                        jwt.sign({
+                           userDetail
+                        }, 'secretkey', (err, token) => {
+                           if (err) {
+                           } else {
+                              return res.status(200).json({
+                                 status: 200,
+                                 message: "User logged in successfully",
+                                 data: [{
+                                    token: token,
+                                    user: {
+                                    firstname:user.rows[0].firstname,
+                                    lastname:user.rows[0].lastname,
+                                    email:user.rows[0].email,
+                                    adminStatus:user.rows[0].isadmin,
+                                 },
+                                 }]
+                              })
+                           }
+                        })
                      } else {
                         console.log('logged in')
                         return res.status(200).json({
