@@ -5,16 +5,19 @@
 	
 }
 body{
-	font: 15px/1.5 'Roboto', Helvetica, verdana,sans-serif;	
+	font: 15px/1.5  'Nunito Sans', 'Roboto', Helvetica, verdana,sans-serif;	
 	background: rgba(240, 240, 240, 1.0);
 	color: #28313f;
+	display: flex;
+	flex-direction: column
+	
 }
 a{
 	text-decoration: none
 }
 .container{
 	width: 90%;
-	margin: auto;
+	margin: 0px auto 40px auto;
 	overflow: auto;
 	padding: 15px 0px;
 	
@@ -22,11 +25,20 @@ a{
 
 
  .form-control{
-	width: 70%;
+	width: 65%;
 	padding: 8px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
-	resize: vertical;
+	/* resize: vertical; */
+	
+
+ }
+ .form-group:first-child{
+	 padding-top: 20px;
+ }
+
+ .form-group:last-child{
+	 padding-bottom: 20px
  }
 .container .body-wrapper{
 	margin-top: 80px
@@ -89,15 +101,16 @@ a{
 	min-height: 500px;
 
 }
+
+
 .header, .footer{
 	background: #03A9F4;
-	border-left: rgba(8, 8, 200,  0.4) 2px solid;
+	border-left: rgba(235, 235, 250, 0.4) 2px solid;
 	color: #fff;
 	width:100%;
-	
-
 	min-height: 70px;
-	padding:  0 20px;
+	padding:  10px 20px;
+	
 }
 .header .header-logo{
 	float: left;
@@ -115,10 +128,16 @@ a{
 	background-position: center center;
 	background-size: cover;
 }
+.profile .welcome{
+	font-size: 15px
+}
 .header-logo .uestioner{
 	text-decoration: underline;
 	text-underline-position: above;
 	text-decoration-color: rgb(223, 60, 60);	
+}
+.uestioner{
+	color: #fff
 }
 .header-logo .q{
 	color: rgb(223, 60,60);
@@ -133,16 +152,17 @@ a{
 .header{
 	border-bottom: rgba(40, 40, 211, 0.3) 2px solid; 
 	position: fixed;
+	transform: translate(0);
 
 
 }
-.footer{
+ .footer{
 	border-top: rgba(8, 8, 200,  0.3) 2px solid;
-	/* position: fixed; ; */
+	transform: translate(0);
 	bottom: 0;
 	text-align: center;
-	line-height: 70px;
-}	
+	line-height: 50px;
+}	 
 .footer div{
 	text-align: center;
 padding-top: 10px;
@@ -194,7 +214,8 @@ padding-top: 10px;
 	border:2px solid #03A9F4;
 }
 .cancelButton{
-	background-color: rgb(223, 60, 60)
+	background-color: rgb(223, 60, 60);
+	padding: 8px 22px;
 }
 .cancelButton:hover{
 	border: 2px solid #03A9F4;

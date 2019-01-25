@@ -198,4 +198,23 @@ label{
 }
 .terms-checked{
     margin: 0px;
-}} 
+}
+
+.content  h2{
+    font-size: 25px
+}
+
+.content-text p{
+    font-size: 20px;
+    line-height: 35px
+}
+.thelogin{
+    padding: 5px 10px;
+    margin-top: 5px
+}
+
+h1.header-logo{
+    margin-top: 5px;
+}
+
+} 

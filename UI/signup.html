@@ -8,18 +8,20 @@
     <title>Questioner | User | Meetup</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/new.css">
+    
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/responsive.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
 </head>
 
 <body>
     <header class="header">
-        <h1 class="header-logo"> <span class="q">Q</span><span class="uestioner">UESTIONER</span> </h2>
+            <h1 class="header-logo"><a href="./index.html"><span class="q">Q</span><span class="uestioner">UESTIONER</span> </a> </h1>
 
-            <div class="profile"> <span>Welcome, Guest</i></span> <br> <span class="time" id="currentTime"></span>
-
+            <div class="profile"> <a class="thelogin" href="./login.html">LOG IN</a>
             </div>
 
     </header>
@@ -30,16 +32,16 @@
     <section class="container">
         <div class="body-wrapper">
             <div class="login-div">
-                <div class="topic-list-header">SIGNUP FORM</div>
-                <p class="terms-checked">Fields with * are required</p>
+                <div class="topic-list-header center">USER SIGNUP</div>
+              
                 <form action="" class="signupForm">
                     <div class="form-group">
-                        <label for="firstname">Firstname <span>*</span></label>
+                        <label for="firstname">Firstname<span>*</span> </label>
                         <input type="text" required name="firstname" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="lastname">Lastname <span>*</span></label>
+                        <label for="lastname">Lastname<span>*</span> </label>
                         <input type="text" required name="lastname" class="form-control">
                     </div>
                     <div class="form-group">
@@ -48,20 +50,20 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="username">Username <span>*</span></label>
+                        <label for="username">Username </label>
                         <input type="text" required name="username" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Email <span>*</span></label>
+                        <label for="email">Email<span>*</span> </label>
                         <input type="email" required name="email" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="password">Password <span>*</span></label>
+                        <label for="password">Password<span>*</span> </label>
                         <input type="password" required name="password" class="form-control">
                     </div>
                     <div class="form-group">
-                            <label for="confirm_email">Confirm <br> Password <span>*</span></label>
+                            <label class="confirmPassword" for="confirm_email">Confirm  Password<span>*</span> </label>
                             <input type="password" required name="confirm_email" class="form-control">
                         </div>
                     <div class="form-group">
@@ -81,12 +83,13 @@
 
                                 </ul>
                             </p>
+                            <p class="center">Field mark with <span>*</span> are required</p>
                             <p class="terms-checked"> <input type="checkbox" name="terms" required class="checkmark">
                                 I agree to the <a href="#" id="terms-and-conditions"> Terms and Conditions </a></p>
                         </div>
                         <button type="submit" name="signup" class="submitButton" id="signup">SIGNUP </button>
-                        <button type="reset" name="cancel" class="cancelButton">CANCEL </button>
-                        <h6 class="already-a-member">Already a member? <a href="./login.html">SIGN IN</a></h6>
+                        <a  href="./index.html" class="cancelButton">CANCEL </a >
+                        <h6 class="already-a-member  already-a-member2">Already a member? <a href="./login.html">SIGN IN</a></h6>
                     </div>
 
 
