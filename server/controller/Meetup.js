@@ -138,25 +138,6 @@ class Meetup {
       }
 
       static addImage(req, res) {
-   
-         // const images = req.body.image instanceof Array ? req.body.image.join(';') : req.body.image;
-         // const imageDisplay=req.body.image;
-   
-         // const value = [
-         //    req.body.meetupId,
-         //    images
-           
-         // ]
-         // const text = `INSERT INTO images(meetupId, images) VALUES($1, $2) returning id`;
-   
-         // pool.query(text, value)
-         //    .then(meetup => {
-         //       // res.meetupId= meetup.rows[0].id;
-         //       return res.status(200).json({
-         //          status: 200,
-         //          data: meetup.rows[0],
-         //       })
-         //    })
 
          return res.json({
             status: 200,
@@ -169,36 +150,44 @@ class Meetup {
      
    
          static addTag(req, res) {
-            confirmToken(req, res);
-            if (!req.body.tags || !req.body.meetupId) {
+            
+
+            if (!req.body.tags || !req.params.meetupId) {
                return res.status(400).json({
                   status: 400,
                   error: 'Bad Request, please include meetup meetupid Id and tags in your request as parameter'
                })
-            } else {
-      
-               const text = `SELECT id,topic FROM meetups WHERE id=$1`;
-               const id = [req.body.meetupId];
-      
-               pool.query(text, id)
-                  .then(meetup => {
-                     return res.status(200).json({
-                        status: 200,
-                        data: {message: "tags added",
-                        userId: res.authData.userDetail.id,
-                        meetupId: req.body.meetupId,
-                        tags: req.body.tags,}
+            } else {confirmToken(req, res);
+               if(res.authData.userDetail.isadmin){
+                  const tags = req.body.tags instanceof Array ? req.body.tags.join(';') : req.body.tags;
+         
+                  const text = `SELECT id,topic FROM meetups WHERE id=$1`;
+                  const id = [req.params.meetupId];
+         
+                  pool.query(text, id)
+                     .then(meetup => {
+                        
+                        const text2 = `INSERT INTO tags(meetupid, tags) VALUES($1, $2)`;
+                        const value2=[req.params.meetupId, tags]
+                        pool.query(text2, value2); 
+                        return res.status(201).json({
+                           status: 201,
+                           data: {
+                           meetup: req.params.meetupId,
+                           topic: meetup.topic,
+                           tags: req.body.tags,}
+                        })
                      })
+               }
+               else{
+                  return res.status(403).json({
+                     status: 403,
+                     error: 'only admin is authorize to perform this action'
                   })
+               }
+               
             }
          }
-      //    return res.json({
-      //       status: 200,
-      //       message: 'Tags added successfully',
-      //       meetupId: req.body.meetupId,
-      //       tags: req.body.tags
-      //    })
-      // }
 }
 
 export default Meetup;
