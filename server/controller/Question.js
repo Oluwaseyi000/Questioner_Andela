@@ -20,7 +20,7 @@ class questionController {
 
      
       const value = [
-         res.authData.theuser.id,
+         res.authData.userDetail.id,
          req.body.meetupId,
          req.body.title,
          req.body.body,
@@ -29,11 +29,11 @@ class questionController {
 
       pool.query(text, value)
          .then(question => {
-            return res.status(200).json({
-               status: 200,
+            return res.status(201).json({
+               status: 201,
                message: 'Question successfully added',
                data: [{
-                  user: res.authData.theuser.id,
+                  user: res.authData.userDetail.id,
                   meetup: req.body.meetupId,
                   title: req.body.title,
                   body: req.body.body
@@ -44,35 +44,86 @@ class questionController {
       // }
    }
 
-   static voteQuestion(req, res) {
+   static upvote(req, res) {
       /**
        * Vote question: increase or decrease the vote count
        * @param {object} req 
        * @param {object} res
        * @returns {object} vote counts
        */
+       
+         
+         const text = 'SELECT * FROM questions WHERE id=$1';
+         const value = [req.params.questionId];
+         
+         pool.query(text, value)
+         .then(question=>{           
+            req.currentVote= question.rows[0].vote;
 
-      if (!req.params.questionId || !req.params.voteType) {
-         return res.status(400).json({
-            status: 400,
-            error: 'Bad Request, please include meetup Id and vote type in your request as parameter'
-         })
-      } else {
-         const text = `UPDATE questions SET vote=vote+1 where id=$1 RETURNING title,body, vote, meetupId`;
-         const value2 = [req.params.questionId];
-         pool.query(text, value2)
-            .then(ques => {
+            const text2 = `UPDATE questions SET vote=$1 WHERE id=$2 RETURNING *`;
+         
+         const value2 = [question.rows[0].vote+1,req.params.questionId];
+         pool.query(text2, value2)
+         
+         return res.status(200).json({
+            status:200,
+            data:[
+               {
+                  meetup: req.params.questionId,
+                  title: question.rows[0].title,
+            body:question.rows[0].body,
+            vote: question.rows[0].vote+1
+               }
+            ]
+            
+         })            
+         });
 
-               const value2 = [req.params.questionId];
-               const text2 = `SELECT id FROM meetups WHERE id=$1`;
-               pool.query(text2, ques.meetupId)
-                  .then()
-               return res.json({
-                  ques: ques.rows
-               })
-            });
+       
 
-      }
+      
+
+
+   }
+
+   static downvote(req, res) {
+      /**
+       * Vote question: increase or decrease the vote count
+       * @param {object} req 
+       * @param {object} res
+       * @returns {object} vote counts
+       */
+       
+         
+         const text = 'SELECT * FROM questions WHERE id=$1';
+         const value = [req.params.questionId];
+         
+         pool.query(text, value)
+         .then(question=>{           
+            req.currentVote= question.rows[0].vote;
+
+            const text2 = `UPDATE questions SET vote=$1 WHERE id=$2 RETURNING *`;
+         
+         const value2 = [question.rows[0].vote-1,req.params.questionId];
+         pool.query(text2, value2)
+         
+         return res.status(200).json({
+            status:200,
+            data:[
+               {
+                  meetup: req.params.questionId,
+                  title: question.rows[0].title,
+            body:question.rows[0].body,
+            vote: question.rows[0].vote-1
+               }
+            ]
+            
+         })            
+         });
+
+       
+
+      
 
 
    }
@@ -85,19 +136,36 @@ class questionController {
          })
       } else {
 
-         const text = `SELECT id,title,body FROM questions WHERE id=$1`;
-         const id = [req.body.questionId];
+         const text = `INSERT INTO comments(userid, questionId, body) VALUES($1, $2, $3)returning  body  `;
 
-         pool.query(text, id)
-            .then(meetup => {
-               return res.status(200).json({
-                  status: 200,
-                  message: "comment added",
-                  userId: res.authData.userDetail.id,
-                  comment: req.body.comment,
-                  question: meetup.rows[0],
-               })
-            })
+         const value = [ 
+            res.authData.userDetail.id, req.body.questionId, req.body.comment
+         ]; 
+        
+
+      pool.query(text, value)
+      .catch((error)=>{
+         return res.json({
+            status: 404,
+            error,
+            error2: 'question do not exist for the specified question id'}) 
+      });
+      
+      const text2 = `SELECT id, title,body FROM questions WHERE id=$1` ;
+      const value2 = [req.body.questionId];
+
+      pool.query(text2, value2)
+       .then(question=>{
+          return res.status(201).json({
+            status: 201,
+            data:{
+               question: question.rows[0].id,
+               title: question.rows[0].title,
+               body: question.rows[0].body,
+               comment: req.body.comment
+            } 
+          })
+       });
       }
    }
 }

@@ -20,8 +20,9 @@ router.delete('/meetups/:meetupId', jwt,meetupMiddleware.deleteMeetup, meetupCon
 router.post('/meetups/:meetupId/rsvps', jwt,userController.createRsvps);
 
 router.post('/questions', jwt, questionMiddleware.createQuestion, questionController.createQuestion);
-router.patch('/questions/:questionId/:voteType', jwt, questionController.voteQuestion);
-router.patch('/questions/:questionId/downvote', jwt, questionController.voteQuestion);
+router.patch('/questions/:questionId/upvote', jwt, questionController.upvote);
+router.patch('/questions/:questionId/downvote', jwt, questionController.downvote);
+
 
 
 
@@ -34,7 +35,7 @@ router.post('/meetups/:meetupId/tags', jwt,meetupController.addTag);
 router.post('/comments', jwt, questionController.addComment);
 
 router.all('*', (req, res) => {
-   res.json({
+   res.status(404).json({
       status: 404,
       error: 'Incorrect API endpoint;  Preceed your API endpoint with API please check your api URL (even for as little thing as spelling)'
    });
