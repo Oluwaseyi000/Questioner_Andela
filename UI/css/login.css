@@ -1,18 +1,26 @@
 .login-div{
-    min-height: 400px;
+    /* min-height: 400px; */
     background:#fff;
-    width: 50%;
-    margin: 0 auto;
+    width: 40%;
+    margin: auto;
     border-radius: 2px;
     
 }
 
+
+.center{
+    text-align: center
+ }
+
 label{
 	display: inline-block;
 	padding: 12px 12px 12px 0;
-	min-width: 110px;
+	min-width: 140px;
 	text-align: right;
 }
+ label.confirmPassword{
+     padding-top:0px
+ }
 
 .submitButton{
     margin-left: 116px;
@@ -29,9 +37,10 @@ label span{
     color: rgb(214, 51, 51)
 }
 .footer{
-   
+   position: fixed;
     left: 0;
     bottom: 0;
+    
 }
 
 .terms-div{
@@ -60,5 +69,10 @@ label span{
     margin-left: 120px;
     font-size: 13px;
     padding-top: 5px;
+    padding-bottom: 20px
 
+}
+
+.already-a-member2{
+    margin-bottom: 100px
 }

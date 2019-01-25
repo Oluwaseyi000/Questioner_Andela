@@ -10,3 +10,27 @@ Questioner helps the meetup organizer prioritize questions to be answered. Other
 
 
 <a href="https://codeclimate.com/github/Oluwaseyi000/Questioner_Andela/maintainability"><img src="https://api.codeclimate.com/v1/badges/6421d81752471fd6e8b6/maintainability" /></a>
+
+
+<b>Endpoint</b>
+<ul>
+<li>POST /auth/signup -register new user</li>
+<li>POST /auth/login  -login user</li>
+<li>POST /meetups -create meetup</li>
+<li>GET /meetups/ -get all meetup</li>
+<li>GET /meetups/:meetup-id   -get a meetup</li>
+<li>DELETE /meetups/:meetup-id --delete a meetup</li>
+<li>GET /meetups/upcoming/  -get upcoming meetup</li>
+<li>POST /questions --create question</li>
+<li>PATCH /questions/:question-id/upvote --upvote a question</li>
+<li>PATCH /questions/:question-id/downvote --downvote a question</li>
+<li>POST /meetups/:meetup-id/rsvps  --rsvp a meetup</li>
+<li>POST /comments/ --ccomment on a question</li>
+<li>DELETE /meetups/ --delete meetup<meetup-id></li>
+<li>POST /meetups/:meetup-id/tags> --add tags to meetup</li>
+
+<li>POST /meetups/:meetup-id/images
+--Add images to a meetup.</li>
+
+
+</ul>

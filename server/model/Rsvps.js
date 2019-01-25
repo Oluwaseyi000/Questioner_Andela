@@ -1,3 +1,19 @@
-let Rsvp = [];
+import pool from './db_connect';
 
-export default Rsvp;
+/**
+ * Create Rsvp Table
+ */
+
+const Rsvps =
+   pool.query(`CREATE TABLE IF NOT EXISTS Rsvps(
+      id serial PRIMARY KEY,
+      userId VARCHAR(40) NOT NULL,
+      meetupId VARCHAR(40) NOT NULL,
+      response  VARCHAR(10) NOT NULL
+      )`)
+   .catch(err=>{
+      console.log(err);
+      // pool.end();
+   });
+
+export default Rsvps;
