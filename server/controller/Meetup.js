@@ -37,7 +37,7 @@ class Meetup {
    
          pool.query(text, value)
             .then(meetup => {
-               // res.meetupId= meetup.rows[0].id;
+               
                return res.status(201).json({
                   status: 201,
                   data: meetup.rows[0],
@@ -174,7 +174,7 @@ class Meetup {
    
          pool.query(text, value)
             .then(meetup => {
-               // res.meetupId= meetup.rows[0].id;
+              
                return res.status(201).json({
                   status: 201,
                   data: meetup.rows[0],
@@ -215,13 +215,6 @@ class Meetup {
                   })
             }
          }
-      //    return res.json({
-      //       status: 200,
-      //       message: 'Tags added successfully',
-      //       meetupId: req.body.meetupId,
-      //       tags: req.body.tags
-      //    })
-      // }
 }
 
 export default Meetup;
