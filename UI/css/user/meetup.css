@@ -38,7 +38,7 @@ hr{
 }
 
 .attend-block{
-    
+    margin-left: 20px;
     margin-right: 20px;
 }
 .attend-block img{
@@ -53,13 +53,25 @@ hr{
     border: solid 1px
 }
 
-.quesstion-textarea{
+.commentButton{
+float: right;
+margin: 5px 10px 0 0;
+}
+.question-title{
     width: 100%;
-    height: 60px;
-    padding: 5px 15px;
-    margin-top: 15px;
-    border-radius: 12px;
-    overflow: auto;
+     margin-top: 15px;
+     font-family: monospace;
+     padding-left: 20px;
+     font-size: 15px;
+    }
+    .quesstion-textarea{
+        width: 100%;
+        height: 80px;
+        padding: 5px 15px;
+        margin-top: 15px;
+        border-radius: 12px;
+        overflow: auto;
+        font-size: 15px;
     
 
 }
@@ -132,7 +144,9 @@ display: none
     margin-top: 15px;
 }
 
-
+.details ul{
+  padding-left: 20px  
+}
 .details, .discussion {
     margin: 20px ;
     line-height: 30p8
@@ -152,7 +166,6 @@ display: none
 .RSVPdiv{
     /* border: 1px solid #03A9F4; */
     padding: 10px;
-    width: 64%;
     border-radius: 5px;
     margin: 10px
 }
@@ -167,6 +180,7 @@ input.rsvpButton {
         display: relative;
         position: relative;
         padding-left: 35px;
+        padding-right: 25px;
         margin-bottom: 12px;
         cursor: pointer;
         font-size: 18px;

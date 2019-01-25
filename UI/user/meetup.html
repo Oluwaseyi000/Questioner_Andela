@@ -23,7 +23,7 @@
     </div>
 
     <header class="header">
-            <h1 class="header-logo"> <span class="q">Q</span><span class="uestioner">UESTIONER</span> </h2>
+            <h1 class="header-logo"><a href="../index.html"><span class="q">Q</span><span class="uestioner">UESTIONER</span> </a> </h1>
               
                 <div class="profile"> <a href="#"><img id="dropdown" src="../img/coming (2).jpeg" alt="">Seyi</a> 
                   <br>  <span class="time" id="currentTime"></span>
@@ -34,7 +34,7 @@
                             <li><a href="./index.html">Meetups</a></li>
                         <li> <a href="../user/profile.html">Profile</a> </li>
                         <li> <a href="../user/reset-password.html">Setting</a> </li>
-                        <li> <a href="../login.html">Logout</a> </li>
+                        <li> <a href="../index.html">Logout</a> </li>
                     </ul>
                 </div>
     
@@ -136,12 +136,16 @@
                     </section>
                     <hr>
 
+                    <h3 class="details">Discussion</h3>
                     <div class="discussion">
-                        <h3 class="details">Discussion</h3>
                         <button class="submitButton" id="askQuestionButton">ASK QUESTION <i class="far fa-question-circle fa-1x"></i></button>
 
                         <form action="#" id="postQuestionForm">
-                            <textarea contenteditable="true" name="post-question" placeholder="Your Question Here" id="post-question"
+                                
+                                        
+                                        <input type="text" required="" name="quesTitle" placeholder="Question title here" class="form-control question-title" >
+                                   
+                            <textarea contenteditable="true" name="post-question" placeholder=" Question Body Here" id="post-question"
                                 class="quesstion-textarea"></textarea>
                             <br><button class="submitButton">Submit</button>
                         </form>
@@ -186,7 +190,7 @@
                                 good
                             </div>
                            
-                            <textarea name="post-comment-textarea" class="post-comment-textarea" placeholder="Comment on  Adebajo Oluwaseyi's  Question"></textarea> 
+                            <textarea name="post-comment-textarea" class="post-comment-textarea" placeholder="Comment on  Adebajo Oluwaseyi's  Question"></textarea> <input type="submit" value="Comment" class="submitButton commentButton"> 
                         </div>
 
                         <div class="QCDiv">
@@ -204,7 +208,7 @@
                                 <p><a href="#"><i class="far fa-comment fa-1x"></i>(0)</a> | <a href="#"><i class="far fa-thumbs-up fa-1x"></i> (4)</a> | <a href="#"><i class="far fa-thumbs-down "></i> (1)</a></p>
                             </div>
 
-                            <textarea name="post-comment-textarea" class="post-comment-textarea" placeholder="Comment on Onyeneke Emeka Question"></textarea> 
+                            <textarea name="post-comment-textarea" class="post-comment-textarea" placeholder="Comment on Onyeneke Emeka Question"></textarea> <input type="submit" value="Comment" class="submitButton commentButton">
                         </div>
 
                     </div>
