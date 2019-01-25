@@ -13,7 +13,8 @@ body{
 	
 }
 a{
-	text-decoration: none
+	text-decoration: none;
+	/* color:#fff; */
 }
 .container{
 	width: 90%;
@@ -78,6 +79,8 @@ a{
 }
 .topic-list-header{
 	margin-top: 20px;
+	font-size: 22px;
+
 }
 
 .meetup-list,.aside-body {
@@ -92,6 +95,7 @@ a{
 	/* min-height: 225px; */
 	margin-bottom: 20px;
 	padding-left: 7px;
+	line-height: 30px;
 } 
 
 
@@ -141,6 +145,9 @@ a{
 }
 .header-logo .q{
 	color: rgb(223, 60,60);
+}
+.profile a{
+	color: #fff;
 }
 
 .header .profile{
@@ -251,17 +258,17 @@ padding-top: 10px;
 }
 
 .upcoming-meetup span, .stats-list a span{
-	color: #DF3C3C;
+	color: #3498db;
 	/* background-color: blue */
 }
 
 #alert{
 	width: 75%;
-	background: rgb(3, 169, 244, 0.4);
-	border: #DF3C3C solid 1px;
+	background: rgb(3, 169, 244, 0.6);
 	color:#fff;
 	padding: 10px 5px 8px 10px;
-	margin-bottom: 10px	
+	margin-bottom: 10px;
+	border-radius:5px;	
 }
 
 
@@ -297,6 +304,12 @@ padding-top: 10px;
   }
 
   .dropdown ul li a:hover{
-	  background:#DF3C3C;
-	  color: #03A9F4
+	  background:rgba(1, 128, 187, 0.678);
+	  color: #fff
+  }
+
+  .list-image{
+	  max-width: 300px;
+	  height: 200px;
+	  margin: 1px 0; 
   }
