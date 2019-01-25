@@ -50,11 +50,10 @@ class userController {
                      data: [{
                                     token: token,
                                     user: {
-                                    id: user.rows[0].id,
                                     firstname:user.rows[0].firstname,
                                     lastname:user.rows[0].lastname,
                                     email:user.rows[0].email, 
-                                    isadmin: user.rows[0].isadmin
+                                    adminStatus: user.rows[0].isadmin
                                  },
                                  }]
 
@@ -93,14 +92,15 @@ class userController {
       Pool.query(text2, value)
          .then(
             (user) => {
+
                if (user.rows.length > 0) {
                   
-                  const theuser = user.rows[0];
+                  const userDetail = user.rows[0];
                   bcrypt.compare(req.body.password, user.rows[0].password, (err, authPwd) => {
                      
                      if (authPwd) {
                         jwt.sign({
-                           theuser
+                           userDetail
                         }, 'secretkey', (err, token) => {
                            if (err) {
                            } else {
@@ -110,7 +110,6 @@ class userController {
                                  data: [{
                                     token: token,
                                     user: {
-                                    id: user.rows[0].id,
                                     firstname:user.rows[0].firstname,
                                     lastname:user.rows[0].lastname,
                                     email:user.rows[0].email,

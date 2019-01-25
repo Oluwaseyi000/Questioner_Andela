@@ -24,20 +24,20 @@ class Meetup {
          req.body.topic,
          req.body.location,
          req.body.happeningOn,
-         
+         tags,
          req.body.details,
-     
+         req.body.images,
          req.body.host,
          new Date(),
          new Date(),
       ]
-      const text = `INSERT INTO meetups(topic, location, happeningOn,  details, host, createdOn, updatedOn) VALUES($1, $2, $3,$4, $5, $6, $7) returning id,topic, location, happeningOn`;
+      const text = `INSERT INTO meetups(topic, location, happeningOn,tags,  details,images, host, createdOn, updatedOn) VALUES($1, $2, $3,$4, $5, $6, $7, $8,$9) returning *`;
 
       pool.query(text, value)
          .then(meetup => {
             // res.meetupId= meetup.rows[0].id;
-            return res.status(200).json({
-               status: 200,
+            return res.status(201).json({
+               status: 201,
                data: meetup.rows[0],
             })
          })
@@ -138,32 +138,44 @@ class Meetup {
       }
 
       static addImage(req, res) {
-   
-         // const images = req.body.image instanceof Array ? req.body.image.join(';') : req.body.image;
-         // const imageDisplay=req.body.image;
-   
-         // const value = [
-         //    req.body.meetupId,
-         //    images
-           
-         // ]
-         // const text = `INSERT INTO images(meetupId, images) VALUES($1, $2) returning id`;
-   
-         // pool.query(text, value)
-         //    .then(meetup => {
-         //       // res.meetupId= meetup.rows[0].id;
-         //       return res.status(200).json({
-         //          status: 200,
-         //          data: meetup.rows[0],
-         //       })
-         //    })
+            
 
-         return res.json({
-            status: 200,
-            message: 'Images added successfully',
-            meetupId: req.body.meetupId,
-            images: req.body.images
-         })
+         if (!req.body.images || !req.params.meetupId) {
+            return res.status(400).json({
+               status: 400,
+               error: 'Bad Request, please include meetup meetupid Id and tags in your request as parameter'
+            })
+         } else {confirmToken(req, res);
+            console.log(res.authData.userDetail.isadmin);
+            if(res.authData.userDetail.isadmin){
+
+               const images = req.body.images instanceof Array ? req.body.images.join(';') : req.body.images;
+      
+               const text = `SELECT id,topic FROM meetups WHERE id=$1`;
+               const id = [req.params.meetupId];
+      
+               pool.query(text, id)
+                  .then(meetup => {
+                     const text2 = `INSERT INTO images(meetupid, images) VALUES($1, $2)`;
+                     const value2=[req.params.meetupId, images]
+                     pool.query(text2, value2); 
+                     return res.status(201).json({
+                        status: 201,
+                        data: {
+                        meetup: req.params.meetupId,
+                        topic: meetup.topic,
+                        images: req.body.images,}
+                     })
+                  })
+            }
+            else{
+               return res.status(403).json({
+                  status: 403,
+                  error: 'only admin is authorize to add image'
+               })
+            }
+            
+         }
       }
 
      
