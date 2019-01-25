@@ -84,12 +84,11 @@ class userController {
     */
    static userLogin(req, res) {
 
-      const text2 = `SELECT id,email, firstname, lastname, isadmin FROM users WHERE email=$1 `;
+      const text2 = `SELECT id,password,firstname,lastname, email, isadmin FROM users WHERE email=$1`;
 
-      const text = `SELECT * FROM users`;
 
       const value = [
-         req.body.email
+         req.body.email,
       ];
 
       pool.query(text2, value)
@@ -97,12 +96,12 @@ class userController {
             (user) => {
                if (user.rows.length > 0) {
                   
-                  const userDetail = user.rows[0];
+                  const theuser = user.rows[0];
                   bcrypt.compare(req.body.password, user.rows[0].password, (err, authPwd) => {
                      
                      if (authPwd) {
                         jwt.sign({
-                           userDetail
+                           theuser
                         }, 'secretkey', (err, token) => {
                            if (err) {
                            } else {
@@ -122,27 +121,17 @@ class userController {
                            }
                         })
                      } else {
-                        console.log('logged in')
-                        return res.status(200).json({
-                           status: 200,
-                           message: 'User successfully sign in',
-                           data: [{
-                              token: token,
-                              user: {
-
-                                 firstname: user.rows[0].firstname,
-                                 lastname: user.rows[0].lastname,
-                                 email: user.rows[0].email,
-                                 isadmin: user.rows[0].isadmin
-                              }
-                           }],
+                        return res.status(401).json({
+                           status: 401,
+                           error: 'wrong login credentials'
                         })
                      }
                   })
+
                } else {
-                  return res.status(404).json({
-                     status: 404,
-                     error: 'no user found'
+                  return res.status(401).json({
+                     status: 401,
+                     error: 'wrong login credentials'
                   })
                }
 
@@ -161,6 +150,7 @@ class userController {
 
 
    }
+
 
    /**
     * Create A Rsvp

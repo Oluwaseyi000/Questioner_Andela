@@ -23,15 +23,12 @@ router.post('/questions', jwt, questionMiddleware.createQuestion, questionContro
 router.patch('/questions/:questionId/upvote', jwt, questionController.upvote);
 router.patch('/questions/:questionId/downvote', jwt, questionController.downvote);
 
-
-
-
 router.post('/auth/signup', userMiddleware.userSignup,  userController.userSignup);
 
 router.post('/auth/login', userMiddleware.userLogin,  userController.userLogin);
 
-router.post('/meetups/:meetupId/images', meetupController.addImage);
-router.post('/meetups/:meetupId/tags', jwt,meetupController.addTag);
+router.post('/meetups/:meetupId/images',jwt, meetupController.addImage);
+router.post('/meetups/:meetupId/tags', jwt, meetupController.addTag);
 router.post('/comments', jwt, questionController.addComment);
 
 router.all('*', (req, res) => {
