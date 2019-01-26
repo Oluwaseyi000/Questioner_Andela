@@ -2,120 +2,69 @@
 <html lang="en">
 
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <!-- <link rel="stylesheet" href="./css/login.css"> -->
-   <title>Questioner | Welcome</title>
-   <link rel="stylesheet" href="css/main.css">
-   <link rel="stylesheet" href="./css/login2.css">
-   <link rel="stylesheet" href="./css/signup.css">
-   <link rel="stylesheet" href="./css/signin.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Questioner | User | Sign in</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/responsive.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="./css/new.css">
+    <link rel="stylesheet" href="./css/user/new2.css">
 </head>
 
 <body>
-   <div class="login-container">
-      <div class="info-container">
-         <div class="content content-text">
-            <h2>WELCOME TO QUESTIONER</h2>
-            <p>
-                  Questioner helps meetup organizer prioritize questions to be answered. Other users can vote on asked questions and they bubble to the top or bottom of the log.
-            </p>
-         </div>
-         
-      </div>
-      <div class="sign-container">
-            <section class="content">
-                  <div id="loader-overlay">
-                        <div class="loader"></div>
-                    </div>
-                  <div class="body-wrapper">
-                      <div class="login-div" id="signin">
-                          <div class="topic-list-header">Login</div>
-                         
-                          <form action="" id="login" name="login" class="loginForm">
-                              <p class="new-to-us"></p>
-                              <div class="form-group">
-                                  <label for="username">Username <span>*</span></label>
-                                  <input type="text" required name="username" class="form-control">
-                              </div>
-          
-                              <div class="form-group">
-                                  <label for="password">Password <span>*</span></label>
-                                  <input type="password" required name="password" class="form-control">
-                              </div>
-                            <div>
-                                 <button class="submitButton" id="signijn" name="signin">SIGN IN </button>
-                              
-                                  <button type="reset" name="cancel" class="cancelButton">RESET </button>
-                                  <h6 class="new-to-us">New to Questioner? <a href="" id="goToSignup"> Signup Now!</a></h6>
-                            </div>
-                             
-          
-                          </form>
-                      </div>
-                      <div class="login-div" id="signup">
-                           <div class="topic-list-header">SIGNUP FORM</div>
-                           <p class="terms-checked">Fields with * are required</p>
-                           <form action="" class="signupForm">
-                               <div class="form-group">
-                                   <label for="firstname">Firstname <span>*</span></label>
-                                   <input type="text" required name="firstname" class="form-control">
-                               </div>
-           
-                               <div class="form-group">
-                                   <label for="lastname">Lastname <span>*</span></label>
-                                   <input type="text" required name="lastname" class="form-control">
-                               </div>
-                              
-           
-                               <div class="form-group">
-                                   <label for="username">Username <span>*</span></label>
-                                   <input type="text" required name="username" class="form-control">
-                               </div>
-           
-                               <div class="form-group">
-                                   <label for="email">Email <span>*</span></label>
-                                   <input type="email" required name="email" class="form-control">
-                               </div>
-                               <div class="form-group">
-                                   <label for="password">Password <span>*</span></label>
-                                   <input type="password" required name="password" class="form-control">
-                               </div>
-                               <div class="form-group">
-                                       <label for="confirm_email">Confirm <br> Password <span>*</span></label>
-                                       <input type="password" required name="confirm_email" class="form-control">
-                                   </div>
-                               
-                               <div class="form-group">
-           
-                                   <div class="form-group">
-           
-           
-                                       <p>
-                                           <ul class="terms-div" id="terms-div">
-                                               <li>Do not use any vulgar or inapproriate language </li>
-                                               <li>Kindly read through a meetup previous question, to ensure your
-                                                   question has not been asked by another user</li>
-           
-                                           </ul>
-                                       </p>
-                                       <p class="terms-checked"> <input type="checkbox" name="terms" required class="checkmark">
-                                           I agree to the <a href="" id="terms-and-conditions"> Terms and Conditions </a></p>
-                                   </div>
-                                   <button type="submit" name="signup" class="submitButton" id="signupButton">SIGN UP </button>
-                                   <button type="reset" name="cancel" class="cancelButton">CANCEL </button>
-                                   <h5 class="already-a-member">Already a member? <a href="#" id="goToSignin">SIGN IN</a></h5>
-                               </div>
-           
-           
-                           </form>
+    <header class="header">
+        <h1 class="header-logo"><a href="./index.html"><span class="q">Q</span><span class="uestioner">UESTIONER</span> </a> </h1>
+
+            <div class="profile">  <a class="thelogin" href="./signup.html">SIGN UP</a>
+
+            </div>
+
+    </header>
+    <div id="loader-overlay">
+            <div class="loader"></div>
+        </div>
+
+    <section class="container ">
+        <div class=" margin-40 body-wrapper ">
+            <div class="login-div">
+                <div class="topic-list-header center">USER LOGIN </div>
+               
+                <form action="" class="signupForm">
+
+                     <div class="form-group">
+                           <label for="username">Username <span>*</span></label>
+                           <input type="text" required name="username" class="form-control">
                        </div>
-                  </div>
-              </section>
-      </div>
-   </div>
-   <script src="./js/general.js"></script>
+                    <div class="form-group">
+                        <label for="password">Password <span>*</span></label>
+                        <input type="password" required name="password" class="form-control">
+                    </div>
+                  
+                    <div class="form-group">
+
+                       
+                        <a  href="./user/index.html" class="submitButton" id="signijn" name="signin">SIGN IN </a>
+                        <a  href="./index.html" class="cancelButton">CANCEL </a >
+                        <h6 class="already-a-member">New to Questioner? <a href="./signup.html">SIGN UP</a></h6>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        copyright @ Adebajo Oluwaseyi  | Andela 2018
+    </footer>
+
+    <script src="./js/general.js"></script>
 </body>
 
 </html>

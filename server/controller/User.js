@@ -196,31 +196,6 @@ class userController {
                   })
                })
 
-         // return res.json({
-         //    status: 200,
-         //    data: {message: "Your rsvp  is successful",
-         //    meetupId: req.params.meetupId,
-         //    userId:  res.authData.userDetail.id,
-         //    status:  req.body.status}
-         // })
-
-         //    const text = `INSERT INTO rsvps(userId, meetupId, response) VALUES($1, $2, $3) RETURNING response`;
-
-         // pool.query(text, value)
-         //    .then((rsvp) => {
-
-         //       return res.json({
-         //       status: 201,
-         //       message: 'RSVP successfully created ',
-         //       data: {
-         //          id: rsvp.id,
-         //          status: rsvp.response
-         //       },
-         //    })
-
-         //    })
-
-
       }
    }
 }
