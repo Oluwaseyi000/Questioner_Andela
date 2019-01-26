@@ -202,6 +202,44 @@ class userController {
 
 
       }
+
+
+   }
+
+   static resetPassword(req, res) {
+
+      confirmToken(req, res);
+
+      if (!req.body.userId || !req.body.currentPwd|| !req.body.newPwd) {
+         return res.status(400).json({
+            status: 400,
+            error: 'Bad Request, please include user Id and new password in your request as parameter'
+         })
+      } else {
+
+      const text = `UPDATE users SET password=$1 where id=$2 RETURNING firstname, email`;
+
+      const value = [
+         bcrypt.hashSync(req.body.newPwd, bcrypt.genSaltSync(10)),
+         req.body.userId
+      ];
+
+      Pool.query(text, value)
+         .then(user=>{
+            return res.status(200).json({
+               status:200,
+               message:'password successfully changed',
+               data:{
+                  firstname: user.rows[0].firstname,
+                  email: user.rows[0].email
+               }
+            })
+         })
+         .catch(err=>{
+            return res.json({err})
+         })
+      }
+
    }
 }
 export default userController;
