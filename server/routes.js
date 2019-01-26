@@ -20,8 +20,9 @@ router.delete('/meetups/:meetupId', jwt,meetupMiddleware.deleteMeetup, meetupCon
 router.post('/meetups/:meetupId/rsvps', jwt,userController.createRsvps);
 
 router.post('/questions', jwt, questionMiddleware.createQuestion, questionController.createQuestion);
-router.patch('/questions/:questionId/:voteType', jwt, questionController.voteQuestion);
-router.patch('/questions/:questionId/downvote', jwt, questionController.voteQuestion);
+router.patch('/questions/:questionId/upvote', jwt, questionController.upvote);
+router.patch('/questions/:questionId/downvote', jwt, questionController.downvote);
+
 
 
 

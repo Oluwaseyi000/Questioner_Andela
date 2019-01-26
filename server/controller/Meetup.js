@@ -18,29 +18,41 @@ class Meetup {
 
       confirmToken(req, res);
 
-      const tags = req.body.tags instanceof Array ? req.body.tags.join(';') : req.body.tags;
+      if(res.authData.userDetail.isadmin){
 
-      const value = [
-         req.body.topic,
-         req.body.location,
-         req.body.happeningOn,
-         
-         req.body.details,
-     
-         req.body.host,
-         new Date(),
-         new Date(),
-      ]
-      const text = `INSERT INTO meetups(topic, location, happeningOn,  details, host, createdOn, updatedOn) VALUES($1, $2, $3,$4, $5, $6, $7) returning id,topic, location, happeningOn`;
+         const tags = req.body.tags instanceof Array ? req.body.tags.join(';') : req.body.tags;
 
-      pool.query(text, value)
-         .then(meetup => {
-            // res.meetupId= meetup.rows[0].id;
-            return res.status(200).json({
-               status: 200,
-               data: meetup.rows[0],
+         const value = [
+            req.body.topic,
+            req.body.location,
+            req.body.happeningOn,
+            
+            req.body.details,
+        
+            req.body.host,
+            new Date(),
+            new Date(),
+         ]
+         const text = `INSERT INTO meetups(topic, location, happeningOn,  details, host, createdOn, updatedOn) VALUES($1, $2, $3,$4, $5, $6, $7) returning id,topic, location, happeningOn`;
+   
+         pool.query(text, value)
+            .then(meetup => {
+               
+               return res.status(201).json({
+                  status: 201,
+                  data: meetup.rows[0],
+               })
             })
-         })
+      }
+           else{
+              return res.status(403).json({
+                 status:403,
+                 error: 'authorize access, only admin can perform this action'
+              })
+           }
+
+           
+
    }
 
    static getASpecificMeetupRecord(req, res) {
@@ -60,7 +72,7 @@ class Meetup {
             if (meetup.rows.length > 0) {
                return res.status(200).json({
                   status: 200,
-                  data: meetup.rows[0]
+                  data: [meetup.rows[0]]
                })
 
             } else {
@@ -88,8 +100,7 @@ class Meetup {
       .then(meetup => {
                return res.status(200).json({
                   status: 200,
-                  data: meetup.rows,
-                  authData: res.authData
+                  data: meetup.rows
                })
       })
    }
@@ -123,40 +134,52 @@ class Meetup {
        */
 
       confirmToken(req, res);
+      if(res.authData.userDetail.isadmin){
 
-      const text = `DELETE FROM meetups WHERE id=$1`;
-      const value = [req.params.meetupId];
-
-      pool.query(text, value)
-      .then(()=>{
-               return res.status(200).json({
-                  status: 200,
-                  data: 'meetup successfully deleted'
-               })
-
+         const text = `DELETE FROM meetups WHERE id=$1`;
+         const value = [req.params.meetupId];
+   
+         pool.query(text, value)
+         .then(()=>{
+                  return res.status(200).json({
+                     status: 200,
+                     data: 'meetup successfully deleted'
+                  })
+   
+            })
+      }
+      else{
+         return res.status(403).json({
+            status:403,
+            error: 'authorize access, only admin can perform this action'
          })
       }
 
+     
+      }
+
       static addImage(req, res) {
+
+         confirmToken(req, res);
    
-         // const images = req.body.image instanceof Array ? req.body.image.join(';') : req.body.image;
-         // const imageDisplay=req.body.image;
+         const images = req.body.image instanceof Array ? req.body.image.join(';') : req.body.image;
+         const imageDisplay=req.body.image;
    
-         // const value = [
-         //    req.body.meetupId,
-         //    images
+         const value = [
+            req.body.meetupId,
+            images
            
-         // ]
-         // const text = `INSERT INTO images(meetupId, images) VALUES($1, $2) returning id`;
+         ]
+         const text = `INSERT INTO images(meetupId, images) VALUES($1, $2) returning id`;
    
-         // pool.query(text, value)
-         //    .then(meetup => {
-         //       // res.meetupId= meetup.rows[0].id;
-         //       return res.status(200).json({
-         //          status: 200,
-         //          data: meetup.rows[0],
-         //       })
-         //    })
+         pool.query(text, value)
+            .then(meetup => {
+              
+               return res.status(201).json({
+                  status: 201,
+                  data: meetup.rows[0],
+               })
+            })
 
          return res.json({
             status: 200,
@@ -192,13 +215,6 @@ class Meetup {
                   })
             }
          }
-      //    return res.json({
-      //       status: 200,
-      //       message: 'Tags added successfully',
-      //       meetupId: req.body.meetupId,
-      //       tags: req.body.tags
-      //    })
-      // }
 }
 
 export default Meetup;
