@@ -30,6 +30,8 @@ router.post('/auth/login', userMiddleware.userLogin,  userController.userLogin);
 router.post('/meetups/:meetupId/images',jwt, meetupController.addImage);
 router.post('/meetups/:meetupId/tags', jwt, meetupController.addTag);
 router.post('/comments', jwt, questionController.addComment);
+router.patch('/user/reset-password', jwt, userController.resetPassword);
+
 
 router.all('*', (req, res) => {
    res.status(404).json({
