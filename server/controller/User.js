@@ -174,42 +174,36 @@ class userController {
             req.body.status
          ]
              pool.query(text, value)
-          //  .catch((error) => {//
-               // if(res.status===409){
-               //    return res.status(409).json({
-               //          status: 409,
-               //          error2: 'RSVP already exist for user'
-               //       }
-                     
-               //    )
-               // }
-               // else{
-                  const text3 = `SELECT id, topic FROM meetups WHERE id=$1`;
-                  const value3 = [req.params.meetupId];
-                        
-                  pool.query(text3, value3)
-                     .then(meetup => {
-                        console.log('rrssss');
-                        return res.status(201).json({
-                           status:201,
-                           message: 'RSVP successfully created',
-                           data:[{
-                              meetup: meetup.rows[0].id,
-                              topic: meetup.rows[0].topic,
-                              status: req.body.status
-                           }]
-                        })
-                     })
-                     .catch(error => {
-                        return res.status(404).json({
-                           error:'meetup  do not exit'
-                        })
-                     })
-               // }
-           // });
+            .catch((error) => {
+               return res.status(409).json({
+                     status: 409,
+                     error2: 'RSVP already exist for user'
+                  }
+                  
+               )
+            });
 
 
-       
+         const text3 = `SELECT id, topic FROM meetups WHERE id=$1`;
+            const value3 = [req.params.meetupId];
+                  
+            pool.query(text3, value3)
+               .then(meetup => {
+                  return res.status(201).json({
+                     status:201,
+                     message: 'RSVP successfully created',
+                     data:[{
+                        meetup: meetup.rows[0].id,
+                        topic: meetup.rows[0].topic,
+                        status: req.body.status
+                     }]
+                  })
+               })
+               .catch(error => {
+                  return res.status(404).json({
+                     error:'meetup  do not exit'
+                  })
+               })
 
       }
    }
