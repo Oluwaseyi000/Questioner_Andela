@@ -8,10 +8,6 @@ import pool from './db_connect';
   id serial PRIMARY KEY,
    meetupId INTEGER REFERENCES meetups(id), 
    images  TEXT NOT NULL
-    )`)
-   .catch(err=>{
-      console.log(err);
-    //  pool.end();
-   });
+    )`);
 
 export default Images;

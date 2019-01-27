@@ -9,8 +9,7 @@ let expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe('/test meetup', ()=>{
-
+describe('/meetup', ()=>{
    before(done => {
       chai.request(server)
       .post('/api/v1/auth/login')
@@ -21,17 +20,10 @@ describe('/test meetup', ()=>{
       .end((err,res)=>{
          assert.isObject(res.body);
           token= res.body.data[0].token;
-         console.log(token);
          done();
       })
    });
 
-   
-
-
-
-
-   
 describe('/POST A MEETUP', () => {
    describe('/controller has createMeetup function', done => {
       it('Assert controller has a createMeetup function ', done => {
@@ -65,11 +57,21 @@ describe('/POST A MEETUP', () => {
                   assert.isNumber(res.body.data[i].id);
                   assert.nestedProperty(res.body.data[i], 'host');
                   assert.nestedProperty(res.body.data[i], 'details');
-                
                   assert.isNotEmpty(res.body.data[i].happeningOn);
                   assert.isArray(res.body.data[i].tag);
 
                }
+            });
+         done();
+      })
+      it(' create/post with  wrong parameter meetup', done => {
+        
+         chai.request(server)
+            .post('/api/v1/meetups')
+            .set('Authorization', `Bearer ${token}`)
+            .end((err, res) => {
+               assert.isObject(res.body);
+               assert.equal(res.status, 400)
             });
          done();
       })
@@ -100,7 +102,7 @@ describe('/GET A SPECIFIC MEETUP', () => {
                assert.isArray(res.body.data);
 
                if (res.body.data.length === 0) {
-                  assert.equal(res.body.status, 204);
+                  assert.equal(res.body.status, 200);
                   assert.include(res.body.message, 'Request successful but result contains no data, no meetup record found for id');
 
                } else {
@@ -143,7 +145,7 @@ describe('/GET ALL MEETUPS ', () => {
                assert.isArray(res.body.data);
 
                if (res.body.data.length === 0) {
-                  assert.equal(res.body.status, 204);
+                  assert.equal(res.body.status, 200);
                   assert.equal(res.body.message, 'Request successful but result contains no data, probably no meetup records');
 
                } else {
@@ -186,7 +188,7 @@ describe('/GET UPCOMING MEETUPS ', () => {
                assert.isArray(res.body.data);
 
                if (res.body.data.length === 0) {
-                  assert.equal(res.body.status, 204);
+                  assert.equal(res.body.status, 200);
                   assert.equal(res.body.message, 'Request successful but result contains no data, probably no upcoming meetup');
 
                } else {
@@ -219,7 +221,7 @@ describe('/DELETE A SPECIFIC MEETUP', () => {
    describe('/DELETE a specific record ', done => {
       it('delete a specific record ', done => {
          chai.request(server)
-            .delete('/api/v1/meetups/:meetupId')
+            .delete('/api/v1/meetups/50')
             .set('Authorization', `Bearer ${token}`)
             .end((err, res) => {
                assert.isObject(res.body);
@@ -227,8 +229,8 @@ describe('/DELETE A SPECIFIC MEETUP', () => {
                if (res.body.status === 404) {
                   assert.include(res.body.error, 'Request unsuccessful');
                } else {
-                  assert.equal(res.body.status, 204);
-                  assert.include(res.body.message, 'Delete Successful');
+                  assert.equal(res.body.status, 200);
+                  assert.isArray(res.body.data);
                }
             });
          done();
@@ -243,9 +245,66 @@ describe('/ADD IMAGE TO A SPECIFIC MEETUP', () => {
          assert.isFunction(meetupController.addImage);
          done();
       })
+      it(' wrong image parameter', done => {
+         chai.request(server)
+            .post('/api/v1/meetups/2/images')
+            .set('Authorization', `Bearer ${token}`)
+            .end((err, res) => {
+               assert.isObject(res.body);
+               assert.equal(res.body.status, 400);
+            });
+         done();
+      })
+
+      it(' add image', done => {
+         chai.request(server)
+            .post('/api/v1/meetups/2/images')
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+               images: 'linkto',
+               images: 'palog'
+            })
+            .end((err, res) => {
+               assert.isObject(res.body);
+               assert.equal(res.body.status, 201);
+               // assert.isArray(res.body.data.images);
+            });
+         done();
+      })
+
+      it(' wrong tags parameter', done => {
+         chai.request(server)
+            .post('/api/v1/meetups/2/tags')
+            .set('Authorization', `Bearer ${token}`)
+            .end((err, res) => {
+               assert.isObject(res.body);
+               assert.equal(res.body.status, 400);
+            });
+         done();
+      })
+
+      it(' add tags', done => {
+         chai.request(server)
+            .post('/api/v1/meetups/2/tags')
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+               tags: 'books',
+               tags: 'lfa'
+            })
+            .end((err, res) => {
+               assert.isObject(res.body);
+               assert.equal(res.body.status, 201);
+               // assert.isArray(res.body.data.tags);
+            });
+         done();
+      })
+      
+
+
+      
    })
 
-  
+   
 })
 
 describe('/ADD TAG TO A SPECIFIC MEETUP', () => {

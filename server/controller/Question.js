@@ -2,6 +2,7 @@ import Questions from '../model/Question';
 import Meetups from '../model/Meetup';
 import Authenticate from '../middleware/authorize';
 import pool from '../model/db_connect';
+import { exists } from 'fs';
 
 const confirmToken = Authenticate.confirmToken;
 class questionController {
@@ -51,8 +52,6 @@ class questionController {
        * @param {object} res
        * @returns {object} vote counts
        */
-       
-         
          const text = 'SELECT * FROM questions WHERE id=$1';
          const value = [req.params.questionId];
          
