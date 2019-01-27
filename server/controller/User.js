@@ -174,21 +174,22 @@ class userController {
             req.body.status
          ]
              pool.query(text, value)
-            .catch((error) => {
-               if(res.status===409){
-                  return res.status(409).json({
-                        status: 409,
-                        error2: 'RSVP already exist for user'
-                     }
+          //  .catch((error) => {//
+               // if(res.status===409){
+               //    return res.status(409).json({
+               //          status: 409,
+               //          error2: 'RSVP already exist for user'
+               //       }
                      
-                  )
-               }
-               else{
+               //    )
+               // }
+               // else{
                   const text3 = `SELECT id, topic FROM meetups WHERE id=$1`;
                   const value3 = [req.params.meetupId];
                         
                   pool.query(text3, value3)
                      .then(meetup => {
+                        console.log('rrssss');
                         return res.status(201).json({
                            status:201,
                            message: 'RSVP successfully created',
@@ -204,8 +205,8 @@ class userController {
                            error:'meetup  do not exit'
                         })
                      })
-               }
-            });
+               // }
+           // });
 
 
        
