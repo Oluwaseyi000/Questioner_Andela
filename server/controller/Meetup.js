@@ -60,7 +60,7 @@ class Meetup {
             if (meetup.rows.length > 0) {
                return res.status(200).json({
                   status: 200,
-                  data: meetup.rows[0]
+                  data: [meetup.rows[0]]
                })
 
             } else {
@@ -204,13 +204,7 @@ class Meetup {
                   })
             }
          }
-      //    return res.json({
-      //       status: 200,
-      //       message: 'Tags added successfully',
-      //       meetupId: req.body.meetupId,
-      //       tags: req.body.tags
-      //    })
-      // }
+     
 }
 
 export default Meetup;

@@ -11,7 +11,6 @@ import tags from '../model/Tags';
 
 const confirmToken = Authenticate.confirmToken;
 import jwt from 'jsonwebtoken';
-import { exists } from 'fs';
 
 class userController {
 
