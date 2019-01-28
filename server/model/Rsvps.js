@@ -11,10 +11,6 @@ const Rsvps =
       meetupId integer NOT NULL  REFERENCES meetups(id),
       response  VARCHAR(20) NOT NULL,
       unique(userid, meetupid)
-      )`)
-   .catch(err=>{
-      console.log(err);
-      //  pool.end();
-   });
+      )`);
 
 export default Rsvps;

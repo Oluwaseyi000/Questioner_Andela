@@ -11,10 +11,6 @@ const Comments =
    body TEXT,
    createdOn DATE, 
    updatedOn DATE
-    )`)
-   .catch(err=>{
-      console.log(err);
-    //  .end();
-   });
+    )`);
 
 export default Comments;

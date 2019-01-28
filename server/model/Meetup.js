@@ -15,10 +15,6 @@ const Meetups =
    host VARCHAR(50),
    createdOn TIMESTAMP, 
    updatedOn DATE
-    )`)
-   .catch(err=>{
-      console.log(err);
-    //  pool.end();
-   });
+    )`);
 
 export default Meetups;

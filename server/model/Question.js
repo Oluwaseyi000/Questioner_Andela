@@ -10,10 +10,6 @@ const Questions =
    title VARCHAR(70),
    body TEXT NOT NULL,
    vote INTEGER
-    )`)
-   .catch(err=>{
-      console.log(err);
-      // pool.end();
-   });
+    )`);
 
 export default Questions;

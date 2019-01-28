@@ -11,7 +11,6 @@ import tags from '../model/Tags';
 
 const confirmToken = Authenticate.confirmToken;
 import jwt from 'jsonwebtoken';
-import { exists } from 'fs';
 
 class userController {
 
@@ -96,12 +95,12 @@ class userController {
             (user) => {
                if (user.rows.length > 0) {
                   
-                  const theuser = user.rows[0];
+                  const userDetail = user.rows[0];
                   bcrypt.compare(req.body.password, user.rows[0].password, (err, authPwd) => {
                      
                      if (authPwd) {
                         jwt.sign({
-                           theuser
+                           userDetail
                         }, 'secretkey', (err, token) => {
                            if (err) {
                            } else {
@@ -213,7 +212,7 @@ class userController {
 
       confirmToken(req, res);
 
-      if (!req.body.userId || !req.body.currentPwd|| !req.body.newPwd) {
+      if (!req.body.userId ||!req.body.newPwd) {
          return res.status(400).json({
             status: 400,
             error: 'Bad Request, please include user Id and new password in your request as parameter'
@@ -227,7 +226,7 @@ class userController {
          req.body.userId
       ];
 
-      Pool.query(text, value)
+      pool.query(text, value)
          .then(user=>{
             return res.status(200).json({
                status:200,
@@ -239,7 +238,9 @@ class userController {
             })
          })
          .catch(err=>{
-            return res.json({err})
+            return res.status(400).json({
+               error: 'no user found',
+               err})
          })
       }
 

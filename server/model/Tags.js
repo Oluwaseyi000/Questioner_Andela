@@ -7,10 +7,6 @@ const Tags =
    pool.query(`CREATE TABLE IF NOT EXISTS tags(id serial PRIMARY KEY,
    meetupId INTEGER REFERENCES meetups(id), 
    tags  TEXT NOT NULL
-    )`)
-   .catch(err=>{
-      console.log(err);
-    //  pool.end();
-   });
+    )`);
 
 export default Tags;

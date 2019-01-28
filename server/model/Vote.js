@@ -11,10 +11,6 @@ const Vote =
          voteType VARCHAR(10) NOT NULL,
          createdOn TIMESTAMP,
          unique(questionId, voterId)
-         )`)
-   .catch(err=>{
-      console.log(err);
-      // pool.end();
-   });
+         )`);
 
 export default Vote;
