@@ -48,17 +48,17 @@ class Meetup {
        * @returns {object} meetup object
        */
       confirmToken(req, res);
-      const text = `SELECT 
-                     meetups.topic , questions.title
-                      FROM meetups  
-                      LEFT JOIN questions  ON meetups.id=questions.meetupid 
-                      WHERE meetups.id=$1 
-                     ` ;
+      // const text = `SELECT 
+      //                meetups.topic , questions.title
+      //                 FROM meetups  
+      //                 LEFT JOIN questions  ON meetups.id=questions.meetupid 
+      //                 WHERE meetups.id=$1 
+      //                ` ;
       // const text = `SELECT 
       //                meetups.*, questions.*, comment.* FROM questions, meetups,comments 
       //                WHERE meetups.id=questions.meetupid and meetups.id=$1` ;
 
-   //   const text = `SELECT * FROM questions where meetupid=$1` ;
+     const text = `SELECT * FROM meetups where id=$1` ;
       const value = [req.params.meetupId];
 
       pool.query(text,value)
@@ -66,7 +66,7 @@ class Meetup {
             if (meetup.rows.length > 0) {
                return res.status(200).json({
                   status: 200,
-                  dgata: meetup.rows
+                  data: meetup.rows
                })
 
             } else {
@@ -88,6 +88,11 @@ class Meetup {
        * @param {object} res
        * @returns {object} array of meetup objects
        */
+<<<<<<< HEAD
+=======
+      confirmToken(req, res);
+      const text = `SELECT * FROM meetups ORDER BY id DESC`;
+>>>>>>> consuming
 
     const text = 'SELECT * FROM meetups';
 

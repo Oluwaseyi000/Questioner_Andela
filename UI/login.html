@@ -37,6 +37,7 @@
                 <div class="topic-list-header center">USER LOGIN </div>
 
                 <form action="" class="signupForm" id="loginForm">
+                    <p class="errorDiv" id="errorDiv"></p>
 
                     <div class="form-group">
                         <label for="email">Email <span>*</span></label>
@@ -85,7 +86,7 @@
                                     window.location.href = "./user/index.html"
                                     
                 }else{
-                    alert('wrong login credential')
+                    document.getElementById('errorDiv').innerHTML='wrong login credential';
                 }
                 
 
