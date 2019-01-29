@@ -48,15 +48,15 @@ class userController {
                      status: 201,
                      message: "New user created successfully",
                      data: [{
-                                    token: token,
-                                    user: {
-                                   
-                                    firstname:user.rows[0].firstname,
-                                    lastname:user.rows[0].lastname,
-                                    email:user.rows[0].email, 
-                                    isadmin: user.rows[0].isadmin
-                                 },
-                                 }]
+                        token: token,
+                        user: {
+
+                           firstname: user.rows[0].firstname,
+                           lastname: user.rows[0].lastname,
+                           email: user.rows[0].email,
+                           isadmin: user.rows[0].isadmin
+                        },
+                     }]
 
 
                   })
@@ -94,27 +94,26 @@ class userController {
          .then(
             (user) => {
                if (user.rows.length > 0) {
-                  
+
                   const userDetail = user.rows[0];
                   bcrypt.compare(req.body.password, user.rows[0].password, (err, authPwd) => {
-                     
+
                      if (authPwd) {
                         jwt.sign({
                            userDetail
                         }, 'secretkey', (err, token) => {
-                           if (err) {
-                           } else {
+                           if (err) {} else {
                               return res.status(200).json({
                                  status: 200,
                                  message: "User logged in successfully",
                                  data: [{
                                     token: token,
                                     user: {
-                                    firstname:user.rows[0].firstname,
-                                    lastname:user.rows[0].lastname,
-                                    email:user.rows[0].email,
-                                    adminStatus:user.rows[0].isadmin,
-                                 },
+                                       firstname: user.rows[0].firstname,
+                                       lastname: user.rows[0].lastname,
+                                       email: user.rows[0].email,
+                                       adminStatus: user.rows[0].isadmin,
+                                    },
                                  }]
                               })
                            }
@@ -173,37 +172,37 @@ class userController {
             req.params.meetupId,
             req.body.status
          ]
-             pool.query(text, value)
+         pool.query(text, value)
             .catch((error) => {
                return res.status(409).json({
                      status: 409,
                      error2: 'RSVP already exist for user'
                   }
-                  
+
                )
             });
 
 
          const text3 = `SELECT id, topic FROM meetups WHERE id=$1`;
-            const value3 = [req.params.meetupId];
-                  
-            pool.query(text3, value3)
-               .then(meetup => {
-                  return res.status(201).json({
-                     status:201,
-                     message: 'RSVP successfully created',
-                     data:[{
-                        meetup: meetup.rows[0].id,
-                        topic: meetup.rows[0].topic,
-                        status: req.body.status
-                     }]
-                  })
+         const value3 = [req.params.meetupId];
+
+         pool.query(text3, value3)
+            .then(meetup => {
+               return res.status(201).json({
+                  status: 201,
+                  message: 'RSVP successfully created',
+                  data: [{
+                     meetup: meetup.rows[0].id,
+                     topic: meetup.rows[0].topic,
+                     status: req.body.status
+                  }]
                })
-               .catch(error => {
-                  return res.status(404).json({
-                     error:'meetup  do not exit'
-                  })
+            })
+            .catch(error => {
+               return res.status(404).json({
+                  error: 'meetup  do not exit'
                })
+            })
 
       }
    }
@@ -212,36 +211,37 @@ class userController {
 
       confirmToken(req, res);
 
-      if (!req.body.userId ||!req.body.newPwd) {
+      if (!req.body.userId || !req.body.newPwd) {
          return res.status(400).json({
             status: 400,
             error: 'Bad Request, please include user Id and new password in your request as parameter'
          })
       } else {
 
-      const text = `UPDATE users SET password=$1 where id=$2 RETURNING firstname, email`;
+         const text = `UPDATE users SET password=$1 where id=$2 RETURNING firstname, email`;
 
-      const value = [
-         bcrypt.hashSync(req.body.newPwd, bcrypt.genSaltSync(10)),
-         req.body.userId
-      ];
+         const value = [
+            bcrypt.hashSync(req.body.newPwd, bcrypt.genSaltSync(10)),
+            req.body.userId
+         ];
 
-      pool.query(text, value)
-         .then(user=>{
-            return res.status(200).json({
-               status:200,
-               message:'password successfully changed',
-               data:{
-                  firstname: user.rows[0].firstname,
-                  email: user.rows[0].email
-               }
+         pool.query(text, value)
+            .then(user => {
+               return res.status(200).json({
+                  status: 200,
+                  message: 'password successfully changed',
+                  data: {
+                     firstname: user.rows[0].firstname,
+                     email: user.rows[0].email
+                  }
+               })
             })
-         })
-         .catch(err=>{
-            return res.status(400).json({
-               error: 'no user found',
-               err})
-         })
+            .catch(err => {
+               return res.status(400).json({
+                  error: 'no user found',
+                  err
+               })
+            })
       }
 
    }
