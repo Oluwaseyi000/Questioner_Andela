@@ -28,10 +28,10 @@ class authorization {
                   status: 401,
                   message: 'access forbiden, Unauthorize User. wrong token',
                   err,
+                  token:req.token
                })
             }else{
                res.authData = authData;
-               req.authData = authData;
                return ; }
             
          })

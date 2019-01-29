@@ -45,7 +45,10 @@
         <div class="body-wrapper">
             <div class="container-page">
                 <div class="topic-list-header">MEETUP</div>
-                <div class="meetup-list">
+                <div class="meetup-list" id="single-meetup">
+                    <div >
+
+                   
                     
                         <div class="meetup-detail">
                                 <div class="meetup-banner"> <img src="../img/unity3d.jpeg" alt="">
@@ -210,7 +213,7 @@
 
                             <textarea name="post-comment-textarea" class="post-comment-textarea" placeholder="Comment on Onyeneke Emeka Question"></textarea> <input type="submit" value="Comment" class="submitButton commentButton">
                         </div>
-
+                    </div>
                     </div>
                 </div>
 
@@ -247,6 +250,183 @@
     <footer class="footer">
         copyright @ Adebajo Oluwaseyi | Andela 2018
     </footer>
+    <script>
+        let meetupId = new URLSearchParams(window.location.search).get('id');
+
+        fetch(`${localStorage.getItem('base_url')}/meetups/${meetupId}`, {
+                headers: {
+                    'content-type': 'text/plain',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.status === 200) {
+                    data.data.map(data=>{
+                        document.querySelector('#single-meetup').innerHTML=`
+                        <div >
+
+                   
+                    
+<div class="meetup-detail">
+        <div class="meetup-banner"> <img src="../img/unity3d.jpeg" alt="">
+        </div>
+    <div>
+    <h1 class="h1">${data.topic}</h1>
+    <div></div>
+    <p ><span class="bold"><i class="far fa-calendar"></i> Date:</span>    <span class="brown">${data.happeningon}</span>    </p>
+    <p><span class="bold"> <i class="fa fa-map-marker-alt"></i> Location:</span><span class="brown">${data.location}Lagos</span> </p>
+    <p ><span class="bold"> <i class="fa fa-user"></i> Host: </span>    <span class="brown">${data.host}</span>    </p>
+    <div><span class="bold"> <i class="fa fa-question-circle"></i> Question:</span>  <span class="brown"> 26  </span>  <span class="bold"><br> <i class="fa fa-check"></i> RSVPS: </span><span class="brown"> 34</span> </div>
+    </div>
+</div>
+                    <br>
+
+
+
+<div class="details">
+<h3>Details</h3>
+<div>
+${data.details}
+
+
+</div>
+</div>
+<hr>
+<h3 class="details">Interested People (12)</h3>
+<section class="attendees">
+
+<div class="attend-block">
+    <img class="attendees" src="../img/coming(1).jpeg" alt="">
+    <p>Oluwaseyi</p>
+</div>
+<div class="attend-block">
+    <img class="attendees" src="../img/coming (2).jpeg" alt="">
+    <p>Christian</p>
+</div>
+<div class="attend-block">
+    <img class="attendees" src="../img/coming (4).jpeg" alt="">
+    <p>Kemi</p>
+</div>
+<div class="attend-block">
+    <img class="attendees" src="../img/coming(4).jpg" alt="">
+    <p>Valetyy</p>
+</div>
+
+
+
+</section>
+<section>
+<hr>
+<h3 class="details">RSVP</h3>  
+<form action="" class="RSVPdiv">
+        <label class="radioContainer"> 
+            <input type="radio" name="rsvp" id="">
+            <span class="checkmark"></span>Attending
+        </label>
+        <label class="radioContainer">
+                <input type="radio"  checked name="rsvp" id="">Not Sure 
+                <span class="checkmark"></span>
+            </label>
+            <label class="radioContainer">Not  
+                    <input type="radio" name="rsvp" id="">Attending
+                    <span class="checkmark"></span>
+                </label>
+                <input type="submit" value="RSVP" class="submitButton">
+    </form>
+</section>
+<hr>
+
+<h3 class="details">Discussion</h3>
+<div class="discussion">
+<button class="submitButton" id="askQuestionButton">ASK QUESTION <i class="far fa-question-circle fa-1x"></i></button>
+
+<form action="#" id="postQuestionForm">
+        
+                
+                <input type="text" required="" name="quesTitle" placeholder="Question title here" class="form-control question-title" >
+           
+    <textarea contenteditable="true" name="post-question" placeholder=" Question Body Here" id="post-question"
+        class="quesstion-textarea"></textarea>
+    <br><button class="submitButton">Submit</button>
+</form>
+<div class="QCDiv">
+
+    <div class="questionDiv"><span>Question by<a href="#"> Adebajo Oluwaseyi </a>on July 4,
+            2018</span>
+        <br> Not sure if Digital Ocean will prefer me to say this here, but we go through
+        Cloudways
+        to have Digital Ocean instances for web hosting. I can't say enough good things about
+        this
+        setup! DO's performance will blow your doors off compared to typical shared hosting or
+        slow
+        VPS plans. And Cloudways' server config makes management secure and easy. Pricing is
+        gooddd
+        too. Especially compared to AWS and GCE which are crazy high.
+        <p><a href="#"><i class="far fa-comment fa-1x"></i>(3)</a> | <a href="#"><i class="far fa-thumbs-up fa-1x"></i> (21)</a> | <a href="#"><i class="far fa-thumbs-down "></i> (3)</a></p>
+    </div>
+
+    <div class="commentDiv"><span>Comment by <a href="#">Emmnuel Tega</a> on July 5, 2018</span>
+        <br>
+        good things about this
+        setup! DO's performance will blow your doors off compared to typical shared hosting or
+        slow
+        VPS plans. And Cloudways' server config makes management secure and easy. Pricing is
+        good
+    </div>
+    <div class="commentDiv"><span>Comment by <a href="#">Olaiyiwola Ojo</a> on July 7, 2018</span>
+        <br>
+        good things about this
+        setup! DO's performance will blow your doors off compared to typical shared hosting or
+        slow
+        VPS plans. And Cloudways' server config makes management secure and easy. Pricing is
+        good
+    </div>
+    <div class="commentDiv"><span>Comment by <a href="#">Blessing Emeka </a> on July 8, 2018</span>
+        <br>
+        gend food things about this
+        setup! DO's performance will blow your doors off compared to typical shared hosting or
+        slow
+        VPS plans. And Cloudways' server config makes management secure and easy. Pricing is
+        good
+    </div>
+   
+    <textarea name="post-comment-textarea" class="post-comment-textarea" placeholder="Comment on  Adebajo Oluwaseyi's  Question"></textarea> <input type="submit" value="Comment" class="submitButton commentButton"> 
+</div>
+
+<div class="QCDiv">
+
+    <div class="questionDiv"><span>Question by<a href="#"> Emeka Onyeneke </a>on July 2, 2018</span>
+        <br> Not sure if Digital Ocean will prefer me to say this here, but we go through
+        Cloudways
+        to have Digital Ocean instances for web hosting. I can't say enough good things about
+        this
+        setup! DO's performance will blow your doors off compared to typical shared hosting or
+        slow
+        VPS plans. And Cloudways' server config makes management secure and easy. Pricing is
+        good
+        too. Especially compared to AWS and GCE which are crazy high.
+        <p><a href="#"><i class="far fa-comment fa-1x"></i>(0)</a> | <a href="#"><i class="far fa-thumbs-up fa-1x"></i> (4)</a> | <a href="#"><i class="far fa-thumbs-down "></i> (1)</a></p>
+    </div>
+
+    <textarea name="post-comment-textarea" class="post-comment-textarea" placeholder="Comment on Onyeneke Emeka Question"></textarea> <input type="submit" value="Comment" class="submitButton commentButton">
+</div>
+</div>
+</div>
+                        `
+
+                    })
+                } else {
+                    alert('wrong login credential');
+                    `Bearer ${localStorage.getItem('token')}`
+                }
+
+
+            })
+            .catch(error => console.log(error));
+
+    </script>
     <script src="../js/general.js"></script>
     <script src="../js/user.js"></script>
 </body>

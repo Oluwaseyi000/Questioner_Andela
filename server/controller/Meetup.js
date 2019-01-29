@@ -30,8 +30,10 @@ class Meetup {
          req.body.host,
          new Date(),
          new Date(),
+         tags,
+         req.body.coverImage
       ]
-      const text = `INSERT INTO meetups(topic, location, happeningOn,  details, host, createdOn, updatedOn) VALUES($1, $2, $3,$4, $5, $6, $7) returning id,topic, location, happeningOn`;
+      const text = `INSERT INTO meetups(topic, location, happeningOn,  details, host, createdOn, updatedOn, tags, coverImage) VALUES($1, $2, $3,$4, $5, $6, $7,$8,$9) returning *`;
 
       pool.query(text, value)
          .then(meetup => {
@@ -51,16 +53,25 @@ class Meetup {
        * @returns {object} meetup object 
        */
       confirmToken(req, res);
+      const text = `SELECT 
+                     meetups.topic , questions.title
+                      FROM meetups  
+                      LEFT JOIN questions  ON meetups.id=questions.meetupid 
+                      WHERE meetups.id=$1 
+                     ` ;
+      // const text = `SELECT 
+      //                meetups.*, questions.*, comment.* FROM questions, meetups,comments 
+      //                WHERE meetups.id=questions.meetupid and meetups.id=$1` ;
 
-      const text = `SELECT * FROM meetups WHERE id=$1` ;
+   //   const text = `SELECT * FROM questions where meetupid=$1` ;
       const value = [req.params.meetupId];
 
-      pool.query(text, value)
+      pool.query(text,value)
       .then(meetup => {
             if (meetup.rows.length > 0) {
                return res.status(200).json({
                   status: 200,
-                  data: [meetup.rows[0]]
+                  dgata: meetup.rows
                })
 
             } else {
@@ -70,6 +81,7 @@ class Meetup {
                })
             }
          })
+         .catch(err=> res.json(err))
    }
 
 
