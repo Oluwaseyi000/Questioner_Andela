@@ -24,20 +24,20 @@ class Meetup {
          req.body.topic,
          req.body.location,
          req.body.happeningOn,
-         tags,
+         
          req.body.details,
-         req.body.images,
+     
          req.body.host,
          new Date(),
          new Date(),
       ]
-      const text = `INSERT INTO meetups(topic, location, happeningOn,tags,  details,images, host, createdOn, updatedOn) VALUES($1, $2, $3,$4, $5, $6, $7, $8,$9) returning *`;
+      const text = `INSERT INTO meetups(topic, location, happeningOn,  details, host, createdOn, updatedOn) VALUES($1, $2, $3,$4, $5, $6, $7) returning id,topic, location, happeningOn`;
 
       pool.query(text, value)
          .then(meetup => {
             // res.meetupId= meetup.rows[0].id;
-            return res.status(201).json({
-               status: 201,
+            return res.status(200).json({
+               status: 200,
                data: meetup.rows[0],
             })
          })
@@ -60,7 +60,7 @@ class Meetup {
             if (meetup.rows.length > 0) {
                return res.status(200).json({
                   status: 200,
-                  data: meetup.rows[0]
+                  data: [meetup.rows[0]]
                })
 
             } else {
@@ -89,7 +89,6 @@ class Meetup {
                return res.status(200).json({
                   status: 200,
                   data: meetup.rows,
-                  authData: res.authData
                })
       })
    }
@@ -131,7 +130,7 @@ class Meetup {
       .then(()=>{
                return res.status(200).json({
                   status: 200,
-                  data: 'meetup successfully deleted'
+                  data: ['meetup successfully deleted']
                })
 
          })
@@ -146,7 +145,6 @@ class Meetup {
                error: 'Bad Request, please include meetup meetupid Id and tags in your request as parameter'
             })
          } else {confirmToken(req, res);
-            console.log(res.authData.userDetail.isadmin);
             if(res.authData.userDetail.isadmin){
 
                const images = req.body.images instanceof Array ? req.body.images.join(';') : req.body.images;
@@ -179,38 +177,47 @@ class Meetup {
       }
 
      
-   
-         static addTag(req, res) {
-            confirmToken(req, res);
-            if (!req.body.tags || !req.body.meetupId) {
-               return res.status(400).json({
-                  status: 400,
-                  error: 'Bad Request, please include meetup meetupid Id and tags in your request as parameter'
-               })
-            } else {
+
+      static addTag(req, res) {
+            
+
+         if (!req.body.tags || !req.params.meetupId) {
+            return res.status(400).json({
+               status: 400,
+               error: 'Bad Request, please include meetup meetupid Id and tags in your request as parameter'
+            })
+         } else {confirmToken(req, res);
+            if(res.authData.userDetail.isadmin){
+
+               const tags = req.body.tags instanceof Array ? req.body.tags.join(';') : req.body.tags;
       
                const text = `SELECT id,topic FROM meetups WHERE id=$1`;
-               const id = [req.body.meetupId];
+               const id = [req.params.meetupId];
       
                pool.query(text, id)
                   .then(meetup => {
-                     return res.status(200).json({
-                        status: 200,
-                        data: {message: "tags added",
-                        userId: res.authData.userDetail.id,
-                        meetupId: req.body.meetupId,
-                        tags: req.body.tags,}
+                     const text2 = `INSERT INTO tags(meetupid, tags) VALUES($1, $2)`;
+                     const value2=[req.params.meetupId, tags]
+                     pool.query(text2, value2); 
+                     return res.status(201).json({
+                        status: 201,
+                        data: {
+                        meetup: req.params.meetupId,
+                        topic: meetup.topic,
+                        images: req.body.tags,}
                      })
                   })
             }
+            else{
+               return res.status(403).json({
+                  status: 403,
+                  error: 'only admin is authorize to add image'
+               })
+            }
+            
          }
-      //    return res.json({
-      //       status: 200,
-      //       message: 'Tags added successfully',
-      //       meetupId: req.body.meetupId,
-      //       tags: req.body.tags
-      //    })
-      // }
+      }
+
 }
 
 export default Meetup;
