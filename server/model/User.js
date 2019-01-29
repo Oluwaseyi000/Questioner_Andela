@@ -15,13 +15,6 @@ import pool from './db_connect';
    registered text ,
    isAdmin Boolean ,
    password TEXT
- )`)
-    .then( () => {
-      // pool.end();
-   })
-   .catch(err=>{
-      console.log(err);
-     pool.end();
-   });
+ )`);
 
 export default Users;
