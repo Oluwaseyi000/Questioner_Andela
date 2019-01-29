@@ -313,3 +313,10 @@ padding-top: 10px;
 	  height: 200px;
 	  margin: 1px 0; 
   }
+
+  .errorDiv{
+	  text-align: center;
+	  color:rgb(223, 60, 60);
+	  font-weight: bold;
+	  padding: 10px 0;
+  }
