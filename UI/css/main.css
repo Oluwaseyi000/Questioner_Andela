@@ -315,8 +315,13 @@ padding-top: 10px;
   }
 
   .errorDiv{
-	  text-align: center;
 	  color:rgb(223, 60, 60);
 	  font-weight: bold;
 	  padding: 10px 0;
+  }
+
+  .successDiv{
+	color:rgba(3,169,244, 0.81);
+	font-weight: bold;
+	padding: 0  0 10px 0;
   }
