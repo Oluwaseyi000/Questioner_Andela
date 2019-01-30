@@ -34,41 +34,42 @@
             <div class="login-div">
                 <div class="topic-list-header center">USER SIGNUP</div>
               
-                <form action="" class="signupForm">
+                <form action="" class="signupForm" id="signupForm">
+                    <div class="errorDiv" id="errorDiv"></div>
                     <div class="form-group">
                         <label for="firstname">Firstname<span>*</span> </label>
-                        <input type="text" required name="firstname" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="lastname">Lastname<span>*</span> </label>
-                        <input type="text" required name="lastname" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="othername">Othername</label>
                         <input type="text" name="firstname" class="form-control">
                     </div>
 
                     <div class="form-group">
+                        <label for="lastname">Lastname<span>*</span> </label>
+                        <input type="text" name="lastname" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="othername">Othername</label>
+                        <input type="text" name="othername" class="form-control">
+                    </div>
+
+                    <div class="form-group">
                         <label for="username">Username </label>
-                        <input type="text" required name="username" class="form-control">
+                        <input type="text"  name="username" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email<span>*</span> </label>
-                        <input type="email" required name="email" class="form-control">
+                        <input type="email"  name="email" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="password">Password<span>*</span> </label>
-                        <input type="password" required name="password" class="form-control">
+                        <input type="password"  name="password" class="form-control">
                     </div>
                     <div class="form-group">
-                            <label class="confirmPassword" for="confirm_email">Confirm  Password<span>*</span> </label>
-                            <input type="password" required name="confirm_email" class="form-control">
+                            <label class="confirmPassword" for="confirm-password">Confirm  Password<span>*</span> </label>
+                            <input type="password"  name="confirm-password" class="form-control">
                         </div>
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
-                        <input type="text" name="phone" class="form-control">
+                        <input type="text" name="phoneNumber" class="form-control">
                     </div>
                     <div class="form-group">
 
@@ -88,7 +89,7 @@
                                 I agree to the <a href="#" id="terms-and-conditions"> Terms and Conditions </a></p>
                         </div>
                         <button type="submit" name="signup" class="submitButton" id="signup">SIGNUP </button>
-                        <a  href="./index.html" class="cancelButton">CANCEL </a >
+                        <button  href="./index.html" type="reset" class="cancelButton">CANCEL </button >
                         <h6 class="already-a-member  already-a-member2">Already a member? <a href="./login.html">SIGN IN</a></h6>
                     </div>
 
@@ -101,6 +102,44 @@
     <footer class="footer">
         copyright @ Adebajo Oluwaseyi  | Andela 2018
     </footer>
+    <script>
+    
+    document.querySelector('#signupForm').addEventListener('submit', e => {
+        
+        e.preventDefault();
+        let formData = new URLSearchParams( new FormData(e.target));
+        console.log(formData);
+        
+        fetch(`${localStorage.getItem('base_url')}/auth/signup` , {
+                method: "Post",
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data =>{
+                
+                if(data.status===201){
+                   
+                    localStorage.setItem('user', JSON.stringify(data.data[0].user));
+                    localStorage.setItem('token', data.data[0].token);
+                    window.location.href = "./user/index.html"
+                    
+             }
+                else{
+                    document.getElementById('errorDiv').innerHTML=null;
+                    data.error.forEach(error => {
+                        document.getElementById('errorDiv').innerHTML+=`
+                        
+                        <li>${error}</li>
+                        ` ;
+                    });
+                    
+                }
+                
+
+            })
+            .catch(error=>console.log(error));
+    })
+</script>
 
     <script src="./js/general.js"></script>
 </body>
