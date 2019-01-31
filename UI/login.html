@@ -71,7 +71,7 @@
         
         e.preventDefault();
         let formData = new URLSearchParams( new FormData(e.target));
-        localStorage.setItem('base_url', 'http://localhost:5000/api/v1');
+        localStorage.setItem('base_url', 'https://seyiproject.herokuapp.com/api/v1');
 
         fetch(`${localStorage.getItem('base_url')}/auth/login` , {
                 method: "Post",
