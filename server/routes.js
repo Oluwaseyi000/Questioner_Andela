@@ -19,6 +19,8 @@ router.get('/meetups', jwt,meetupController.getAllMeetupsRecord);
 router.delete('/meetups/:meetupId', jwt,meetupMiddleware.deleteMeetup, meetupController.deleteMeetup);
 router.post('/meetups/:meetupId/rsvps', jwt,userController.createRsvps);
 
+router.get('/meetups/:meetupId/questions', jwt,questionController.getASpecificQuestionRecord);
+router.get('/questions/:questionId/comments', jwt,questionController.getASpecificCommentRecord);
 router.post('/questions', jwt, questionMiddleware.createQuestion, questionController.createQuestion);
 router.patch('/questions/:questionId/upvote', jwt, questionController.upvote);
 router.patch('/questions/:questionId/downvote', jwt, questionController.downvote);

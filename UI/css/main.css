@@ -321,7 +321,11 @@ padding-top: 10px;
   }
 
   .successDiv{
-	color:rgba(3,169,244, 0.81);
+	color:rgba(0, 0, 0, 0.7);
 	font-weight: bold;
 	padding: 0  0 10px 0;
+  }
+
+  .white-bg{
+	  background: #fff;
   }
