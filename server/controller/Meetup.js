@@ -119,7 +119,7 @@ class Meetup {
     } else {
       return res.status(403).json({
         status: 403,
-        error: 'only admin is authorize to add tags',
+        error: 'only admin is authorize to delete meetup',
       });
     }
   }

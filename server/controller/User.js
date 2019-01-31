@@ -14,7 +14,7 @@ class userController {
     * @returns {object} user object
     */
   static userSignup(req, res) {
-    const text = 'INSERT INTO users(firstname, lastName, email, phoneNumber, othername, registered, isadmin, password) VALUES($1, $2, $3,$4, $5, $6, $7, $8) returning id, email, firstname, lastname, isadmin';
+    const text = 'INSERT INTO users(firstname, lastName, email, phoneNumber, othername, registered, isadmin, password) VALUES($1, $2, $3,$4, $5, $6, $7, $8) returning id, firstname, lastname, isadmin';
 
     const value = [
       req.body.firstname,
@@ -43,7 +43,7 @@ class userController {
                 token,
                 user: {
                   firstname: userDetail.firstname,
-                  lastname: user.rows[0].lastname,
+                  lastname: userDetail.lastname,
                   email: userDetail.email,
                   isadmin: userDetail.isadmin,
                 },
@@ -77,14 +77,19 @@ class userController {
       .then(
         (user) => {
           if (user.rows.length > 0) {
-            const userDetail = user.rows[0];
+            const userDetail = {
+              id: user.rows[0].id,
+              firstname: user.rows[0].firstname,
+              lastname: user.rows[0].lastname,
+              isadmin: user.rows[0].isadmin,
+            };
             bcrypt.compare(req.body.password, user.rows[0].password, (err, authPwd) => {
               if (authPwd) {
                 jwt.sign({
                   userDetail,
                 }, process.env.SECRET, (error, token) => {
                   if (error) {
-                    return res.status(200).json({ error });
+                    return res.status(204).json({ error });
                   }
                   return res.status(200).json({
                     status: 200,
