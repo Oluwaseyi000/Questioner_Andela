@@ -223,5 +223,85 @@ class questionController {
       }));
 >>>>>>> consume API
   }
+
+  static getASpecificQuestionRecord(req, res) {
+    /**
+     * Get A Meetup
+     * @param {object} req 
+     * @param {object} res
+     * @returns {object} meetup object 
+     */
+    confirmToken(req, res);
+    // const text = `SELECT 
+    //                meetups.topic , questions.title
+    //                 FROM meetups  
+    //                 LEFT JOIN questions  ON meetups.id=questions.meetupid 
+    //                 WHERE meetups.id=$1 
+    //                ` ;
+    // const text = `SELECT 
+    //                meetups.*, questions.*, comment.* FROM questions, meetups,comments 
+    //                WHERE meetups.id=questions.meetupid and meetups.id=$1` ;
+
+   const text = `SELECT * FROM questions where meetupId=$1` ;
+    const value = [req.params.meetupId];
+
+    pool.query(text,value)
+    .then(question => {
+      console.log(question);
+                if (question.rows.length > 0) {
+             return res.status(200).json({
+                status: 200,
+                data: question.rows
+             })
+
+          } else {
+             return res.status(404).json({
+                status: 404,
+                error: 'question not found'
+             })
+          }
+       })
+       .catch(err=> res.json(err))
+ }
+
+ static getASpecificCommentRecord(req, res) {
+  /**
+   * Get A Meetup
+   * @param {object} req 
+   * @param {object} res
+   * @returns {object} meetup object 
+   */
+  confirmToken(req, res);
+  // const text = `SELECT 
+  //                meetups.topic , questions.title
+  //                 FROM meetups  
+  //                 LEFT JOIN questions  ON meetups.id=questions.meetupid 
+  //                 WHERE meetups.id=$1 
+  //                ` ;
+  // const text = `SELECT 
+  //                meetups.*, questions.*, comment.* FROM questions, meetups,comments 
+  //                WHERE meetups.id=questions.meetupid and meetups.id=$1` ;
+
+ const text = `SELECT * FROM comments where questionId=$1` ;
+  const value = [req.params.questionId];
+
+  pool.query(text,value)
+  .then(comment => {
+    console.log(comment);
+              if (comment.rows.length > 0) {
+           return res.status(200).json({
+              status: 200,
+              data: comment.rows
+           })
+
+        } else {
+           return res.status(404).json({
+              status: 404,
+              error: 'comment not found'
+           })
+        }
+     })
+     .catch(err=> res.json(err))
+}
 }
 export default questionController;
