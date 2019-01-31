@@ -3,8 +3,7 @@ import pool from './db_connect';
 /**
  * Create Vote Table
  */
-const Vote = 
-   pool.query(`CREATE TABLE IF NOT EXISTS Votes(
+const Vote = pool.query(`CREATE TABLE IF NOT EXISTS Votes(
          id serial PRIMARY KEY,
          questionId integer NOT NULL REFERENCES questions(id),
          voterId integer NOT NULL REFERENCES users(id),
