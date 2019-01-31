@@ -96,15 +96,6 @@ describe('/QUESTION', () => {
 
 
   describe('/object', () => {
-    describe('/question controller', () => {
-      it('Assert question controller has a voteQuestion function ', (done) => {
-        assert.isFunction(questionController.downvote);
-        assert.isFunction(questionController.upvote);
-        assert.isFunction(questionController.addComment);
-        done();
-      });
-    });
-
     describe('upvote a question', () => {
       it(' upvote', (done) => {
         chai.request(server)
@@ -143,17 +134,6 @@ describe('/QUESTION', () => {
             assert.isObject(res.body);
             assert.equal(res.status, 400);
           });
-        done();
-      });
-    });
-
-
-    describe('/user controller', () => {
-      it('Assert user controller has a rsvps function ', (done) => {
-        assert.isFunction(userController.createRsvps);
-        assert.isFunction(userController.userSignup);
-        assert.isFunction(userController.userLogin);
-        assert.isFunction(userController.resetPassword);
         done();
       });
     });

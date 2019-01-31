@@ -268,13 +268,4 @@ describe('/meetup', () => {
       });
     });
   });
-
-  describe('/ADD TAG TO A SPECIFIC MEETUP', () => {
-    describe('/controller has add tag function', () => {
-      it('Assert controller has a add tag function ', (done) => {
-        assert.isFunction(meetupController.addTag);
-        done();
-      });
-    });
-  });
 });
