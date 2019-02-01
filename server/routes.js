@@ -33,7 +33,12 @@ router.post('/meetups/:meetupId/tags', userLoggedIn, meetupController.addTag);
 router.post('/comments', userLoggedIn, commentController.addComment);
 router.patch('/user/reset-password', userLoggedIn, userController.resetPassword);
 
-
+router.get('/',  (req, res)=> {
+   res.json({
+      status: 200,
+      message: 'Welcome to Questioner API'
+   })
+});
 router.all('*', (req, res) => {
   res.status(404).json({
     status: 404,
