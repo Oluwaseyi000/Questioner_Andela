@@ -5,7 +5,7 @@ import pool from './db_connect';
  */
 
 
- const Users =  pool.query(`CREATE TABLE IF NOT EXISTS users(
+const Users = pool.query(`CREATE TABLE IF NOT EXISTS users(
    id serial PRIMARY KEY,
    firstname VARCHAR(40) NOT NULL, 
    lastName VARCHAR(40) NOT NULL,

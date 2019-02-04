@@ -2,8 +2,7 @@ import pool from './db_connect';
 /**
  * Create Question Table
  */
-const Questions =
-   pool.query(`CREATE TABLE IF NOT EXISTS questions(
+const Questions = pool.query(`CREATE TABLE IF NOT EXISTS questions(
    id serial PRIMARY KEY,
    createdBy integer NOT NULL REFERENCES users(id),
    meetupId  integer NOT NULL REFERENCES meetups(id),
