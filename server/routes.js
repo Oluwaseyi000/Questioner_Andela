@@ -23,6 +23,8 @@ router.post('/meetups/:meetupId/rsvps', userLoggedIn, meetupController.createRsv
 router.post('/questions', userLoggedIn, questionMiddleware.createQuestion, questionController.createQuestion);
 router.patch('/questions/:questionId/upvote', userLoggedIn, questionController.upvote);
 router.patch('/questions/:questionId/downvote', userLoggedIn, questionController.downvote);
+router.get('/meetups/:meetupId/questions', userLoggedIn, questionController.getASpecificQuestionRecord);
+router.get('/questions/:questionId/comments', userLoggedIn, questionController.getASpecificCommentRecord);
 
 router.post('/auth/signup', userMiddleware.userSignup, userController.userSignup);
 

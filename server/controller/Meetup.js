@@ -1,26 +1,27 @@
+/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable consistent-return */
 import pool from '../model/db_connect';
 
 class Meetup {
   /**
-    * Create A Meetup
-    * @param {object} req
-    * @param {object} res
-    * @returns {object} meetup object
-    */
+   * Create A Meetup
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} meetup object
+   */
 
   static createMeetup(req, res) {
     if (res.authData.userDetail.isadmin) {
-      
+      console.log(res.authData.userDetail.isadmin);
+
       const tags = req.body.tags instanceof Array ? req.body.tags.join(';') : req.body.tags;
 
       const value = [
         req.body.topic,
         req.body.location,
         req.body.happeningOn,
-  
         req.body.details,
-  
+
         req.body.host,
         new Date(),
         new Date(),
@@ -28,30 +29,30 @@ class Meetup {
         req.body.coverImage,
       ];
       const text = 'INSERT INTO meetups(topic, location, happeningOn,  details, host, createdOn, updatedOn, tags, coverImage) VALUES($1, $2, $3,$4, $5, $6, $7,$8,$9) returning *';
-  
+
       pool.query(text, value)
         .then(meetup =>
-        // res.meetupId= meetup.rows[0].id;
+          // res.meetupId= meetup.rows[0].id;
           res.status(201).json({
             status: 201,
             data: meetup.rows[0],
-          }),
-        );
+          }));
     } else {
       return res.status(403).json({
         status: 403,
         error: 'only admin is authorize to add meetup',
       });
     }
+  }
 
   static getASpecificMeetupRecord(req, res) {
     /**
-       * Get A Meetup
-       * @param {object} req
-       * @param {object} res
-       * @returns {object} meetup object
-       */'
-           
+     * Get A Meetup
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} meetup object
+     */
+
     const text = `
     select meetups.*,
 count (questions) as qcount, 
@@ -68,13 +69,11 @@ group by(meetups.id)
     pool.query(text, value)
 
       .then((meetup) => {
-
         if (meetup.rows.length > 0) {
           return res.status(200).json({
             status: 200,
             data: meetup.rows,
           });
-
         }
         return res.status(404).json({
           status: 404,
@@ -84,31 +83,33 @@ group by(meetups.id)
   }
 
 
-  static getAllMeetupsRecord(res) {
+  static getAllMeetupsRecord(req, res, next) {
     /**
-       * Get All Meetups
-       * @param {object} req
-       * @param {object} res
-       * @returns {object} array of meetup objects
-       */
-    confirmToken(req, res);
-   //  const text = 'select * from meetups';
-    const text = `select meetups.*, count (questions) as qcount, count (rsvps) as rsvpcount from meetups left join questions on questions.meetupid = meetups.id left join rsvps on rsvps.userid=meetups.id group by(meetups.id) order by meetups.id `;
+     * Get All Meetups
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} array of meetup objects
+     */
+    //  const text = 'select * from meetups';
+    const text = 'select meetups.*, count (quetions) as qcount, count (rsvps) as rsvpcount from meetups left join questions on questions.meetupid = meetups.id left join rsvps on rsvps.userid=meetups.id group by(meetups.id) order by meetups.id ';
     pool.query(text)
       .then(meetup => res.status(200).json({
         status: 200,
         data: meetup.rows,
       }))
-      .catch(err=>res.json({err}));
+      .catch(err => res.json({
+        err,
+      }));
   }
+
 
   static upcomingMeetups(req, res) {
     /**
-       * Get Upcoming Meetup
-       * @param {object} req
-       * @param {object} res
-       * @returns {object} meetup object
-       */
+     * Get Upcoming Meetup
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} meetup object
+     */
     const text = 'SELECT * FROM meetups WHERE happeningOn>=$1';
     const value = [new Date()];
 
@@ -121,11 +122,11 @@ group by(meetups.id)
 
   static deleteMeetup(req, res) {
     /**
-       * Delete A Meetup
-       * @param {object} req
-       * @param {object} res
-       * @returns {object} return status code 204
-       */
+     * Delete A Meetup
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} return status code 204
+     */
 
     if (res.authData.userDetail.isadmin) {
       const text = 'DELETE FROM meetups WHERE id=$1';
@@ -146,11 +147,11 @@ group by(meetups.id)
 
 
   /**
-    * Create A Rsvp
-    * @param {object} req
-    * @param {object} res
-    * @returns {object} rsvp object
-    */
+   * Create A Rsvp
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} rsvp object
+   */
   static createRsvps(req, res) {
     if (!req.body.status || !req.params.meetupId) {
       return res.status(400).json({
