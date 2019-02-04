@@ -32,23 +32,23 @@
             <div class="login-div">
                 <div class="topic-list-header center">ADMIN LOGIN </div>
                 
-        
-                <form action="" class="signupForm">
+                	<div class="errorDiv center" id="errorDiv"></div>
+                <form action="" id="adminLoginForm">
 
                         <div class="form-group">
-                              <label for="username">Username<span>*</span> </label>
-                              <input type="text" required="" name="username" class="form-control">
+                              <label for="username">Email<span>*</span> </label>
+                              <input type="email"  name="email" class="form-control">
                           </div>
                        <div class="form-group">
                            <label for="password">Password<span>*</span> </label>
-                           <input type="password" required="" name="password" class="form-control">
+                           <input type="password"  name="password" class="form-control">
                        </div>
                      
                        <div class="form-group margin40">
    
                           
-                           <a href="./admin/meetups.html"  class="submitButton" id="signijn" name="signin">SIGN IN </a>
-                           <a href="./index.html" class="cancelButton">CANCEL </a>
+                           <button href="./admin/meetups.html"  class="submitButton" id="signijn" name="signin">SIGN IN </button>
+                           <button href="./index.html" class="cancelButton">CANCEL </button>
                           
                        </div>
    
@@ -61,6 +61,35 @@
     <footer class="footer">
         copyright @ Adebajo Oluwaseyi  | Andela 2018
     </footer>
+    <script>
+            document.querySelector('#adminLoginForm').addEventListener('submit', e => {
+                
+                e.preventDefault();
+                let formData = new URLSearchParams( new FormData(document.getElementById('adminLoginForm')));
+        
+                fetch(`${localStorage.getItem('base_url')}/auth/login` , {
+                        method: "Post",
+                        body: formData,
+                    })
+                    .then(response => response.json())
+                    .then(data =>{                     
+                        
+                        if(data.status===200 && data.data[0].user.adminStatus){
+                           
+                                           localStorage.setItem('admin', JSON.stringify(data.data[0].user));
+                                           localStorage.setItem('adminToken', data.data[0].token);
+                                            window.location.href = "./admin/meetups.html"
+                                            
+                        }else{
+                            document.getElementById('errorDiv').innerHTML='wrong admin login credential';
+                        }
+                        
+        
+                    })
+                    .catch(error=>console.log(error));
+            })
+        </script>
+        
 
     <script src="./js/general.js"></script>
 </body>

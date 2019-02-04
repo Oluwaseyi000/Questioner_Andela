@@ -5,112 +5,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Questioner | User | Meetups</title>
+    <title>Questioner | User | Meetup</title>
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/user/meetups.css">
-    <link rel="stylesheet" href="../css/signup.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/new.css">
+    
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/responsive.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
 </head>
 
 <body>
-    <div id="loader-overlay">
-        <div class="loader"></div>
-    </div>
     <header class="header">
-            <h1 class="header-logo"><a href="../index.html"><span class="q">Q</span><span class="uestioner">UESTIONER</span> </a> </h1>
+        <h1 class="header-logo"><a href="../index.html"><span class="q">Q</span><span class="uestioner">UESTIONER</span> </a> </h1>
 
-            <div class="profile"> <a href="#"><img id="dropdown" src="../img/coming(1).jpeg" alt="">Admin</a>
-                <br> <span class="time" id="currentTime"></span>
-            </div>
+        <div class="profile"> <a href="#"><img id="dropdown" src="../img/coming(1).jpeg" alt="">Admin</a>
+            <br> <span class="time" id="currentTime"></span>
+        </div>
 
-            <div class="dropdown" id="dropdownNav">
-                <ul>
-                    <li> <a href="../admin/meetups.html">Meetups</a> </li>
-                    <li> <a href="../admin-login.html">Logout</a> </li>
-                </ul>
-            </div>
+        <div class="dropdown" id="dropdownNav">
+            <ul>
+                <li> <a href="../admin/meetups.html">Meetups</a> </li>
+                <li> <a href="../admin-login.html">Logout</a> </li>
+            </ul>
+        </div>
 
-    </header>
+</header>
+    <!-- <div id="loader-overlay">
+            <div class="loader"></div>
+        </div> -->
 
     <section class="container">
         <div class="body-wrapper">
-
-
             <div class="container-page">
-
-                <div class="topic-list-header">CREATE NEW MEETUP</div>
-                <div class="meetup-list">
-                    Fields with * are required
-                  
-                    <p class="terms-checked"></p>
-                    <form action="" class="signupForm">
-                        <div class="form-group">
-                            <label for="topic">Topic <span>*</span></label>
-                            <input type="text" required name="topic" class="form-control">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="location">Location <span>*</span></label>
-                            <input type="text" required name="location" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="date">Happening on <span>*</span></label>
-                            <input type="datetime-local" required name="datetime" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="othername">Details</label>
-                            <textarea name="detail" class="form-control"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="host">Host</label>
-                            <input type="text" name="host" class="form-control"> </div>
-
-
-
-                        <div class="form-group">
-                            <label for="image">images <span>*</span></label>
-                            <input type="file" multiple name="images" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="tags">Tags <span>*</span></label>
-                            <input type="" required name="password" class="form-control">
-                        </div>
-                        <button type="submit" name="signup" id="createMeetup" class="submitButton">CREATE </button>
-                        <button type="reset" name="cancel" class="cancelButton">CANCEL </button>
-
-
-
-                    </form>
-                </div>
-
-
-            </div>
-            <aside class="aside">
-                <div class="aside-header">
-                    Upcoming Meetups</div>
-                <div class="aside-body">
-                    <div class="aside-content upcoming-meetup">
-                        <p><a href="./meetups-stats.html"> Today: <span> 0</span></a></p>
-                        <p><a href="./meetups-stats.html"> This Week:<span> 23</span></a></p>
-                        <p><a href="./meetups-stats.html"> This Month:<span> 123</span></a></p>
+                <div class="topic-list-header center">CREATE MEETUP</div>
+              
+                <form action="" class="signupForm white-bg" id="meetupForm">
+                    <div class="errorDiv" id="errorDiv"></div>
+                    <div class="form-group">
+                        <label for="firstname">Topic<span>*</span> </label>
+                        <input type="text" name="topic" class="form-control">
                     </div>
-                </div>
 
-                <div class="aside-header">
-                    ADVERTS</div>
-                <div class="aside-body">
-                    <img src="https://i.imgur.com/XaKeYJE.png" alt="advert">
-                </div>
+                    <div class="form-group">
+                        <label for="lastname">Location<span>*</span> </label>
+                        <input type="text" name="location" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="othername">Happening On</label>
+                        <input type="date" name="happeningOn" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">Details </label>
+                        <input type="text"  name="details" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="host">Host<span>*</span> </label>
+                        <input type="input"  name="host" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Cover Image<span>*</span> </label>
+                        <input type="file"  name="coverImage" class="form-control">
+                    </div>
+                   
+                  
+                    <div class="form-group">
+
+                        
+                        <button type="submit" name="createMeetup" class="submitButton" id="signup">CREATE </button>
+                        <button  type="reset" class="cancelButton">CANCEL </button >
+                       
+                    </div>
 
 
-            </aside>
+                </form>
+            </div>
+            
         </div>
     </section>
+
     <footer class="footer">
-        copyright @ Adebajo Oluwaseyi | Andela 2018
+        copyright @ Adebajo Oluwaseyi  | Andela 2018
     </footer>
+    <script>
+    
+    document.querySelector('#meetupForm').addEventListener('submit', e => {
+        
+        e.preventDefault();
+        let formData = new URLSearchParams( new FormData(e.target));
+        
+        fetch(`${localStorage.getItem('base_url')}/meetups` , {
+            headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },    
+            method: "Post",
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data =>{
+                console.log(data);
+                
+                if(data.status===201){
+                   
+                    
+                    alert('new meetup created');
+                    window.location.href = "../admin/meetups.html"
+                    
+             }
+                else{
+                    document.getElementById('errorDiv').innerHTML=null;
+                    data.error.forEach(error => {
+                        document.getElementById('errorDiv').innerHTML+=`
+                        
+                        <li>${error}</li>
+                        ` ;
+                    });
+                    
+                }
+                
+
+            })
+            .catch(error=>console.log(error));
+    })
+</script>
+
     <script src="../js/general.js"></script>
 </body>
+
+</html>

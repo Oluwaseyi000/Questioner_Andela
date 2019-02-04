@@ -11,30 +11,38 @@ class Meetup {
 
   static createMeetup(req, res) {
     if (res.authData.userDetail.isadmin) {
+      
+      const tags = req.body.tags instanceof Array ? req.body.tags.join(';') : req.body.tags;
+
       const value = [
         req.body.topic,
         req.body.location,
         req.body.happeningOn,
+  
         req.body.details,
+  
         req.body.host,
         new Date(),
         new Date(),
+        tags,
+        req.body.coverImage,
       ];
-      const text = 'INSERT INTO meetups(topic, location, happeningOn,  details, host, createdOn, updatedOn) VALUES($1, $2, $3,$4, $5, $6, $7) returning id,topic, location, happeningOn';
-
+      const text = 'INSERT INTO meetups(topic, location, happeningOn,  details, host, createdOn, updatedOn, tags, coverImage) VALUES($1, $2, $3,$4, $5, $6, $7,$8,$9) returning *';
+  
       pool.query(text, value)
-        .then(meetup => (res.status(200).json({
-          status: 200,
-          data: meetup.rows[0],
-        })
-        ));
+        .then(meetup =>
+        // res.meetupId= meetup.rows[0].id;
+          res.status(201).json({
+            status: 201,
+            data: meetup.rows[0],
+          }),
+        );
     } else {
       return res.status(403).json({
         status: 403,
         error: 'only admin is authorize to add meetup',
       });
     }
-  }
 
   static getASpecificMeetupRecord(req, res) {
     /**
@@ -42,19 +50,31 @@ class Meetup {
        * @param {object} req
        * @param {object} res
        * @returns {object} meetup object
-       */
-
-
-    const text = 'SELECT * FROM meetups WHERE id=$1';
+       */'
+           
+    const text = `
+    select meetups.*,
+count (questions) as qcount, 
+count (rsvps) as rsvpcount 
+from meetups 
+left join questions on questions.meetupid = meetups.id
+left join rsvps on rsvps.userid=meetups.id 
+where meetups.id=$1
+group by(meetups.id) 
+    `;
     const value = [req.params.meetupId];
 
+
     pool.query(text, value)
+
       .then((meetup) => {
+
         if (meetup.rows.length > 0) {
           return res.status(200).json({
             status: 200,
-            data: [meetup.rows[0]],
+            data: meetup.rows,
           });
+
         }
         return res.status(404).json({
           status: 404,
@@ -71,24 +91,24 @@ class Meetup {
        * @param {object} res
        * @returns {object} array of meetup objects
        */
-
-    const text = 'SELECT * FROM meetups';
-
+    confirmToken(req, res);
+   //  const text = 'select * from meetups';
+    const text = `select meetups.*, count (questions) as qcount, count (rsvps) as rsvpcount from meetups left join questions on questions.meetupid = meetups.id left join rsvps on rsvps.userid=meetups.id group by(meetups.id) order by meetups.id `;
     pool.query(text)
       .then(meetup => res.status(200).json({
         status: 200,
         data: meetup.rows,
-      }));
+      }))
+      .catch(err=>res.json({err}));
   }
 
-  static upcomingMeetups(res) {
+  static upcomingMeetups(req, res) {
     /**
        * Get Upcoming Meetup
        * @param {object} req
        * @param {object} res
        * @returns {object} meetup object
        */
-
     const text = 'SELECT * FROM meetups WHERE happeningOn>=$1';
     const value = [new Date()];
 

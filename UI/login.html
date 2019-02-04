@@ -19,38 +19,38 @@
 
 <body>
     <header class="header">
-        <h1 class="header-logo"><a href="./index.html"><span class="q">Q</span><span class="uestioner">UESTIONER</span> </a> </h1>
+        <h1 class="header-logo"><a href="./index.html"><span class="q">Q</span><span class="uestioner">UESTIONER</span>
+            </a> </h1>
 
-            <div class="profile">  <a class="thelogin" href="./signup.html">SIGN UP</a>
+        <div class="profile"> <a class="thelogin" href="./signup.html">SIGN UP</a>
 
-            </div>
+        </div>
 
     </header>
     <div id="loader-overlay">
-            <div class="loader"></div>
-        </div>
+        <div class="loader"></div>
+    </div>
 
     <section class="container ">
         <div class=" margin-40 body-wrapper ">
             <div class="login-div">
                 <div class="topic-list-header center">USER LOGIN </div>
-               
-                <form action="" class="signupForm">
 
-                     <div class="form-group">
-                           <label for="username">Username <span>*</span></label>
-                           <input type="text" required name="username" class="form-control">
-                       </div>
+                <form action="" class="signupForm" id="loginForm">
+                    <p class="errorDiv center" id="errorDiv"></p>
+
+                    <div class="form-group">
+                        <label for="email">Email <span>*</span></label>
+                        <input type="email" autofocus autocomplete="" required name="email" class="form-control">
+                    </div>
                     <div class="form-group">
                         <label for="password">Password <span>*</span></label>
-                        <input type="password" required name="password" class="form-control">
+                        <input type="password" autocomplete="" required name="password" class="form-control">
                     </div>
-                  
-                    <div class="form-group">
 
-                       
-                        <a  href="./user/index.html" class="submitButton" id="signijn" name="signin">SIGN IN </a>
-                        <a  href="./index.html" class="cancelButton">CANCEL </a >
+                    <div class="form-group">
+                        <button type="submit" class="submitButton">LOG IN</button>
+                        <button type="reset" class="cancelButton">RESET </button>
                         <h6 class="already-a-member">New to Questioner? <a href="./signup.html">SIGN UP</a></h6>
                     </div>
 
@@ -61,10 +61,38 @@
     </section>
 
     <footer class="footer">
-        copyright @ Adebajo Oluwaseyi  | Andela 2018
+        copyright @ Adebajo Oluwaseyi | Andela 2018
     </footer>
 
     <script src="./js/general.js"></script>
 </body>
+<script>
+    document.querySelector('#loginForm').addEventListener('submit', e => {
+        
+        e.preventDefault();
+        let formData = new URLSearchParams( new FormData(e.target));
+        localStorage.setItem('base_url', 'http://localhost:5000/api/v1/');
+
+        fetch(`${localStorage.getItem('base_url')}/auth/login` , {
+                method: "Post",
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data =>{
+                if(data.status===200){
+                   
+                                   localStorage.setItem('user', JSON.stringify(data.data[0].user));
+                                   localStorage.setItem('token', data.data[0].token);
+                                    window.location.href = "./user/index.html"
+                                    
+                }else{
+                    document.getElementById('errorDiv').innerHTML='wrong login credential';
+                }
+                
+
+            })
+            .catch(error=>console.log(error));
+    })
+</script>
 
 </html>

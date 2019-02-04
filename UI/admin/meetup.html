@@ -44,23 +44,16 @@
                <a href="./create_meetup.html" class="submitButton">+ CREATE MEETUP</a>
             <div class="topic-list-header">MEETUP</div>
             <div class="meetup-list">
+                  <section id="single-meetup-detail">
+                      
+                     </section>
 
-                  <div class="meetup-detail">
-                        <div class="meetup-banner"> <img src="../img/unity3d.jpeg" alt="">
-                        </div>
-
-                    <h1 class="h1">END OF YEAR UNITY 3D GAME DEVELOPERS MEETUP</h1>
-                    
-                    <p ><span class="bold"><i class="far fa-calendar"></i> Date:</span>    <span class="brown"> July, 4, 2015, 4:00pm</span>    </p>
-                    <p><span class="bold"> <i class="fa fa-map-marker-alt"></i> Location:</span><span class="brown"> 2 Metal Box Road, Off Acme Road, Ogba, Ikeja · Lagos</span> </p>
-                    <p ><span class="bold"> <i class="fa fa-user"></i> Host: </span>    <span class="brown">Adefarasin Oretope</span>    </p>
-                    <div><span class="bold"> <i class="fa fa-question-circle"></i> Question:</span>  <span class="brown"> 26  </span>  <span class="bold"><br> <i class="fa fa-check"></i> RSVPS: </span><span class="brown"> 34</span> </div>
-                </div>
+                  
                <br>
 
                <div class="RSVPdiv">
                   <a href="./edit_meetup.html" class="submitButton">Edit</a>
-                  <a href="#" class="cancelButton">Delete</a>
+                  <a href="#" class="cancelButton" id="deleteMeetup">Delete</a>
                  
                </div>
                
@@ -210,6 +203,97 @@
    <footer class="footer">
       copyright @ Adebajo Oluwaseyi | Andela 2018
    </footer>
+   <script>
+     // get current page meetup Id
+     let meetupId = new URLSearchParams(window.location.search).get('id');
+
+      /* Populate current page with all meetups */
+      fetch(`${localStorage.getItem('base_url')}/meetups/${meetupId}`, {
+                headers: {
+                    'content-type': 'text/plain',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // console.log(data);
+                if (data.status === 200) {
+                    data.data.map(data=>{
+                        document.querySelector('#single-meetup-detail').innerHTML=`
+                        <div class="meetup-detail">
+                                    <div class="meetup-banner"> <img src="../img/unity3d.jpeg" alt="">
+                                    </div>
+                                <div>
+                                <h1 class="h1">${data.topic}</h1>
+                                <div></div>
+                                <p ><span class="bold"><i class="far fa-calendar"></i> Date:</span>    <span class="brown">${data.happeningon}</span>    </p>
+                                <p><span class="bold"> <i class="fa fa-map-marker-alt"></i> Location:</span><span class="brown">${data.location}Lagos</span> </p>
+                                <p ><span class="bold"> <i class="fa fa-user"></i> Host: </span>    <span class="brown">${data.host}</span>    </p>
+                                <div><span class="bold"> <i class="fa fa-question-circle"></i> Question:</span>  <span class="brown"> 26  </span>  <span class="bold"><br> <i class="fa fa-check"></i> RSVPS: </span><span class="brown"> 34</span> </div>
+                                </div>
+                            </div>
+                                                <br>
+                            
+                            
+                            
+                            <div class="details">
+                            <h3>Details</h3>
+                            <div>
+                            ${data.details}
+                            
+                            
+                            </div>
+                            </div>
+                        ` 
+                    })
+                } else {
+                    alert('wrong login credential');
+                    `Bearer ${localStorage.getItem('token')}`
+                }
+
+
+            })
+            .catch(error => console.log(error));
+
+
+     /* Delete Current Meetup  */
+      document.querySelector('#deleteMeetup').addEventListener('click', e => {
+          
+          e.preventDefault();
+          
+          fetch(`${localStorage.getItem('base_url')}/meetups/${meetupId}` , {
+              headers: {
+                      'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+                  },    
+              method: "Delete",
+              })
+              .then(response => response.json())
+              .then(data =>{
+                  console.log(data);
+                  
+                  if(data.status===200){
+                     
+                      
+                      alert('meetup deleteed');
+                      window.location.href = "../admin/meetups.html"
+                      
+               }
+                  else{
+                      document.getElementById('errorDiv').innerHTML=null;
+                      data.error.forEach(error => {
+                          document.getElementById('errorDiv').innerHTML+=`
+                          
+                          <li>${error}</li>
+                          ` ;
+                      });
+                      
+                  }
+                  
+  
+              })
+              .catch(error=>console.log(error));
+      })
+  </script>
    <script src="../js/general.js"></script>
    <script src="../js/user.js"></script>
 </body>

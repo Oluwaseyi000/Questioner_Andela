@@ -8,7 +8,8 @@ const Questions = pool.query(`CREATE TABLE IF NOT EXISTS questions(
    meetupId  integer NOT NULL REFERENCES meetups(id),
    title VARCHAR(70),
    body TEXT NOT NULL,
-   vote INTEGER
+   vote INTEGER,
+   createdon date
     )`);
 
 export default Questions;
