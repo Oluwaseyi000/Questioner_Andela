@@ -162,30 +162,41 @@ class userController {
       req.body.status,
     ];
     pool.query(text, value)
-      .catch(() => res.status(409).json({
-        status: 409,
-        error2: 'RSVP already exist for user',
-      },
-
-      ));
-
-
-    const text3 = 'SELECT id, topic FROM meetups WHERE id=$1';
-    const value3 = [req.params.meetupId];
-
-    pool.query(text3, value3)
-      .then(meetup => res.status(201).json({
-        status: 201,
-        message: 'RSVP successfully created',
-        data: [{
-          meetup: meetup.rows[0].id,
-          topic: meetup.rows[0].topic,
-          status: req.body.status,
-        }],
+      .then(response=>res.json({
+        response
       }))
-      .catch(() => res.status(404).json({
-        error: 'meetup  do not exit',
-      }));
+      // .catch((err)=>{
+      //   const update= 'UPDATE rsvps set response=$3 where userid=$1 AND meetupid=$2';
+      //   pool.query(text, value)
+      //   .then(resp=>res.json({
+      //       resp
+      //   }))
+      // });
+      .catch(err=>{
+        // const update= 'UPDATE rsvps set response=$3 where userid=$1 AND meetupid=$2';
+        //   pool.query(text, value)
+        res.json({
+          message: 'rsvp already exist'
+        })
+      })
+
+
+    // const text3 = 'SELECT id, topic FROM meetups WHERE id=$1';
+    // const value3 = [req.params.meetupId];
+
+    // pool.query(text3, value3)
+    //   .then(meetup => res.status(201).json({
+    //     status: 201,
+    //     message: 'RSVP successfully created',
+    //     data: [{
+    //       meetup: meetup.rows[0].id,
+    //       topic: meetup.rows[0].topic,
+    //       status: req.body.status,
+    //     }],
+    //   }))
+    //   .catch(() => res.status(404).json({
+    //     error: 'meetup  do not exit',
+    //   }));
 
 
   }

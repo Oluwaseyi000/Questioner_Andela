@@ -16,7 +16,7 @@ class questionController {
     confirmToken(req, res);
 
 
-    const text = 'INSERT INTO questions(createdBy,meetupId, title, body, vote) VALUES($1, $2, $3,$4, $5) returning id';
+    const text = 'INSERT INTO questions(createdBy,meetupId, title, body, vote, createdon) VALUES($1, $2, $3,$4, $5,$6) returning id';
 
 
     const value = [
@@ -25,6 +25,7 @@ class questionController {
       req.body.title,
       req.body.body,
       0,
+      new Date()
     ];
 
     pool.query(text, value)
@@ -124,7 +125,8 @@ class questionController {
     const text = 'INSERT INTO comments(userid, questionId, body) VALUES($1, $2, $3)returning  body  ';
 
     const value = [
-      res.authData.userDetail.id, req.body.questionId, req.body.comment,
+      res.authData.userDetail.id, req.body.questionId, req.body.comment,,
+      new Date()
     ];
 
 
@@ -168,12 +170,16 @@ class questionController {
     //                meetups.*, questions.*, comment.* FROM questions, meetups,comments 
     //                WHERE meetups.id=questions.meetupid and meetups.id=$1` ;
 
-   const text = `SELECT * FROM questions where meetupId=$1` ;
+   const text = `select questions.*,
+   users.firstname
+   from questions 
+   left join users on users.id = questions.createdBy
+   where questions.meetupid=$1
+   group by(questions.id, users.id) ` ;
     const value = [req.params.meetupId];
 
     pool.query(text,value)
     .then(question => {
-      console.log(question);
                 if (question.rows.length > 0) {
              return res.status(200).json({
                 status: 200,
@@ -208,24 +214,31 @@ class questionController {
   //                meetups.*, questions.*, comment.* FROM questions, meetups,comments 
   //                WHERE meetups.id=questions.meetupid and meetups.id=$1` ;
 
- const text = `SELECT * FROM comments where questionId=$1` ;
+ const text = `
+ select comments.*,
+   users.firstname
+   from comments 
+   left join users on users.id = comments.userid
+   where comments.questionid=$1
+   group by(comments.id, users.id)
+ ` ;
   const value = [req.params.questionId];
 
   pool.query(text,value)
   .then(comment => {
-    console.log(comment);
-              if (comment.rows.length > 0) {
+    
+              //if (comment.rows.length > 0) {
            return res.status(200).json({
               status: 200,
               data: comment.rows
            })
 
-        } else {
-           return res.status(404).json({
-              status: 404,
-              error: 'comment not found'
-           })
-        }
+        // } else {
+        //    return res.status(404).json({
+        //       status: 404,
+        //       error: 'comment not found'
+        //    })
+        // }
      })
      .catch(err=> res.json(err))
 }

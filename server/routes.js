@@ -11,7 +11,6 @@ const jwt = authorize.verifyToken;
 
 let router = express.Router();
 
-// router.use('api/v1',  jwt);
 router.get('/meetups/upcomingmeetups', jwt, meetupController.upcomingMeetups);
 router.post('/meetups', jwt, meetupMiddleware.createMeetup, meetupController.createMeetup);
 router.get('/meetups/:meetupId', jwt, meetupMiddleware.getASpecificMeetupRecord, meetupController.getASpecificMeetupRecord);
@@ -35,10 +34,16 @@ router.post('/comments', jwt, questionController.addComment);
 router.patch('/user/reset-password', jwt, userController.resetPassword);
 
 
+router.get('/',  (req, res)=> {
+   res.json({
+      status: 200,
+      message: 'Welcome to Questioner API'
+   })
+});
 router.all('*', (req, res) => {
    res.status(404).json({
       status: 404,
-      error: 'Incorrect API endpoint;  Preceed your API endpoint with API please check your api URL (even for as little thing as spelling)'
+      error: 'Incorrect API endpoint;  please check your api URL (even for as little things as spelling)'
    });
 })
  
