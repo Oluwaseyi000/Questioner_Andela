@@ -100,7 +100,7 @@
         
         fetch(`${localStorage.getItem('base_url')}/meetups` , {
             headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
                 },    
             method: "Post",
                 body: formData,

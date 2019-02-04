@@ -1,58 +1,58 @@
 let overlay = document.getElementById('loader-overlay');
-if(overlay){
-    window.addEventListener('load', function(){
-overlay.style.display = 'none';
-})
+if(overlay) {
+  window.addEventListener('load', function() {
+    overlay.style.display = 'none';
+  })
 }
 
 
-var terms= document.getElementById('terms-and-conditions');
-if(terms){terms.addEventListener('click', displayTermsAndConditions);
-function displayTermsAndConditions(e) {
+let terms= document.getElementById('terms-and-conditions');
+if(terms) {terms.addEventListener('click', displayTermsAndConditions);
+  function displayTermsAndConditions(e) {
     e.preventDefault();
     document.getElementById('terms-div').style.display='block'
-}}
+  }}
 
-var deleteMeetup = document.getElementsByClassName('delete-meetup');
+let deleteMeetup = document.getElementsByClassName('delete-meetup');
 
-for (var i = 0; i < deleteMeetup.length; i++) {
-    deleteMeetup[i].addEventListener('click',function() {
-        setTimeout(function(){
-            var alert = document.getElementById('alert');
-            if(alert){alert.style.display='block';}
-            }, 4000)   
-    }, false);
+for (let i = 0; i < deleteMeetup.length; i++) {
+  deleteMeetup[i].addEventListener('click',function() {
+    setTimeout(function() {
+      let alert = document.getElementById('alert');
+      if(alert) {alert.style.display='block';}
+    }, 4000)   
+  }, false);
 }
 
-var creatMeetup= document.getElementById('createMeetup');
-if(creatMeetup){
+let creatMeetup= document.getElementById('createMeetup');
+if(creatMeetup) {
     
-    creatMeetup.addEventListener('click', creatMeetup)
+  creatMeetup.addEventListener('click', creatMeetup)
 }
 
 function createMeetup(e) {
    
-    location.replace("/")
+  location.replace("/")
     
 }
 
 
- var submitButton = document.forms.namedItem('login');
- if(submitButton){submitButton.addEventListener('submit', processLoginForm)}
+let submitButton = document.forms.namedItem('login');
+if(submitButton) {submitButton.addEventListener('submit', processLoginForm)}
 
 function processLoginForm(e) {
- e.preventDefault();
- var formData = new FormData( document.forms.namedItem('login'));
-    if(formData.get('username')==='admin'){
-        window.location.href = "./admin/meetups.html"
-    }
+  e.preventDefault();
+  let formData = new FormData( document.forms.namedItem('login'));
+  if(formData.get('username')==='admin') {
+    window.location.href = "./admin/meetups.html"
+  }
 
-    else if(formData.get('username')==='user'){
-        window.location.href = "./user/index.html"
-    }
-    else{
+  else if(formData.get('username')==='user') {
+    window.location.href = "./user/index.html"
+  }
+  else{
 
-    }
+  }
    
 }
 
@@ -65,37 +65,37 @@ function processLoginForm(e) {
 // }
 
 
-window.onload = function () {setTimeout(function(){
-    var alert = document.getElementById('alert');
-    if(alert){alert.style.display='none';}
-    }, 4000) 
+window.onload = function () {setTimeout(function() {
+  let alert = document.getElementById('alert');
+  if(alert) {alert.style.display='none';}
+}, 4000) 
 }
 
 let drop = document.getElementById('dropdown');
-if(drop){
-    drop.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.getElementById('dropdownNav').style.display="block"
+if(drop) {
+  drop.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('dropdownNav').style.display="block"
         
-    })
+  })
 }
 
 const goToSignup = document.getElementById('goToSignup');
-if(goToSignup){
-    goToSignup.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.getElementById('signup').style.display="block"
-        document.getElementById('signin').style.display="none";
+if(goToSignup) {
+  goToSignup.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('signup').style.display="block"
+    document.getElementById('signin').style.display="none";
         
-    })
+  })
 }
 
 
 const goToSignin = document.getElementById('goToSignin');
-if(goToSignin){
-    goToSignin.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.getElementById('signup').style.display="none";
-        document.getElementById('signin').style.display="block"  
-    })
+if(goToSignin) {
+  goToSignin.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('signup').style.display="none";
+    document.getElementById('signin').style.display="block"  
+  })
 }

@@ -3,7 +3,7 @@ import pool from './db_connect';
 /**
  * Create Meetup Table
  */
-const Meetups = pool.query(`CREATE TABLE IF NOT EXISTS meetups(
+const Meetups = pool.query(`CREATE TABLE IF NOT EXISTS meetupsoo(
    id serial PRIMARY KEY,
    location  VARCHAR(70) NOT NULL,
    topic VARCHAR(120) NOT NULL,
@@ -14,6 +14,7 @@ const Meetups = pool.query(`CREATE TABLE IF NOT EXISTS meetups(
    coverImage text,
    createdOn TIMESTAMP, 
    updatedOn TIMESTAMP
+
     )`);
 
 export default Meetups;

@@ -72,7 +72,9 @@
                         body: formData,
                     })
                     .then(response => response.json())
-                    .then(data =>{                     
+                    .then(data =>{    
+                    console.log('cfggh');
+                                     
                         
                         if(data.status===200 && data.data[0].user.adminStatus){
                            

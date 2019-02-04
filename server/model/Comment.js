@@ -6,7 +6,7 @@ import pool from './db_connect';
 const Comments = pool.query(`CREATE TABLE IF NOT EXISTS comments(
    id serial PRIMARY KEY,
    userid  INTEGER NOT NULL REFERENCES users(id),
-   questionid INTEGER NOT NULL REFERENCES questions(id),
+   questionid INTEGER NOT NULL REFERENCES questions(id) ON DELETE CASCADE,
    body TEXT,
    createdOn DATE, 
    updatedOn DATE
