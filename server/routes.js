@@ -33,7 +33,6 @@ router.post('/meetups/:meetupId/tags', jwt, meetupController.addTag);
 router.post('/comments', jwt, questionController.addComment);
 router.patch('/user/reset-password', jwt, userController.resetPassword);
 
-
 router.get('/',  (req, res)=> {
    res.json({
       status: 200,
