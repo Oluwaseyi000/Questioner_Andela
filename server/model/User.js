@@ -5,7 +5,7 @@ import pool from './db_connect';
  */
 
 
- const Users =  pool.query(`CREATE TABLE IF NOT EXISTS users(
+const Users = pool.query(`CREATE TABLE IF NOT EXISTS users(
    id serial PRIMARY KEY,
    firstname VARCHAR(40) NOT NULL, 
    lastName VARCHAR(40) NOT NULL,
@@ -15,13 +15,6 @@ import pool from './db_connect';
    registered text ,
    isAdmin Boolean ,
    password TEXT
- )`)
-    .then( () => {
-      // pool.end();
-   })
-   .catch(err=>{
-      console.log(err);
-     pool.end();
-   });
+ )`);
 
 export default Users;

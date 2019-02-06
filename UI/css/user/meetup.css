@@ -4,7 +4,8 @@
 }
 
 .meetup-detail h1{
-    text-transform: capitalize
+    text-transform: capitalize;
+    font-size: 22px;
 }
 .meetup-confirmation{
     float: right; 
@@ -85,11 +86,13 @@ margin: 5px 10px 0 0;
    
 }
 .meetup-banner img{
-    max-width: 550px;
+    max-width: 450px;
+    float: left;
+    margin-right: 25px;
 }
 
 #postQuestionForm{
-display: none
+display: block
 }
 
 .questionDiv, .commentDiv{
@@ -115,7 +118,7 @@ display: none
 .questionDiv span, .commentDiv span{
     font-style: italic;
     font-size: 13px;
-    color: #666;
+    /* color: #666; */
     font-weight: bold;
 }
 .commentDiv span{

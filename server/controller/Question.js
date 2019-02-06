@@ -1,105 +1,197 @@
-import Questions from '../model/Question';
-import Meetups from '../model/Meetup';
-import Authenticate from '../middleware/authorize';
 import pool from '../model/db_connect';
 
-const confirmToken = Authenticate.confirmToken;
 class questionController {
-   /**
-    * Create A Question
-    * @param {object} req 
-    * @param {object} res
-    * @returns {object} question object 
-    */
-   static createQuestion(req, res) {
+  /**
+   * Create A Question
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} question object
+   */
+  static createQuestion(req, res) {
+    const text = 'INSERT INTO questions(createdBy,meetupId, title, body, vote, createdon) VALUES($1, $2, $3,$4, $5,$6) returning id';
 
-      confirmToken(req, res);
+    const value = [
+      res.authData.userDetail.id,
+      req.body.meetupId,
+      req.body.title,
+      req.body.body,
+      0,
+      new Date(),
+    ];
+
+    pool.query(text, value)
+      .then(() => res.status(201).json({
+        status: 201,
+        message: 'Question successfully added',
+        data: [{
+          user: res.authData.userDetail.id,
+          meetup: req.body.meetupId,
+          title: req.body.title,
+          body: req.body.body,
+        }],
+      }));
+  }
+
+  static upvote(req, res) {
+    /**
+     * Vote question: increase or decrease the vote count
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} vote counts
+     */
+    // const text = 'SELECT * FROM questions WHERE id=$1';
+    const value = [
+      req.params.questionId,
+      res.authData.userDetail.id,
+      'upvote',
+      new Date(),
+    ];
+
+    const text = 'INSERT INTO votes(questionid, voterid, votetype,createdon) VALUES($1, $2, $3,$4) ON CONFLICT (questionid, voterid) DO UPDATE SET votetype=$3, createdon=$4 RETURNING *';
+
+    const value2 = [req.params.questionId];
+    const text2 = 'update questions set vote=vote+1 where id=$1 returning *';
+
+    pool.query(text2, value2);
+
+    pool.query(text, value)
+      .then(vote => res.json({
+        status: 201,
+        data: {
+          message: 'upvote successful',
+        },
+      }))
+      .catch(err => res.json({ err }));
+  }
+
+  static downvote(req, res) {
+    /**
+     * downvote question:  decrease the vote count
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} vote counts
+     */
+    const value = [
+      req.params.questionId,
+      res.authData.userDetail.id,
+      'downvote',
+      new Date(),
+    ];
+
+    const text = 'INSERT INTO votes(questionid, voterid, votetype,createdon) VALUES($1, $2, $3,$4) ON CONFLICT (questionid, voterid) DO UPDATE SET votetype=$3, createdon=$4 RETURNING *';
+    const value2 = [req.params.questionId];
+    const text2 = 'update questions set vote=vote-1 where id=$1 returning *';
+
+    // pool.query(text2, value2);
+
+    pool.query(text, value)
+      .then(inser => pool.query(text2, value2))
+      .then(inser => vote => res.status(201).json({
+          status: 201,
+          data: {
+            message: 'downvote successful',
+            inser,
+          },
+        }),)
+      .catch(err => res.json({ err }));
+  }
+
+  static getASpecificQuestionRecord(req, res) {
+    /**
+     * Get A Meetup
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} meetup object
+     */
 
 
-      const text = `INSERT INTO questions(createdBy,meetupId, title, body, vote) VALUES($1, $2, $3,$4, $5) returning id`;
+    const text = `select questions.*,
+    count(vote) as vcount,
+       users.firstname
+       from questions 
+       left join users on users.id = questions.createdBy
+       left join votes on votes.questionid=questions.id
+       where questions.meetupid=$1
+       group by(questions.id, users.id)
+       order by questions.vote DESC`;
+    const value = [req.params.meetupId];
 
-      const value = [
+    pool.query(text, value)
+      .then(question => res.status(200).json({
+        status: 200,
+        data: question.rows,
+      }))
+      .catch(err => res.json(err));
+  }
 
-         res.authData.userDetail.id,
-         req.body.meetupId,
-         req.body.title,
-         req.body.body,
-         0
-      ]
+  static getASpecificCommentRecord(req, res) {
+    /**
+     * Get A Meetup
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} meetup object
+     */
 
-      pool.query(text, value)
-         .then(question => {
-            return res.status(200).json({
-               status: 200,
-               message: 'Question successfully added',
-               data: {
-                  userId: res.authData.userDetail.id,
-                  questionId: question.rows[0].id,
-                  meetupId: req.body.meetupId,
-                  title: req.body.title,
-                  body: req.body.body
-               },
-            })
-         })
+    const text = `
+   select comments.*,
+     users.firstname
+     from comments 
+     left join users on users.id = comments.userid
+     where comments.questionid=$1
+     group by(comments.id, users.id)
+   `;
+    const value = [req.params.questionId];
 
-      // }
-   }
+    pool.query(text, value)
+      .then(comment => res.status(200).json({
+        status: 200,
+        data: comment.rows,
+      }))
+      .catch(err => res.json(err));
+  }
 
-   static voteQuestion(req, res) {
-      /**
-       * Vote question: increase or decrease the vote count
-       * @param {object} req 
-       * @param {object} res
-       * @returns {object} vote counts
-       */
+  static getUpvoteCount(req, res) {
+    /**
+     * upvote count
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} count object
+     */
 
-      if (!req.params.questionId || !req.params.voteType) {
-         return res.status(400).json({
-            status: 400,
-            error: 'Bad Request, please include meetup Id and vote type in your request as parameter'
-         })
-      } else {
-         const text = `UPDATE questions SET vote=vote+1 where id=$1 RETURNING title,body, vote, meetupId`;
-         const value2 = [req.params.questionId];
-         pool.query(text, value2)
-            .then(ques => {
+    const text = `
+    select count(*) as upcount from votes 
+    where questionid=$1 and votetype='downvote' 
+   `;
+    const value = [req.params.questionId];
 
-               const value2 = [req.params.questionId];
-               const text2 = `SELECT id FROM meetups WHERE id=$1`;
-               pool.query(text2, ques.meetupId)
-                  .then()
-               return res.json({
-                  ques: ques.rows
-               })
-            });
+    pool.query(text, value)
+      .then(vote => res.status(200).json({
+        status: 200,
+        data: vote.rows[0],
+      }))
+      .catch(err => res.json(err));
+  }
 
-      }
+  static downUpvoteCount(req, res) {
+    /**
+     * downvote count
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} meetup object
+     */
 
+    const text = `
+    select count(*) as upcount from votes 
+    where questionid=$1 and votetype='downvote' 
+   `;
+    const value = [req.params.questionId];
 
-   }
-   static addComment(req, res) {
-      confirmToken(req, res);
-      if (!req.body.questionId || !req.body.comment) {
-         return res.status(400).json({
-            status: 400,
-            error: 'Bad Request, please include meetup question Id and comment in your request as parameter'
-         })
-      } else {
-
-         const text = `SELECT id,title,body FROM questions WHERE id=$1`;
-         const id = [req.body.questionId];
-
-         pool.query(text, id)
-            .then(meetup => {
-               return res.status(200).json({
-                  status: 200,
-                  message: "comment added",
-                  userId: res.authData.userDetail.id,
-                  comment: req.body.comment,
-                  question: meetup.rows[0],
-               })
-            })
-      }
-   }
+    pool.query(text, value)
+      .then(vote => res.status(200).json({
+        status: 200,
+        data: vote.rows[0],
+      }))
+      .catch(err => res.json(err));
+  }
 }
 export default questionController;

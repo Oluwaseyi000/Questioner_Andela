@@ -126,7 +126,6 @@ a{
 	width: 50px;
 	height:50px;
 	border-radius: 50%;
-	padding-top: 10px;
   
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -313,3 +312,41 @@ padding-top: 10px;
 	  height: 200px;
 	  margin: 1px 0; 
   }
+
+  .errorDiv{
+	  color:rgb(223, 60, 60);
+	  font-weight: bold;
+	  padding: 10px 0;
+  }
+
+  .successDiv{
+	color:rgba(0, 0, 0, 0.7);
+	font-weight: bold;
+	padding: 0  0 10px 0;
+  }
+
+  .white-bg{
+	  background: #fff;
+  }
+
+  .votecount{
+	  color:rgb(211, 218, 221)
+  }
+
+  .fa-2xs {
+	font-size: 1.5em;
+}
+
+.thelogin {
+	/* background-color: rgb(223, 60, 60); */
+	border: none;
+	color: white;
+	cursor: pointer;
+	padding: 10px 22px;
+	text-align: center;
+	margin: 0 auto;
+	display: inline-block;
+	border: 2px solid #fff;
+	border-radius: 5px;
+	margin-right: 10px
+}

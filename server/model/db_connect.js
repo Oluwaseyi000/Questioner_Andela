@@ -1,15 +1,12 @@
 import dotenv from 'dotenv';
-import {Pool, Client} from 'pg';
+import { Pool } from 'pg';
 
-dotenv.config();  
+dotenv.config();
 const pool = new Pool({
-   connectionString: process.env.DATABASE_REMOTE
+  connectionString: process.env.DATABASE_REMOTE,
 });
-
-
-pool.connect((err, client, done)=>{
-if(err){console.log('error')}
-else {console.log('db connected')}
-})
+pool.connect((err) => {
+  if (err) { console.log('error'); } else { console.log('db connected'); }
+});
 
 export default pool;

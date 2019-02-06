@@ -11,7 +11,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+        crossorigin="anonymous">
 
 
     <link rel="stylesheet" href="../css/responsive.css">
@@ -23,74 +24,71 @@
     </div>
 
     <header class="header">
-            <h1 class="header-logo"><a href="../index.html"><span class="q">Q</span><span class="uestioner">UESTIONER</span> </a> </h1>
-              
-                <div class="profile"> <a href="#"><img id="dropdown" src="../img/coming (2).jpeg" alt="">Seyi</a> 
-                  <br>  <span class="time" id="currentTime"></span>
-                </div>
-                
-                <div class="dropdown"  id="dropdownNav">
-                    <ul>
-                            <li><a href="./index.html">Meetups</a></li>
-                        <li> <a href="../user/profile.html">Profile</a> </li>
-                        <li> <a href="../user/reset-password.html">Setting</a> </li>
-                        <li> <a href="../index.html">Logout</a> </li>
-                    </ul>
-                </div>
-    
-        </header>
+        <h1 class="header-logo"><a href="../index.html"><span class="q">Q</span><span class="uestioner">UESTIONER</span>
+            </a> </h1>
+
+        <div class="profile"> <a href="#"><img id="dropdown" src="../img/coming (2).jpeg" alt="">Seyi</a>
+            <br> <span class="time" id="currentTime"></span>
+        </div>
+
+        <div class="dropdown" id="dropdownNav">
+            <ul>
+                <li><a href="./index.html">Meetups</a></li>
+                <li> <a href="../user/profile.html">Profile</a> </li>
+                <li> <a href="../user/reset-password.html">Setting</a> </li>
+                <!-- <li id="logout"> <a href="#">Logout</a> </li> -->
+            </ul>
+        </div>
+
+    </header>
 
 
     <section class="container">
         <div class="body-wrapper">
             <div class="container-page">
                 <div class="topic-list-header">MEETUP</div>
-                <div class="meetup-list">
+                <div class="meetup-list" id="single-meetup">
+
+                    <section >
+                        <div class="meetup-banner"> <img src="../img/unity3d.jpeg" alt="">
+                        </div>
+                        <div id="single-meetup-detail">
+
+                        </div>
+                    </section>
                     
-                        <div class="meetup-detail">
-                                <div class="meetup-banner"> <img src="../img/unity3d.jpeg" alt="">
-                                </div>
-                            <div>
-                            <h1 class="h1">END OF YEAR UNITY 3D GAME DEVELOPERS MEETUP</h1>
-                            <div></div>
-                            <p ><span class="bold"><i class="far fa-calendar"></i> Date:</span>    <span class="brown"> July, 4, 2015, 4:00pm</span>    </p>
-                            <p><span class="bold"> <i class="fa fa-map-marker-alt"></i> Location:</span><span class="brown"> 2 Metal Box Road, Off Acme Road, Ogba, Ikeja · Lagos</span> </p>
-                            <p ><span class="bold"> <i class="fa fa-user"></i> Host: </span>    <span class="brown">Adefarasin Oretope</span>    </p>
-                            <div><span class="bold"> <i class="fa fa-question-circle"></i> Question:</span>  <span class="brown"> 26  </span>  <span class="bold"><br> <i class="fa fa-check"></i> RSVPS: </span><span class="brown"> 34</span> </div>
-                            </div>
-                        </div>
-                                            <br>
-
-                        
+                    <section>
+                        <hr>
+                        <h3 class="details">RSVP</h3>
+                        <form action="" id="rsvpForm" class="RSVPdiv">
+                            <label class="radioContainer">
+                                <input type="radio" name="status" value="attending">
+                                <span class="checkmark"></span>Attending
+                            </label>
+                            <label class="radioContainer">
+                                <input type="radio" checked name="status" value="not sure">Not Sure
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radioContainer">Not
+                                <input type="radio" name="status" value="not attending">Attending
+                                <span class="checkmark"></span>
+                            </label>
+                            <input type="submit" value="RSVP" class="submitButton">
+                        </form>
+                    </section>
                    
-                    <div class="details">
-                        <h3>Details</h3>
-                        <div>
-
-                            You are all invited to the end of year unity 3d game developers meetup.
-
-                            The order of the programme is as follows:
-                            <ul>
-                                <li> Discussions on unity and unity technologies</li>
-                                <li>Panel session with game developers</li>
-                                <li>Game developer trainings/events</li>
-                                <li>Gaming competitions</li>
-                            </ul>
-
-                            <br>
-
-                            Studios/Companies invited to exhibit and make the event fun include:
-
-                            Imisi3D
-                            Blackring Studios
-                            Deluxe Creation Studios
-                            The Creatus
-
-                            Program is set to run between 10:00am - 5:00pm
+                    <hr>
+                    <section>
+                        
+                
+                <div class="details">
+                <h3>Details</h3>
+                <div>
+                ${meetup.data[0].details}               
+                </div>
+                    </section>
 
 
-                        </div>
-                    </div>
                     <hr>
                     <h3 class="details">Interested People (12)</h3>
                     <section class="attendees">
@@ -111,111 +109,43 @@
                             <img class="attendees" src="../img/coming(4).jpg" alt="">
                             <p>Valetyy</p>
                         </div>
-
-                        
-                      
                     </section>
-                    <section>
-                        <hr>
-                        <h3 class="details">RSVP</h3>  
-                        <form action="" class="RSVPdiv">
-                                <label class="radioContainer"> 
-                                    <input type="radio" name="rsvp" id="">
-                                    <span class="checkmark"></span>Attending
-                                </label>
-                                <label class="radioContainer">
-                                        <input type="radio"  checked name="rsvp" id="">Not Sure 
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="radioContainer">Not  
-                                            <input type="radio" name="rsvp" id="">Attending
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <input type="submit" value="RSVP" class="submitButton">
-                            </form>
-                    </section>
+                    
                     <hr>
-
+                   
                     <h3 class="details">Discussion</h3>
                     <div class="discussion">
+                        <p class="successDiv" id="quesSuccessDiv"></p>
+                        <p class="errorDiv" id=questionError></p>
                         <button class="submitButton" id="askQuestionButton">ASK QUESTION <i class="far fa-question-circle fa-1x"></i></button>
 
                         <form action="#" id="postQuestionForm">
-                                
-                                        
-                                        <input type="text" required="" name="quesTitle" placeholder="Question title here" class="form-control question-title" >
-                                   
-                            <textarea contenteditable="true" name="post-question" placeholder=" Question Body Here" id="post-question"
+
+
+                            <input type="text" name="title" placeholder="Question title here" class="form-control question-title">
+
+                            <textarea contenteditable="true" name="body" placeholder=" Question Body Here" id="post-question"
                                 class="quesstion-textarea"></textarea>
                             <br><button class="submitButton">Submit</button>
                         </form>
+                        <div class="QCDiv" id="questions-list">
+
+                        </div>
+
                         <div class="QCDiv">
 
-                            <div class="questionDiv"><span>Question by<a href="#"> Adebajo Oluwaseyi </a>on July 4,
-                                    2018</span>
-                                <br> Not sure if Digital Ocean will prefer me to say this here, but we go through
-                                Cloudways
-                                to have Digital Ocean instances for web hosting. I can't say enough good things about
-                                this
-                                setup! DO's performance will blow your doors off compared to typical shared hosting or
-                                slow
-                                VPS plans. And Cloudways' server config makes management secure and easy. Pricing is
-                                gooddd
-                                too. Especially compared to AWS and GCE which are crazy high.
-                                <p><a href="#"><i class="far fa-comment fa-1x"></i>(3)</a> | <a href="#"><i class="far fa-thumbs-up fa-1x"></i> (21)</a> | <a href="#"><i class="far fa-thumbs-down "></i> (3)</a></p>
-                            </div>
+                            <div id="ask-question-div">
 
-                            <div class="commentDiv"><span>Comment by <a href="#">Emmnuel Tega</a> on July 5, 2018</span>
-                                <br>
-                                good things about this
-                                setup! DO's performance will blow your doors off compared to typical shared hosting or
-                                slow
-                                VPS plans. And Cloudways' server config makes management secure and easy. Pricing is
-                                good
-                            </div>
-                            <div class="commentDiv"><span>Comment by <a href="#">Olaiyiwola Ojo</a> on July 7, 2018</span>
-                                <br>
-                                good things about this
-                                setup! DO's performance will blow your doors off compared to typical shared hosting or
-                                slow
-                                VPS plans. And Cloudways' server config makes management secure and easy. Pricing is
-                                good
-                            </div>
-                            <div class="commentDiv"><span>Comment by <a href="#">Blessing Emeka </a> on July 8, 2018</span>
-                                <br>
-                                gend food things about this
-                                setup! DO's performance will blow your doors off compared to typical shared hosting or
-                                slow
-                                VPS plans. And Cloudways' server config makes management secure and easy. Pricing is
-                                good
                             </div>
                            
-                            <textarea name="post-comment-textarea" class="post-comment-textarea" placeholder="Comment on  Adebajo Oluwaseyi's  Question"></textarea> <input type="submit" value="Comment" class="submitButton commentButton"> 
                         </div>
-
-                        <div class="QCDiv">
-
-                            <div class="questionDiv"><span>Question by<a href="#"> Emeka Onyeneke </a>on July 2, 2018</span>
-                                <br> Not sure if Digital Ocean will prefer me to say this here, but we go through
-                                Cloudways
-                                to have Digital Ocean instances for web hosting. I can't say enough good things about
-                                this
-                                setup! DO's performance will blow your doors off compared to typical shared hosting or
-                                slow
-                                VPS plans. And Cloudways' server config makes management secure and easy. Pricing is
-                                good
-                                too. Especially compared to AWS and GCE which are crazy high.
-                                <p><a href="#"><i class="far fa-comment fa-1x"></i>(0)</a> | <a href="#"><i class="far fa-thumbs-up fa-1x"></i> (4)</a> | <a href="#"><i class="far fa-thumbs-down "></i> (1)</a></p>
-                            </div>
-
-                            <textarea name="post-comment-textarea" class="post-comment-textarea" placeholder="Comment on Onyeneke Emeka Question"></textarea> <input type="submit" value="Comment" class="submitButton commentButton">
-                        </div>
-
                     </div>
                 </div>
 
-
             </div>
+
+
+        </div>
 
 
 
@@ -223,30 +153,31 @@
 
         </div>
         <aside class="aside">
-                <div class="aside-header">
-                    Upcoming Meetups</div>
-                <div class="aside-body">
-                    <div class="aside-content upcoming-meetup">
-                        <p> Today: <span> 0</span></p>
-                        <p> This Week:<span> 23</span></p>
-                        <p> This Month:<span> 123</span></p>
-                    </div>
-                    
+            <div class="aside-header">
+                Upcoming Meetups</div>
+            <div class="aside-body">
+                <div class="aside-content upcoming-meetup">
+                    <p> Today: <span> 0</span></p>
+                    <p> This Week:<span> 23</span></p>
+                    <p> This Month:<span> 123</span></p>
                 </div>
 
-                <div class="aside-header">
-                    ADVERTS</div>
-                <div class="aside-body">
-                    <img src="https://i.imgur.com/XaKeYJE.png" alt="advert">
-                </div>
+            </div>
+
+            <div class="aside-header">
+                ADVERTS</div>
+            <div class="aside-body">
+                <!-- <img src="https://i.imgur.com/XaKeYJE.png" alt="advert"> -->
+            </div>
 
 
-            </aside>
+        </aside>
         </div>
     </section>
     <footer class="footer">
         copyright @ Adebajo Oluwaseyi | Andela 2018
     </footer>
+   <script src="../js/user/meetup.js"></script>
     <script src="../js/general.js"></script>
     <script src="../js/user.js"></script>
 </body>
