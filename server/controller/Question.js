@@ -8,7 +8,7 @@ class questionController {
    * @returns {object} question object
    */
   static createQuestion(req, res) {
-    const text = 'INSERT INTO questions(createdBy,meetupId, title, body, vote) VALUES($1, $2, $3,$4, $5) returning id';
+    const text = 'INSERT INTO questions(createdBy,meetupId, title, body, vote, createdon) VALUES($1, $2, $3,$4, $5,$6) returning id';
 
     const value = [
       res.authData.userDetail.id,
@@ -39,63 +39,61 @@ class questionController {
      * @param {object} res
      * @returns {object} vote counts
      */
-    const text = 'SELECT * FROM questions WHERE id=$1';
-    const value = [req.params.questionId];
+    // const text = 'SELECT * FROM questions WHERE id=$1';
+    const value = [
+      req.params.questionId,
+      res.authData.userDetail.id,
+      'upvote',
+      new Date(),
+    ];
+
+    const text = 'INSERT INTO votes(questionid, voterid, votetype,createdon) VALUES($1, $2, $3,$4) ON CONFLICT (questionid, voterid) DO UPDATE SET votetype=$3, createdon=$4 RETURNING *';
+
+    const value2 = [req.params.questionId];
+    const text2 = 'update questions set vote=vote+1 where id=$1 returning *';
+
+    pool.query(text2, value2);
 
     pool.query(text, value)
-      .then((question) => {
-        req.currentVote = question.rows[0].vote;
-
-        const text2 = 'UPDATE questions SET vote=$1 WHERE id=$2 RETURNING *';
-
-        const value2 = [question.rows[0].vote + 1, req.params.questionId];
-        pool.query(text2, value2);
-
-        return res.status(200).json({
-          status: 200,
-          data: [{
-            meetup: req.params.questionId,
-            title: question.rows[0].title,
-            body: question.rows[0].body,
-            vote: question.rows[0].vote + 1,
-          }],
-
-        });
-      });
+      .then(vote => res.json({
+        status: 201,
+        data: {
+          message: 'upvote successful',
+        },
+      }))
+      .catch(err => res.json({ err }));
   }
 
   static downvote(req, res) {
     /**
-     * Vote question: increase or decrease the vote count
+     * downvote question:  decrease the vote count
      * @param {object} req
      * @param {object} res
      * @returns {object} vote counts
      */
+    const value = [
+      req.params.questionId,
+      res.authData.userDetail.id,
+      'downvote',
+      new Date(),
+    ];
 
+    const text = 'INSERT INTO votes(questionid, voterid, votetype,createdon) VALUES($1, $2, $3,$4) ON CONFLICT (questionid, voterid) DO UPDATE SET votetype=$3, createdon=$4 RETURNING *';
+    const value2 = [req.params.questionId];
+    const text2 = 'update questions set vote=vote-1 where id=$1 returning *';
 
-    const text = 'SELECT * FROM questions WHERE id=$1';
-    const value = [req.params.questionId];
+    // pool.query(text2, value2);
 
     pool.query(text, value)
-      .then((question) => {
-        req.currentVote = question.rows[0].vote;
-
-        const text2 = 'UPDATE questions SET vote=$1 WHERE id=$2 RETURNING *';
-
-        const value2 = [question.rows[0].vote - 1, req.params.questionId];
-        pool.query(text2, value2);
-
-        return res.status(200).json({
-          status: 200,
-          data: [{
-            meetup: req.params.questionId,
-            title: question.rows[0].title,
-            body: question.rows[0].body,
-            vote: question.rows[0].vote - 1,
-          }],
-
-        });
-      });
+      .then(inser => pool.query(text2, value2))
+      .then(inser => vote => res.status(201).json({
+          status: 201,
+          data: {
+            message: 'downvote successful',
+            inser,
+          },
+        }),)
+      .catch(err => res.json({ err }));
   }
 
   static getASpecificQuestionRecord(req, res) {
@@ -108,11 +106,14 @@ class questionController {
 
 
     const text = `select questions.*,
-   users.firstname
-   from questions 
-   left join users on users.id = questions.createdBy
-   where questions.meetupid=$1
-   group by(questions.id, users.id) `;
+    count(vote) as vcount,
+       users.firstname
+       from questions 
+       left join users on users.id = questions.createdBy
+       left join votes on votes.questionid=questions.id
+       where questions.meetupid=$1
+       group by(questions.id, users.id)
+       order by questions.vote DESC`;
     const value = [req.params.meetupId];
 
     pool.query(text, value)
@@ -131,7 +132,6 @@ class questionController {
      * @returns {object} meetup object
      */
 
-
     const text = `
    select comments.*,
      users.firstname
@@ -146,7 +146,51 @@ class questionController {
       .then(comment => res.status(200).json({
         status: 200,
         data: comment.rows,
-      }) )
+      }))
+      .catch(err => res.json(err));
+  }
+
+  static getUpvoteCount(req, res) {
+    /**
+     * upvote count
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} count object
+     */
+
+    const text = `
+    select count(*) as upcount from votes 
+    where questionid=$1 and votetype='downvote' 
+   `;
+    const value = [req.params.questionId];
+
+    pool.query(text, value)
+      .then(vote => res.status(200).json({
+        status: 200,
+        data: vote.rows[0],
+      }))
+      .catch(err => res.json(err));
+  }
+
+  static downUpvoteCount(req, res) {
+    /**
+     * downvote count
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} meetup object
+     */
+
+    const text = `
+    select count(*) as upcount from votes 
+    where questionid=$1 and votetype='downvote' 
+   `;
+    const value = [req.params.questionId];
+
+    pool.query(text, value)
+      .then(vote => res.status(200).json({
+        status: 200,
+        data: vote.rows[0],
+      }))
       .catch(err => res.json(err));
   }
 }

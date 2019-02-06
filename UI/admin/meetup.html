@@ -12,7 +12,8 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
    <link rel="stylesheet" href="../css/responsive.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+      crossorigin="anonymous">
 </head>
 
 <body>
@@ -21,42 +22,43 @@
    </div>
 
    <header class="header">
-         <h1 class="header-logo"><a href="../index.html"><span class="q">Q</span><span class="uestioner">UESTIONER</span> </a> </h1>
+      <h1 class="header-logo"><a href="../index.html"><span class="q">Q</span><span class="uestioner">UESTIONER</span>
+         </a> </h1>
 
-         <div class="profile"> <a href="#"><img id="dropdown" src="../img/coming (2).jpeg" alt="">Seyi</a>
-            <br> <span class="time" id="currentTime"></span>
-         </div>
+      <div class="profile"> <a href="#"><img id="dropdown" src="../img/coming (2).jpeg" alt="">Seyi</a>
+         <br> <span class="time" id="currentTime"></span>
+      </div>
 
-         <div class="dropdown" id="dropdownNav">
-           <ul>
-                    <li> <a href="../admin/meetups.html">Meetups</a> </li>
-                    <li> <a href="../admin-login.html">Logout</a> </li>
-                </ul>
-         </div>
+      <div class="dropdown" id="dropdownNav">
+         <ul>
+            <li> <a href="../admin/meetups.html">Meetups</a> </li>
+            <li> <a href="../admin-login.html">Logout</a> </li>
+         </ul>
+      </div>
 
    </header>
 
 
    <section class="container">
-         
+
       <div class="body-wrapper">
          <div class="container-page">
-               <a href="./create_meetup.html" class="submitButton">+ CREATE MEETUP</a>
+            <a href="./create_meetup.html" class="submitButton">+ CREATE MEETUP</a>
             <div class="topic-list-header">MEETUP</div>
             <div class="meetup-list">
-                  <section id="single-meetup-detail">
-                      
-                     </section>
+               <section id="single-meetup-detail">
 
-                  
+               </section>
+
+
                <br>
 
                <div class="RSVPdiv">
                   <a href="./edit_meetup.html" class="submitButton">Edit</a>
                   <a href="#" class="cancelButton" id="deleteMeetup">Delete</a>
-                 
+
                </div>
-               
+
                <div class="details">
                   <h3>Details</h3>
                   <div>
@@ -125,7 +127,8 @@
                         VPS plans. And Cloudways' server config makes management secure and easy. Pricing is
                         gooddd
                         too. Especially compared to AWS and GCE which are crazy high.
-                        <p><a href="#"><i class="far fa-comment fa-1x"></i>(0)</a> | <a href="#"><i class="far fa-thumbs-up fa-1x"></i> (4)</a> | <a href="#"><i class="far fa-thumbs-down "></i> (1)</a></p>
+                        <p><a href="#"><i class="far fa-comment fa-1x"></i>(0)</a> | <a href="#"><i class="far fa-thumbs-up fa-1x"></i>
+                              (4)</a> | <a href="#"><i class="far fa-thumbs-down "></i> (1)</a></p>
                      </div>
 
                      <div class="commentDiv"><span>Comment by <a href="#">Emmnuel Tega</a> on July 5, 2018</span>
@@ -168,7 +171,8 @@
                         VPS plans. And Cloudways' server config makes management secure and easy. Pricing is
                         good
                         too. Especially compared to AWS and GCE which are crazy high.
-                        <p><a href="#"><i class="far fa-comment fa-1x"></i>(0)</a> | <a href="#"><i class="far fa-thumbs-up fa-1x"></i> (4)</a> | <a href="#"><i class="far fa-thumbs-down "></i> (1)</a></p>
+                        <p><a href="#"><i class="far fa-comment fa-1x"></i>(0)</a> | <a href="#"><i class="far fa-thumbs-up fa-1x"></i>
+                              (4)</a> | <a href="#"><i class="far fa-thumbs-down "></i> (1)</a></p>
                      </div>
                   </div>
 
@@ -204,22 +208,23 @@
       copyright @ Adebajo Oluwaseyi | Andela 2018
    </footer>
    <script>
-     // get current page meetup Id
-     let meetupId = new URLSearchParams(window.location.search).get('id');
+      // get current page meetup Id
+      let meetupId = new URLSearchParams(window.location.search).get('id');
 
       /* Populate current page with all meetups */
       fetch(`${localStorage.getItem('base_url')}/meetups/${meetupId}`, {
-                headers: {
-                    'content-type': 'text/plain',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                // console.log(data);
-                if (data.status === 200) {
-                    data.data.map(data=>{
-                        document.querySelector('#single-meetup-detail').innerHTML=`
+            headers: {
+               'content-type': 'text/plain',
+               'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }
+         })
+         .then(response => response.json())
+         .then(data => {
+            // console.log(data);
+            if (data.status === 200) {
+               data.data.map(data => {
+                  document.querySelector('#single-meetup-detail').innerHTML =
+                     `
                         <div class="meetup-detail">
                                     <div class="meetup-banner"> <img src="../img/unity3d.jpeg" alt="">
                                     </div>
@@ -244,56 +249,62 @@
                             
                             </div>
                             </div>
-                        ` 
-                    })
-                } else {
-                    alert('wrong login credential');
-                    `Bearer ${localStorage.getItem('token')}`
-                }
+                        `
+               })
+            } else {
+               alert('wrong login credential');
+               `Bearer ${localStorage.getItem('token')}`
+            }
+
+
+         })
+         .catch(error => console.log(error));
+
+
+      /* Delete Current Meetup  */
+      document.querySelector('#deleteMeetup').addEventListener('click', e => {
+
+         e.preventDefault();
+         const confirmDelete = confirm('Are you sure you want to delete? Action is non reversible');
+
+         if(confirmDelete){
+          
+         
+
+         fetch(`${localStorage.getItem('base_url')}/meetups/${meetupId}`, {
+               headers: {
+                  'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+               },
+               method: "Delete",
+            })
+            .then(response => response.json())
+            .then(data => {
+               console.log(data);
+
+               if (data.status === 200) {
+
+
+                  alert('meetup deleteed');
+                  window.location.href = "../admin/meetups.html"
+
+               } else {
+                  document.getElementById('errorDiv').innerHTML = null;
+                  data.error.forEach(error => {
+                     document.getElementById('errorDiv').innerHTML +=
+                        `
+                          
+                          <li>${error}</li>
+                          `;
+                  });
+
+               }
 
 
             })
             .catch(error => console.log(error));
-
-
-     /* Delete Current Meetup  */
-      document.querySelector('#deleteMeetup').addEventListener('click', e => {
-          
-          e.preventDefault();
-          
-          fetch(`${localStorage.getItem('base_url')}/meetups/${meetupId}` , {
-              headers: {
-                      'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
-                  },    
-              method: "Delete",
-              })
-              .then(response => response.json())
-              .then(data =>{
-                  console.log(data);
-                  
-                  if(data.status===200){
-                     
-                      
-                      alert('meetup deleteed');
-                      window.location.href = "../admin/meetups.html"
-                      
-               }
-                  else{
-                      document.getElementById('errorDiv').innerHTML=null;
-                      data.error.forEach(error => {
-                          document.getElementById('errorDiv').innerHTML+=`
-                          
-                          <li>${error}</li>
-                          ` ;
-                      });
-                      
-                  }
-                  
-  
-              })
-              .catch(error=>console.log(error));
+      }
       })
-  </script>
+   </script>
    <script src="../js/general.js"></script>
    <script src="../js/user.js"></script>
 </body>

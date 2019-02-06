@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "startw": "npm run src/server.js",
     "start": "babel-node server/server.js ",
     "start-dev": "nodemon --exec @babel-node server/server.js",
     "build": "babel server/server.js -d src",
@@ -11,7 +10,8 @@
     "test": "cross-env NODE_ENV=test nyc mocha server/test/*.js --out-dir --timeout 9999999 --exit",
     "prepublish": "npm run build",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "coveralls": "npm run coverage"
+    "coveralls": "npm run coverage",
+    "table": "node server/model/*.js"
   },
   "author": "Adebajo Oluwaseyi",
   "license": "ISC",
@@ -37,12 +37,15 @@
     "@babel/register": "^7.0.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
+    "cloudinary": "^1.13.2",
     "cors": "^2.8.5",
+    "datauri": "^1.1.0",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.4.0",
     "moment": "^2.23.0",
+    "multer": "^1.4.1",
     "nodemon": "^1.18.9",
     "pg": "^7.8.0",
     "uuid": "^3.3.2"

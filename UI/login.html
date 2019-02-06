@@ -72,7 +72,6 @@
         e.preventDefault();
         let formData = new URLSearchParams( new FormData(document.getElementById('loginForm')));;
         localStorage.setItem('base_url', 'http://localhost:5000/api/v1');
-        console.log(`${localStorage.getItem('base_url')}/auth/login`);
 
         fetch(`${localStorage.getItem('base_url')}/auth/login` , {
                         method: "Post",

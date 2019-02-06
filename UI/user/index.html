@@ -8,6 +8,7 @@
     <title>Questioner | User | Meetups</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/user/meetups.css">
+    <link rel="stylesheet" href="../css/new.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +17,9 @@
         crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="../css/login2.css"> -->
 </head>
-
+<style>
+   
+</style>
 <body>
     <div id="loader-overlay">
         <div class="loader"></div>
@@ -30,9 +33,9 @@
             <br> <span class="time" id="currentTime"></span>
         </div>
 
-
         <div class="dropdown" id="dropdownNav">
             <ul>
+                <li> <a class="adminStatus" href="../admin/meetups.html">ADMIN</a></li>
                 <li> <a href="../user/profile.html">Profile</a> </li>
                 <li> <a href="../user/reset-password.html">Setting</a> </li>
                 <li> <a href="../">Logout</a> </li>
@@ -95,55 +98,6 @@
     <footer class="footer">
         copyright @ Adebajo Oluwaseyi | Andela 2018
     </footer>
-    <script>
-        let user = JSON.parse(localStorage.getItem('user'));
-        Array.from(document.getElementsByClassName('profile-name')).forEach(element => {
-            element.innerHTML = user.firstname;
-        });
-        if (!localStorage.getItem('token')) {
-            console.log('no token')
-        };
-
-        fetch(`${localStorage.getItem('base_url')}/meetups`, {
-                headers: {
-                    'content-type': 'text/plain',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                if (data.status === 200) {
-                    data.data.map(data=>{
-                        console.log(data);
-                       
-                        document.querySelector('#meetup-lists').innerHTML+=`
-                        <div class="single-meetup">
-                            <div><img src="../img/pexels-photo-1376960.jpeg" class="list-image" alt=""></div>
-                            <div class="list-detailss">
-                                <div> <a href="./meetup.html?id=${data.id}" class="question-header"> ${data.topic}</a></div>
-                                <div></div>
-                                <p><span class="bold"><i class="far fa-calendar"></i> Date:</span> <span class="brown">
-                                        ${data.happeningon}</span> </p>
-                                <p><span class="bold"> <i class="fa fa-map-marker-alt"></i> Location:</span><span class="brown">
-                                        ${data.location}</span> </p>
-                                <div><span class="bold"> <i class="fa fa-question-circle"></i> Question:</span> ${data.qcount} <span class="brown">
-                                       </span>  <span class="bold"><br> <i class="fa fa-check"></i> RSVPS: </span><span
-                                        class="brown"> ${data.rsvpcount}</span> </div>
-                            </div>
-                        </div>
-                        
-                        `
-
-                    })
-                } else {
-                    alert('wrong login credential');
-                    `Bearer ${localStorage.getItem('token')}`
-                }
-
-
-            })
-            .catch(error => console.log(error));
-    </script>
+   <script src="../js/user/index.js"></script>
     <script src="../js/general.js"></script>
 </body>
