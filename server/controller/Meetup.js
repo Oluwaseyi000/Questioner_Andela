@@ -59,7 +59,7 @@ count (questions) as qcount,
 count (rsvps) as rsvpcount 
 from meetups 
 left join questions on questions.meetupid = meetups.id
-left join rsvps on rsvps.userid=meetups.id 
+left join rsvps on rsvps.meetupid=meetups.id  and rsvps.response='attending'
 where meetups.id=$1
 group by(meetups.id) 
     `;
@@ -69,37 +69,39 @@ group by(meetups.id)
     pool.query(text, value)
 
       .then((meetup) => {
+          return res.status(200).json({
+            status: 200,
+            data: meetup.rows,
+          });
+      });
+  }
+  static getAllMeetupsRecord(req, res) {
+    /**
+     * Get All Meetup
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} meetup object
+     */
+
+    const text = ` select meetups.*,
+    count (questions) as qcount, 
+    count (rsvps) as rsvpcount 
+    from meetups 
+    left join questions on questions.meetupid = meetups.id
+    left join rsvps on rsvps.meetupid=meetups.id and rsvps.response='attending'
+    group by(meetups.id) ORDER BY id DESC `;;
+
+
+    pool.query(text)
+
+      .then((meetup) => {
         if (meetup.rows.length > 0) {
           return res.status(200).json({
             status: 200,
             data: meetup.rows,
           });
         }
-        return res.status(404).json({
-          status: 404,
-          error: 'meetup not found',
-        });
       });
-  }
-
-
-  static getAllMeetupsRecord(req, res, next) {
-    /**
-     * Get All Meetups
-     * @param {object} req
-     * @param {object} res
-     * @returns {object} array of meetup objects
-     */
-    //  const text = 'select * from meetups';
-    const text = 'select meetups.*, count (quetions) as qcount, count (rsvps) as rsvpcount from meetups left join questions on questions.meetupid = meetups.id left join rsvps on rsvps.userid=meetups.id group by(meetups.id) order by meetups.id ';
-    pool.query(text)
-      .then(meetup => res.status(200).json({
-        status: 200,
-        data: meetup.rows,
-      }))
-      .catch(err => res.json({
-        err,
-      }));
   }
 
 
@@ -119,6 +121,7 @@ group by(meetups.id)
         data: meetup.rows,
       }));
   }
+
 
   static deleteMeetup(req, res) {
     /**
@@ -159,7 +162,7 @@ group by(meetups.id)
         error: 'Bad request error, missing required data. Note: status is require',
       });
     }
-    const text = 'INSERT INTO rsvps(userId, meetupId, response) VALUES($1, $2, $3) RETURNING response';
+    const text = 'INSERT INTO rsvps(userId, meetupId, response) VALUES($1, $2, $3) ON CONFLICT (userid, meetupid) DO UPDATE SET response=$3 RETURNING response';
 
     const value = [
       res.authData.userDetail.id,
@@ -169,26 +172,33 @@ group by(meetups.id)
     pool.query(text, value)
       .catch(() => res.status(409).json({
         status: 409,
-        error2: 'RSVP already exist for user',
-      }));
-
-
-    const text3 = 'SELECT id, topic FROM meetups WHERE id=$1';
-    const value3 = [req.params.meetupId];
-
-    pool.query(text3, value3)
-      .then(meetup => res.status(201).json({
-        status: 201,
-        message: 'RSVP successfully created',
-        data: [{
-          meetup: meetup.rows[0].id,
-          topic: meetup.rows[0].topic,
-          status: req.body.status,
-        }],
+        error2: 'meetup do not exist',
       }))
-      .catch(() => res.status(404).json({
-        error: 'meetup  do not exit',
+      .then(rsvp => res.status(201).json({
+        status: 201,
+        message: 'RSVP successful',
+        data: [{
+          status: rsvp.rows[0],
+        }],
       }));
+
+
+    // const text3 = 'SELECT id, topic FROM meetups WHERE id=$1';
+    // const value3 = [req.params.meetupId];
+
+    // pool.query(text3, value3)
+    //   .then(meetup => res.status(201).json({
+    //     status: 201,
+    //     message: 'RSVP successfully created',
+    //     data: [{
+    //       meetup: meetup.rows[0].id,
+    //       topic: meetup.rows[0].topic,
+    //       status: req.body.status,
+    //     }],
+    //   }))
+    //   .catch(() => res.status(404).json({
+    //     error: 'meetup  do not exit',
+    //   }));
   }
 
   static addImage(req, res) {

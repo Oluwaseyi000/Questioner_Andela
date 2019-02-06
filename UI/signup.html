@@ -125,6 +125,7 @@
                     
              }
                 else{
+                    console.log(data.error);
                     document.getElementById('errorDiv').innerHTML=null;
                     data.error.forEach(error => {
                         document.getElementById('errorDiv').innerHTML+=`

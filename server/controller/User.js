@@ -29,7 +29,10 @@ class userController {
 
     pool.query(text, value)
       .then((user) => {
-        const userDetail = user.rows[0];
+        const userDetail = {
+          id: user.rows[0].id,
+          isadmin: user.rows[0].isadmin,
+        };
         jwt.sign({
           userDetail,
         }, process.env.SECRET, (err, token) => {
@@ -44,10 +47,10 @@ class userController {
               data: [{
                 token,
                 user: {
-                  firstname: userDetail.firstname,
-                  lastname: userDetail.lastname,
-                  email: userDetail.email,
-                  isadmin: userDetail.isadmin,
+                  firstname: user.rows[0].firstname,
+                  lastname: user.rows[0].lastname,
+                  email: user.rows[0].email,
+                  isadmin: user.rows[0].isadmin,
                 },
               }],
 
@@ -81,8 +84,6 @@ class userController {
           if (user.rows.length > 0) {
             const userDetail = {
               id: user.rows[0].id,
-              firstname: user.rows[0].firstname,
-              lastname: user.rows[0].lastname,
               isadmin: user.rows[0].isadmin,
             };
             bcrypt.compare(req.body.password, user.rows[0].password, (err, authPwd) => {
@@ -101,10 +102,10 @@ class userController {
                     data: [{
                       token,
                       user: {
-                        firstname: userDetail.firstname,
-                        lastname: userDetail.lastname,
-                        email: userDetail.email,
-                        adminStatus: userDetail.isadmin,
+                        firstname: user.rows[0].firstname,
+                        lastname: user.rows[0].lastname,
+                        email: user.rows[0].email,
+                        adminStatus: user.rows[0].isadmin,
                       },
                     }],
                   });
