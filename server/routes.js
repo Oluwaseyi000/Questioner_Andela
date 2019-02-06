@@ -30,6 +30,7 @@ router.post('/auth/signup', userMiddleware.userSignup, userController.userSignup
 
 router.post('/auth/login', userMiddleware.userLogin, userController.userLogin);
 
+
 router.post('/meetups/:meetupId/images', userLoggedIn, meetupController.addImage);
 router.post('/meetups/:meetupId/tags', userLoggedIn, meetupController.addTag);
 router.post('/comments', userLoggedIn, commentController.addComment);
