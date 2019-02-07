@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/user/meetups.css">
     <link rel="stylesheet" href="../css/signup.css">
+    <link rel="stylesheet" href="..css/admin.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +29,7 @@
 
             <div class="dropdown" id="dropdownNav">
                 <ul>
+                        <li id="adminStatus" > <a href="../user/index.html">USER</a></li>
                     <li> <a href="../admin/meetups.html">Meetups</a> </li>
                     <li> <a href="../admin-login.html">Logout</a> </li>
                 </ul>
@@ -40,51 +42,53 @@
 
 
             <div class="container-page">
-
+                    <div id="msgAlert">
+                   
+                        </div>
                 <div class="topic-list-header">EDIT MEETUP</div>
                 <div class="meetup-list">
-                    Fields with * are required
-                 
-
-                    <p class="terms-checked"></p>
-                    <form action="" class="signupForm">
-                        <div class="form-group">
-                            <label for="topic">Topic <span>*</span></label>
-                            <input type="text" value="topic" required name="topic" class="form-control">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="location">Location <span>*</span></label>
-                            <input type="text" required name="location" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="date">Happening on <span>*</span></label>
-                            <input type="datetime-local" required name="datetime" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="othername">Details</label>
-                            <textarea name="detail" class="form-control"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="host">Host</label>
-                            <input type="text" name="host" class="form-control"> </div>
-
-
-
-                        <div class="form-group">
-                            <label for="image">images <span>*</span></label>
-                            <input type="file" multiple name="images" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="tags">Tags <span>*</span></label>
-                            <input type="" required name="password" class="form-control">
-                        </div>
-                        <button type="submit" name="signup" id="createMeetup" class="submitButton">EDIT </button>
-                        <button type="reset" onclick="goBack()" name="cancel" class="cancelButton">CANCEL </button>
-
-
-
-                    </form>
+                 <p class="terms-checked"></p>
+                    <form action="" class="signupForm white-bg" id="meetupForm">
+                            <div class="errorDiv" id="errorDiv"></div>
+                            <div class="form-group">
+                                <label for="firstname">Topic<span>*</span> </label>
+                                <input type="text" name="topic" class="form-control">
+                            </div>
+        
+                            <div class="form-group">
+                                <label for="lastname">Location<span>*</span> </label>
+                                <input type="text" name="location" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="othername">Happening On</label>
+                                <input type="datetime-local" min="2019-02-08" name="happeningOn" class="form-control">
+                            </div>
+        
+                            <div class="form-group">
+                                <label for="username">Details </label>
+                                <input type="text" name="details" class="form-control">
+                            </div>
+        
+                            <div class="form-group">
+                                <label for="host">Host<span>*</span> </label>
+                                <input type="input" name="host" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Cover Image<span>*</span> </label>
+                                <input type="file" name="coverImage" class="form-control">
+                            </div>
+        
+        
+                            <div class="form-group">
+        
+        
+                                <button type="submit" name="createMeetup" class="submitButton" id="signup">CREATE </button>
+                                <button onclick="goBack()" class="cancelButton">CANCEL </button>
+        
+                            </div>
+        
+        
+                        </form>
                 </div>
 
 

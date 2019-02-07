@@ -82,8 +82,6 @@ class questionController {
     const value2 = [req.params.questionId];
     const text2 = 'update questions set vote=vote-1 where id=$1 returning *';
 
-    // pool.query(text2, value2);
-
     pool.query(text, value)
       .then(inser => pool.query(text2, value2))
       .then(inser => vote => res.status(201).json({

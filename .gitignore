@@ -1,3 +1,6 @@
 node_modules/
 coverage/
 server/credentials.js
+.nyc_output
+.vscode
+swagger
