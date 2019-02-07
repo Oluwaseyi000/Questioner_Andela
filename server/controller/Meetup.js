@@ -111,7 +111,16 @@ group by(meetups.id)
      * @param {object} res
      * @returns {object} meetup object
      */
-    const text = 'SELECT * FROM meetups WHERE happeningOn>=$1';
+
+    const text = `select meetups.*,
+    count (questions) as qcount, 
+    count (rsvps) as rsvpcount 
+    from meetups 
+    left join questions on questions.meetupid = meetups.id
+    left join rsvps on rsvps.userid=meetups.id WHERE happeningOn>=$1 
+    group by(meetups.id) order by meetups.id DESC`;
+    
+    // const text = 'SELECT * FROM meetups ';
     const value = [new Date()];
 
     pool.query(text, value)

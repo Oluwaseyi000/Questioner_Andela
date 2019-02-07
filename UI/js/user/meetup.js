@@ -27,6 +27,8 @@ fetch(`${localStorage.getItem('base_url')}/meetups/${meetupId}`, {
 
          document.querySelector('#single-meetup-detail').innerHTML =
             `
+            <div class="meetup-banner"> <img src="${meetup.data[0].coverimage}" alt="">
+                                </div>
                 <div class="meetup-detail">
                             
                         <div>

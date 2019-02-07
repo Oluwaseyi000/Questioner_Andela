@@ -8,7 +8,7 @@ Array.from(document.getElementsByClassName('profile-name')).forEach(element => {
 });
 
 
-fetch(`${localStorage.getItem('base_url')}/meetups`, {
+fetch(`${localStorage.getItem('base_url')}/upcomingmeetups`, {
         headers: {
             'content-type': 'text/plain',
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
