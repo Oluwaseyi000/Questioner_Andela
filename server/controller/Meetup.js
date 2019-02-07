@@ -83,14 +83,13 @@ group by(meetups.id)
      * @returns {object} meetup object
      */
 
-    const text = ` select meetups.*,
+    const text = `select meetups.*,
     count (questions) as qcount, 
     count (rsvps) as rsvpcount 
     from meetups 
     left join questions on questions.meetupid = meetups.id
-    left join rsvps on rsvps.meetupid=meetups.id and rsvps.response='attending'
-    group by(meetups.id) ORDER BY id DESC `;;
-
+    left join rsvps on rsvps.userid=meetups.id 
+    group by(meetups.id) order by meetups.id DESC`;
 
     pool.query(text)
 

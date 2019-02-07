@@ -28,7 +28,8 @@ fetch(`${localStorage.getItem('base_url')}/meetups`, {
                         <div> <a href="./meetup.html?id=${data.id}" class="question-header"> ${data.topic}</a></div>
                         <div></div>
                         <p><span class="bold"><i class="far fa-calendar"></i> Date:</span> <span class="brown">
-                                ${data.happeningon}</span> </p>
+                        ${new Date(data.happeningon).toDateString()}
+                                </span> </p>
                         <p><span class="bold"> <i class="fa fa-map-marker-alt"></i> Location:</span><span class="brown">
                                 ${data.location}</span> </p>
                         <div><span class="bold"> <i class="fa fa-question-circle"></i> Question:</span> ${data.qcount} <span class="brown">

@@ -35,6 +35,7 @@ router.post('/meetups/:meetupId/images', userLoggedIn, meetupController.addImage
 router.post('/meetups/:meetupId/tags', userLoggedIn, meetupController.addTag);
 router.post('/comments', userLoggedIn, commentController.addComment);
 router.patch('/user/reset-password', userLoggedIn, userController.resetPassword);
+router.get('/users/:userId/questions', userLoggedIn, userController.userQuestion);
 router.get('/question/:quesId/upcount', userLoggedIn, questionController.getUpvoteCount);
 router.get('/question/:quesId/downcount', userLoggedIn, questionController.downUpvoteCount);
 
