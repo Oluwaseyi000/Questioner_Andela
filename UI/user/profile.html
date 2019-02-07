@@ -203,8 +203,9 @@
     </footer>
     <script>
         const user = JSON.parse(localStorage.getItem('user'));
+        console.log(user);
 
-        fetch(`${localStorage.getItem('base_url')}/users/2/questions`, {
+        fetch(`${localStorage.getItem('base_url')}/users/${user.id}/questions`, {
             headers: {
                'content-type': 'text/plain',
                'Authorization': `Bearer ${localStorage.getItem('token')}`,

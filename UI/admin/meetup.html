@@ -238,7 +238,7 @@
                                 <p ><span class="bold"><i class="far fa-calendar"></i> Date:</span>    <span class="brown"> ${new Date(data.happeningon).toDateString()}</span>    </p>
                                 <p><span class="bold"> <i class="fa fa-map-marker-alt"></i> Location:</span><span class="brown">${data.location}Lagos</span> </p>
                                 <p ><span class="bold"> <i class="fa fa-user"></i> Host: </span>    <span class="brown">${data.host}</span>    </p>
-                                <div><span class="bold"> <i class="fa fa-question-circle"></i> Question:</span>  <span class="brown"> 26  </span>  <span class="bold"><br> <i class="fa fa-check"></i> RSVPS: </span><span class="brown"> 34</span> </div>
+                                <div><span class="bold"> <i class="fa fa-question-circle"></i> Question:</span>  <span class="brown"> ${data.qcount}  </span>  <span class="bold"><br> <i class="fa fa-check"></i> RSVPS: </span><span class="brown"> ${data.rsvpcount}</span> </div>
                                 </div>
                             </div>
                                                 <br>
@@ -284,7 +284,7 @@
                         setTimeout(() => {
                             window.location.href = "../admin/meetups.html";
                             
-                        }, 3000);
+                        }, 1000);
 
 
                } else {

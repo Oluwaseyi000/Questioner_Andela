@@ -47,6 +47,7 @@ class userController {
               data: [{
                 token,
                 user: {
+                  id:user.rows[0].id,
                   firstname: user.rows[0].firstname,
                   lastname: user.rows[0].lastname,
                   email: user.rows[0].email,
@@ -102,6 +103,7 @@ class userController {
                     data: [{
                       token,
                       user: {
+                        id:user.rows[0].id,
                         firstname: user.rows[0].firstname,
                         lastname: user.rows[0].lastname,
                         email: user.rows[0].email,
