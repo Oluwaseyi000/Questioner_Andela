@@ -29,6 +29,7 @@
             
             <div class="dropdown"  id="dropdownNav">
                 <ul>
+                        <li id="adminStatus" > <a href="../user/index.html">USER</a></li>
                     <li> <a href="../admin/meetups.html">Meetups</a> </li>
                     <li> <a href="../admin-login.html">Logout</a> </li>
                 </ul>
@@ -40,6 +41,7 @@
     <section class="container">
         <div class="body-wrapper">
             <div class="container-page">
+               
 <a href="./create_meetup.html" class="submitButton">+ CREATE MEETUP</a>
                 <div class="topic-list-header">MEETUPS</div>
                 <div class="themeetup-list" id="meetup-lists">
@@ -76,13 +78,14 @@
     </footer>
 
     <script>
-            let user = JSON.parse(localStorage.getItem('admin'));
+            let admin = JSON.parse(localStorage.getItem('user'));
+            if (!admin.adminStatus) {
+                window.location.href='../index.html'
+            };
             Array.from(document.getElementsByClassName('profile-name')).forEach(element => {
                 element.innerHTML = user.firstname;
             });
-            if (!localStorage.getItem('Admintoken')) {
-                console.log('no token')
-            };
+           
     
             fetch(`${localStorage.getItem('base_url')}/meetups`, {
                     headers: {
@@ -102,7 +105,7 @@
                                     <div> <a href="./meetup.html?id=${data.id}" class="question-header"> ${data.topic}</a></div>
                                     <div></div>
                                     <p><span class="bold"><i class="far fa-calendar"></i> Date:</span> <span class="brown">
-                                            ${data.happeningon}</span> </p>
+                                            ${new Date(data.happeningon).toDateString()}</span> </p>
                                     <p><span class="bold"> <i class="fa fa-map-marker-alt"></i> Location:</span><span class="brown">
                                             ${data.location}</span> </p>
                                     <div><span class="bold"> <i class="fa fa-question-circle"></i> Question:</span> <span class="brown">
@@ -122,6 +125,7 @@
     
                 })
                 .catch(error => console.log(error));
+                
         </script>
     <script src="../js/general.js"></script>
 </body>

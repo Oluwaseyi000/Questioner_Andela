@@ -31,6 +31,7 @@
 
       <div class="dropdown" id="dropdownNav">
          <ul>
+               <li id="adminStatus" > <a href="../user/index.html">USER</a></li>
             <li> <a href="../admin/meetups.html">Meetups</a> </li>
             <li> <a href="../admin-login.html">Logout</a> </li>
          </ul>
@@ -43,6 +44,9 @@
 
       <div class="body-wrapper">
          <div class="container-page">
+               <div id="msgAlert">
+                   
+                  </div>
             <a href="./create_meetup.html" class="submitButton">+ CREATE MEETUP</a>
             <div class="topic-list-header">MEETUP</div>
             <div class="meetup-list">
@@ -231,7 +235,7 @@
                                 <div>
                                 <h1 class="h1">${data.topic}</h1>
                                 <div></div>
-                                <p ><span class="bold"><i class="far fa-calendar"></i> Date:</span>    <span class="brown">${data.happeningon}</span>    </p>
+                                <p ><span class="bold"><i class="far fa-calendar"></i> Date:</span>    <span class="brown"> ${new Date(data.happeningon).toDateString()}</span>    </p>
                                 <p><span class="bold"> <i class="fa fa-map-marker-alt"></i> Location:</span><span class="brown">${data.location}Lagos</span> </p>
                                 <p ><span class="bold"> <i class="fa fa-user"></i> Host: </span>    <span class="brown">${data.host}</span>    </p>
                                 <div><span class="bold"> <i class="fa fa-question-circle"></i> Question:</span>  <span class="brown"> 26  </span>  <span class="bold"><br> <i class="fa fa-check"></i> RSVPS: </span><span class="brown"> 34</span> </div>
@@ -240,14 +244,7 @@
                                                 <br>
                             
                             
-                            
-                            <div class="details">
-                            <h3>Details</h3>
-                            <div>
-                            ${data.details}
-                            
-                            
-                            </div>
+                           
                             </div>
                         `
                })
@@ -273,7 +270,7 @@
 
          fetch(`${localStorage.getItem('base_url')}/meetups/${meetupId}`, {
                headers: {
-                  'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+                  'Authorization': `Bearer ${localStorage.getItem('token')}`,
                },
                method: "Delete",
             })
@@ -283,9 +280,12 @@
 
                if (data.status === 200) {
 
+                  displayAlert('Meetup Delete Successful');
+                        setTimeout(() => {
+                            window.location.href = "../admin/meetups.html";
+                            
+                        }, 3000);
 
-                  alert('meetup deleteed');
-                  window.location.href = "../admin/meetups.html"
 
                } else {
                   document.getElementById('errorDiv').innerHTML = null;

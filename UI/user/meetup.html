@@ -33,6 +33,7 @@
 
         <div class="dropdown" id="dropdownNav">
             <ul>
+                    <li id="adminStatus" > <a href="../admin/meetups.html">ADMIN</a></li>
                 <li><a href="./index.html">Meetups</a></li>
                 <li> <a href="../user/profile.html">Profile</a> </li>
                 <li> <a href="../user/reset-password.html">Setting</a> </li>
@@ -46,6 +47,7 @@
     <section class="container">
         <div class="body-wrapper">
             <div class="container-page">
+                    <div id="msgAlert"></div>
                 <div class="topic-list-header">MEETUP</div>
                 <div class="meetup-list" id="single-meetup">
 
@@ -115,16 +117,15 @@
                    
                     <h3 class="details">Discussion</h3>
                     <div class="discussion">
-                        <p class="successDiv" id="quesSuccessDiv"></p>
-                        <p class="errorDiv" id=questionError></p>
+                       <div id="alert2" class="msgAlert"></div>
                         <button class="submitButton" id="askQuestionButton">ASK QUESTION <i class="far fa-question-circle fa-1x"></i></button>
 
                         <form action="#" id="postQuestionForm">
 
 
-                            <input type="text" name="title" placeholder="Question title here" class="form-control question-title">
+                            <input type="text" required name="title" placeholder="Question title here" class="form-control question-title">
 
-                            <textarea contenteditable="true" name="body" placeholder=" Question Body Here" id="post-question"
+                            <textarea required contenteditable="true" name="body" placeholder=" Question Body Here" id="post-question"
                                 class="quesstion-textarea"></textarea>
                             <br><button class="submitButton">Submit</button>
                         </form>

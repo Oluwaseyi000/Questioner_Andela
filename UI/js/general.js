@@ -1,13 +1,15 @@
+/* eslint-disable no-undef */
 const overlay = document.getElementById('loader-overlay');
 if (overlay) {
     window.addEventListener('load', () => {
         overlay.style.display = 'none';
+        
     });
 }
 
 
 
-let terms = document.getElementById('terms-and-conditions');
+const terms = document.getElementById('terms-and-conditions');
 if (terms) {
     terms.addEventListener('click', displayTermsAndConditions);
 
@@ -27,11 +29,23 @@ window.onload = function () {
     }, 4000);
 };
 
+
+function displayAlert(message, alertId='msgAlert') {
+    const alert = document.getElementById(alertId);
+    alert.style.display = 'block';
+    alert.innerHTML= message
+    setTimeout(() => {
+    
+    }, 3000);
+}
+
+
+
 const drop = document.getElementById('dropdown');
 if (drop) {
     drop.addEventListener('click', (e) => {
         e.preventDefault();
-        document.getElementById('dropdownNav').style.display = "block";
+        document.getElementById('dropdownNav').style.display = 'block';
 
     });
 }
@@ -47,4 +61,15 @@ if (logout) {
 
 function goBack() {
     window.history.back();
+  }
+
+
+  const userStatus = JSON.parse(localStorage.getItem('user'));
+  console.log(userStatus);
+  
+  if(userStatus.adminStatus) {
+    console.log(`it is admin ${userStatus.adminStatus}`);
+      
+    document.getElementById('adminStatus').style.display = 'block'
+  }else{console.log(`not admin ${userStatus.adminStatus}`);
   }

@@ -111,6 +111,12 @@ class userController {
                   });
                 });
               }
+              else {
+                return res.status(401).json({
+                  status: 401,
+                  error: 'wrong login credentials',
+                });
+              }
             });
           } else {
             return res.status(401).json({
@@ -155,6 +161,73 @@ class userController {
         error: 'no user found',
         err,
       }));
+  }
+
+  static userQuestion(req, res) {
+    /**
+     * Get A Question
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} question object
+     */
+
+
+    const text = `select questions.*, users.firstname, meetups.topic from questions
+    left join meetups on questions.meetupid = meetups.id
+    left join users on users.id = questions.createdby
+where questions.createdby = $1`;
+    const value = [req.params.userId];
+
+    pool.query(text, value)
+      .then(question => res.status(200).json({
+        status: 200,
+        data: question.rows,
+      }))
+      .catch(err => res.json(err));
+  }
+  static userComment(req, res) {
+    /**
+     * Get A Question
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} question object
+     */
+
+
+    const text = `select comments.*, users.firstname, questions.title from comments
+    left join questions on questions.createdby = users.id
+where comments.userid = $1`;
+
+    const value = [req.params.userId];
+
+    pool.query(text, value)
+      .then(comment => res.status(200).json({
+        status: 200,
+        data: comment.rows,
+      }))
+      .catch(err => res.json(err));
+  }
+  static topFeeds(req, res) {
+    /**
+     * Get A top feeds
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} question object
+     */
+
+
+    const text = `select questions.*, comments.* from questions
+    left join questions on questions.createdby = users.id
+where questions.votes = $1`;
+
+    const value = [req.params.userId];
+
+    pool.query(text, value)
+      .then(comment => res.status(200).json({
+        status: 200,
+        data: comment.rows,
+      }))
+      .catch(err => res.json(err));
   }
 }
 export default userController;
