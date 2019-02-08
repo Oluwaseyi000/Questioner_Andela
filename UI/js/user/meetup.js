@@ -24,9 +24,12 @@ fetch(`${localStorage.getItem('base_url')}/meetups/${meetupId}`, {
    .then((meetup) => {
       if (meetup.status === 200) {
          // console.log(meetup.data);
+         document.querySelector('#questionDetail').innerHTML =meetup.data[0].details;
 
          document.querySelector('#single-meetup-detail').innerHTML =
             `
+            <div class="meetup-banner"> <img src="${meetup.data[0].coverimage}" alt="">
+                                </div>
                 <div class="meetup-detail">
                             
                         <div>
@@ -71,7 +74,7 @@ fetch(`${localStorage.getItem('base_url')}/meetups/${meetupId}/questions`, {
             document.querySelector('#questions-list').innerHTML +=
                `
                         <div class="questionDiv "><span>Question by<a href="#"> ${question.firstname} </a>on ${new Date(question.createdon).toDateString()}</span>
-                        <br> ${question.title}<br>
+                        <br><span class="underline"> ${question.title}</span><br>
                         ${question.body}
 
                         <p>
@@ -201,7 +204,7 @@ document.querySelector('#rsvpForm').addEventListener('submit', e => {
             setTimeout(() => {
                location.reload();
 
-            }, 1800);
+            }, 00);
          }
       })
       .catch(error => console.log(error));
@@ -234,7 +237,7 @@ makeComment = (quesId) => {
                   setTimeout(() => {
                      location.reload();
    
-                  }, 1800);
+                  }, 0);
          }
          else{
             displayAlert('Comment body cannot be empty', 'alert2');
@@ -266,27 +269,49 @@ function upvote(quesId) {
       })
    return false;
 }
-
 function downvote(quesId) {
-   console.log(quesId);
    fetch(`${localStorage.getItem('base_url')}/questions/${quesId}/downvote`, {
-         mode: 'cors',
          method: 'put',
          headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
          },
       })
       .then(response => response.json())
-      .then(body => {
+      .then(vote => {
+         console.log(vote);
+         
+         location.reload();
          if(vote.status===201){
-            location.reload();
          }
+        
       })
       .catch(err => {
          console.log(err)
       })
    return false;
 }
+
+// function downvote(quesId) {
+//    console.log(quesId);
+//    fetch(`${localStorage.getItem('base_url')}/questions/${quesId}/downvote`, {
+//          mode: 'cors',
+//          method: 'put',
+//          headers: {
+//             Authorization: `Bearer ${localStorage.getItem('token')}`,
+//          },
+//       })
+//       .then(response => response.json())
+//       .then(vote => {
+//          console.log(vote);
+         
+//          location.reload();
+        
+//       })
+//       .catch(err => {
+//          console.log(err)
+//       })
+//    return false;
+// }
 
 
 

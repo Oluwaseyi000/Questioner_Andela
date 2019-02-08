@@ -29,6 +29,10 @@ class questionController {
           title: req.body.title,
           body: req.body.body,
         }],
+      }))
+      .catch(() => res.status(403).json({
+        status: 403,
+        error: 'specified meetup do not exist'
       }));
   }
 
@@ -52,25 +56,31 @@ class questionController {
     const value2 = [req.params.questionId];
     const text2 = 'update questions set vote=vote+1 where id=$1 returning *';
 
-    pool.query(text2, value2);
+    pool.query(text, value);
 
-    pool.query(text, value)
-      .then(vote => res.json({
+    pool.query(text2, value2)
+      .then(question => res.json({
         status: 201,
-        data: {
-          message: 'upvote successful',
-        },
+        data: [{
+          meetupId: question.rows[0].id,
+          title: question.rows[0].title,
+          body: question.rows[0].body,
+          vote: question.rows[0].vote,
+        }],
       }))
-      .catch(err => res.json({ err }));
+      .catch(err => res.status(404).json({
+        status:404,
+        error:'question id do not exist'
+      }));
   }
-
   static downvote(req, res) {
     /**
-     * downvote question:  decrease the vote count
+     * Vote question: increase or decrease the vote count
      * @param {object} req
      * @param {object} res
      * @returns {object} vote counts
      */
+    // const text = 'SELECT * FROM questions WHERE id=$1';
     const value = [
       req.params.questionId,
       res.authData.userDetail.id,
@@ -79,20 +89,27 @@ class questionController {
     ];
 
     const text = 'INSERT INTO votes(questionid, voterid, votetype,createdon) VALUES($1, $2, $3,$4) ON CONFLICT (questionid, voterid) DO UPDATE SET votetype=$3, createdon=$4 RETURNING *';
-    const value2 = [req.params.questionId];
-    const text2 = 'update questions set vote=vote-1 where id=$1 returning *';
 
-    pool.query(text, value)
-      .then(inser => pool.query(text2, value2))
-      .then(inser => vote => res.status(201).json({
-          status: 201,
-          data: {
-            message: 'downvote successful',
-            inser,
-          },
-        }),)
-      .catch(err => res.json({ err }));
+    const value2 = [req.params.questionId];
+    const text2 = 'update questions set vote=vote-1 where id=$1 returning questions.*';
+
+    pool.query(text, value);
+
+    pool.query(text2, value2)
+      .then(question => res.json({
+        status: 201,
+        data: [{
+          meetupId: question.rows[0].meetupId,
+          title: question.rows[0].title,
+          body: question.rows[0].body,
+          vote: question.rows[0].vote,
+        }],
+      }))
+      .catch(err => res.json({
+        err
+      }));
   }
+
 
   static getASpecificQuestionRecord(req, res) {
     /**

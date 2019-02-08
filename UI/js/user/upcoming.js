@@ -8,7 +8,7 @@ Array.from(document.getElementsByClassName('profile-name')).forEach(element => {
 });
 
 
-fetch(`${localStorage.getItem('base_url')}/meetups`, {
+fetch(`${localStorage.getItem('base_url')}/meetups/upcomingmeetups`, {
         headers: {
             'content-type': 'text/plain',
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -19,7 +19,7 @@ fetch(`${localStorage.getItem('base_url')}/meetups`, {
         console.log(data);
         if (data.status === 200) {
             data.data.map(data=>{
-               
+                console.log(data);
                
                 document.querySelector('#meetup-lists').innerHTML+=`
                 <div class="single-meetup">

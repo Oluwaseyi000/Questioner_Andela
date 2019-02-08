@@ -87,6 +87,7 @@ margin: 5px 10px 0 0;
 }
 .meetup-banner img{
     max-width: 450px;
+    max-height: 220px;
     float: left;
     margin-right: 25px;
 }
