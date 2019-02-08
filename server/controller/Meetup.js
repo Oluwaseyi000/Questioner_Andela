@@ -69,10 +69,16 @@ group by(meetups.id)
     pool.query(text, value)
 
       .then((meetup) => {
-          return res.status(200).json({
-            status: 200,
-            data: meetup.rows,
-          });
+        return res.status(200).json({
+          status: 200,
+          data: meetup.rows,
+        });
+      })
+      .catch(() => {
+        return res.status(404).json({
+          status: 404,
+          error: 'meetup do not exit'
+        })
       });
   }
   static getAllMeetupsRecord(req, res) {
@@ -119,7 +125,7 @@ group by(meetups.id)
     left join questions on questions.meetupid = meetups.id
     left join rsvps on rsvps.userid=meetups.id WHERE happeningOn>=$1 
     group by(meetups.id) order by meetups.id DESC`;
-    
+
     // const text = 'SELECT * FROM meetups ';
     const value = [new Date()];
 
@@ -147,6 +153,10 @@ group by(meetups.id)
         .then(() => res.status(200).json({
           status: 200,
           data: ['meetup successfully deleted'],
+        }))
+        .catch(() => res.status(404).json({
+          status: 404,
+          error: `meetup do not exit for id ${value}`
         }));
     } else {
       return res.status(403).json({
@@ -178,16 +188,17 @@ group by(meetups.id)
       req.body.status,
     ];
     pool.query(text, value)
-      .catch(() => res.status(409).json({
-        status: 409,
-        error2: 'meetup do not exist',
-      }))
       .then(rsvp => res.status(201).json({
         status: 201,
         message: 'RSVP successful',
         data: [{
+          meetup: req.params.meetupId,
           status: rsvp.rows[0],
         }],
+      }))
+      .catch(() => res.status(404).json({
+        status: 404,
+        error2: 'meetup do not exist',
       }));
 
 
@@ -235,6 +246,12 @@ group by(meetups.id)
               images: req.body.images,
             },
           });
+        })
+        .catch(() => {
+          return res.status(404).json({
+            status: 404,
+            error: 'meetup do not exist'
+          })
         });
     } else {
       return res.status(403).json({
@@ -271,6 +288,12 @@ group by(meetups.id)
               images: req.body.tags,
             },
           });
+        })
+        .catch(() => {
+          return res.status(404).json({
+            status: 404,
+            error: 'meetup do not exist'
+          })
         });
     } else {
       return res.status(403).json({

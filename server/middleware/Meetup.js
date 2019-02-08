@@ -4,7 +4,7 @@ import Joi from 'joi';
 class Meetup {
   static createMeetup(req, res, next) {
     const meetupSchema = Joi.object().keys({
-      topic: Joi.string().min(5).required(),
+      topic: Joi.string().required(),
       location: Joi.string().required(),
       happeningOn: Joi.required(),
     });

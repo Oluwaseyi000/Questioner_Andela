@@ -38,7 +38,7 @@ class userController {
         }, process.env.SECRET, (err, token) => {
           if (err) {
             res.json({
-              err
+              error: 'email already taken'
             });
           } else {
             return res.status(201).json({
@@ -62,7 +62,7 @@ class userController {
       })
       .catch(err => res.status(400).json({
         status: 400,
-        message: err,
+        error: 'email already used by another user',
       }));
   }
 

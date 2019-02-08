@@ -19,7 +19,7 @@ fetch(`${localStorage.getItem('base_url')}/meetups`, {
         console.log(data);
         if (data.status === 200) {
             data.data.map(data=>{
-                console.log(data);
+               
                
                 document.querySelector('#meetup-lists').innerHTML+=`
                 <div class="single-meetup">

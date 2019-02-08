@@ -52,16 +52,16 @@
                                     <div class="errorDiv" id="errorDiv"></div>
                                     <div class="form-group">
                                         <label for="firstname">Topic<span>*</span> </label>
-                                        <input type="text" name="topic" class="form-control">
+                                        <input required type="text" name="topic" class="form-control">
                                     </div>
                 
                                     <div class="form-group">
                                         <label for="lastname">Location<span>*</span> </label>
-                                        <input type="text" name="location" class="form-control">
+                                        <input required type="text" name="location" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="othername">Happening On</label>
-                                        <input type="datetime-local" min="2019-02-08" name="happeningOn" class="form-control">
+                                        <label for="othername">Happening On<span>*</span></label> 
+                                        <input required type="datetime-local" min="2019-02-08" name="happeningOn" class="form-control">
                                     </div>
                 
                                     <div class="form-group">
@@ -71,7 +71,7 @@
                 
                                     <div class="form-group">
                                         <label for="host">Host<span>*</span> </label>
-                                        <input type="input" name="host" class="form-control">
+                                        <input required type="input" name="host" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Cover Image URL<span>*</span> </label>

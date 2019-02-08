@@ -22,16 +22,20 @@
         <div class="loader"></div>
     </div>
     <header class="header">
+        
             <h1 class="header-logo"><a href="../index.html"><span class="q">Q</span><span class="uestioner">UESTIONER</span> </a> </h1>
-            <div class="profile"> <a href="#"><img id="dropdown" src="../img/user-avatar.png" alt="">Admin</a> 
+            <div class="profile">
+                    <a id="adminStatus" class="thelogin" href="../user/index.html">USER   </a>
+                   
+                
+                <a href="#">
+                <img id="dropdown" src="../img/user-avatar.png" alt="">Admin</a> 
               <br>  <span class="time" id="currentTime"></span>
             </div>
             
             <div class="dropdown"  id="dropdownNav">
                 <ul>
-                        <li id="adminStatus" > <a href="../user/index.html">USER</a></li>
-                    <li> <a href="../admin/meetups.html">Meetups</a> </li>
-                    <li> <a href="../admin-login.html">Logout</a> </li>
+                    <li> <a href="../index.html">Logout</a> </li>
                 </ul>
             </div>
 
@@ -108,6 +112,7 @@
                                             ${new Date(data.happeningon).toDateString()}</span> </p>
                                     <p><span class="bold"> <i class="fa fa-map-marker-alt"></i> Location:</span><span class="brown">
                                             ${data.location}</span> </p>
+                                            
                                     <div><span class="bold"> <i class="fa fa-question-circle"></i> Question:</span> <span class="brown">
                                             ${data.qcount} </span> <span class="bold"><br> <i class="fa fa-check"></i> RSVPS: </span><span
                                             class="brown"> ${data.rsvpcount}</span> </div>

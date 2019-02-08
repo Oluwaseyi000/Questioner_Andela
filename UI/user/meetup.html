@@ -27,14 +27,19 @@
         <h1 class="header-logo"><a href="../index.html"><span class="q">Q</span><span class="uestioner">UESTIONER</span>
             </a> </h1>
 
-        <div class="profile"> <a href="#"><img id="dropdown" src="../img/user-avatar.png" alt="">Seyi</a>
+        <div class="profile"> 
+                <!-- <div class="profile">  -->
+                  
+                    
+                        <a id="adminStatus" class="thelogin" href="../admin/meetups.html">ADMIN   </a>
+                        <a class="thelogin" href="./index.html">MEETUPS</a>
+                    
+            <a href="#"><img id="dropdown" src="../img/user-avatar.png" alt="">Seyi</a>
             <br> <span class="time" id="currentTime"></span>
         </div>
 
         <div class="dropdown" id="dropdownNav">
             <ul>
-                    <li id="adminStatus" > <a href="../admin/meetups.html">ADMIN</a></li>
-                <li><a href="./index.html">Meetups</a></li>
                 <li> <a href="../user/profile.html">Profile</a> </li>
                 <li> <a href="../user/reset-password.html">Setting</a> </li>
                 <!-- <li id="logout"> <a href="#">Logout</a> </li> -->
@@ -67,14 +72,14 @@
                                 <span class="checkmark"></span>Attending
                             </label>
                             <label class="radioContainer">
-                                <input type="radio" checked name="status" value="not sure">Not Sure
+                                <input type="radio"  name="status" value="not sure">Not Sure
                                 <span class="checkmark"></span>
                             </label>
                             <label class="radioContainer">Not
                                 <input type="radio" name="status" value="not attending">Attending
                                 <span class="checkmark"></span>
                             </label>
-                            <input type="submit" value="RSVP" class="submitButton">
+                            <input type="submit" value="SUBMIT" class="submitButton">
                         </form>
                     </section>
                    
@@ -84,13 +89,13 @@
                 
                 <div class="details">
                 <h3>Details</h3>
-                <div>
+                <div id="questionDetail">
                 ${meetup.data[0].details}               
                 </div>
                     </section>
 
 
-                    <hr>
+                    <!-- <hr>
                     <h3 class="details">Interested People (12)</h3>
                     <section class="attendees">
 
@@ -110,7 +115,7 @@
                             <img class="attendees" src="../img/coming(4).jpg" alt="">
                             <p>Valetyy</p>
                         </div>
-                    </section>
+                    </section> -->
                     
                     <hr>
                    
@@ -157,6 +162,7 @@
                 Upcoming Meetups</div>
             <div class="aside-body">
                 <div class="aside-content upcoming-meetup">
+                        <a class="underline" href="./upcoming.html"><> UPCOMING MEETUPS <></a>
                     <p> Today: <span> 0</span></p>
                     <p> This Week:<span> 23</span></p>
                     <p> This Month:<span> 123</span></p>
