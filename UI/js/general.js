@@ -65,11 +65,9 @@ function goBack() {
 
 
   const userStatus = JSON.parse(localStorage.getItem('user'));
-  console.log(userStatus);
+  
   
   if(userStatus.adminStatus) {
-    console.log(`it is admin ${userStatus.adminStatus}`);
-      
-    document.getElementById('adminStatus').style.display = 'block'
-  }else{console.log(`not admin ${userStatus.adminStatus}`);
+  
+    document.getElementById('adminStatus').style.display = 'inline-block'
   }

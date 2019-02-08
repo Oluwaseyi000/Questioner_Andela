@@ -21,6 +21,8 @@ router.delete('/meetups/:meetupId', userLoggedIn, meetupMiddleware.deleteMeetup,
 router.post('/meetups/:meetupId/rsvps', userLoggedIn, meetupController.createRsvps);
 
 router.post('/questions', userLoggedIn, questionMiddleware.createQuestion, questionController.createQuestion);
+router.patch('/questions/:questionId/upvote', userLoggedIn, questionController.upvote);
+router.patch('/questions/:questionId/downvote', userLoggedIn, questionController.downvote);
 router.put('/questions/:questionId/upvote', userLoggedIn, questionController.upvote);
 router.put('/questions/:questionId/downvote', userLoggedIn, questionController.downvote);
 router.get('/meetups/:meetupId/questions', userLoggedIn, questionController.getASpecificQuestionRecord);

@@ -22,16 +22,20 @@
         <div class="loader"></div>
     </div>
     <header class="header">
+        
             <h1 class="header-logo"><a href="../index.html"><span class="q">Q</span><span class="uestioner">UESTIONER</span> </a> </h1>
-            <div class="profile"> <a href="#"><img id="dropdown" src="../img/coming(1).jpeg" alt="">Admin</a> 
+            <div class="profile">
+                    <a id="adminStatus" class="thelogin" href="../user/index.html">USER   </a>
+                   
+                
+                <a href="#">
+                <img id="dropdown" src="../img/user-avatar.png" alt="">Admin</a> 
               <br>  <span class="time" id="currentTime"></span>
             </div>
             
             <div class="dropdown"  id="dropdownNav">
                 <ul>
-                        <li id="adminStatus" > <a href="../user/index.html">USER</a></li>
-                    <li> <a href="../admin/meetups.html">Meetups</a> </li>
-                    <li> <a href="../admin-login.html">Logout</a> </li>
+                    <li> <a href="../index.html">Logout</a> </li>
                 </ul>
             </div>
 
@@ -100,7 +104,7 @@
                         data.data.map(data=>{
                             document.querySelector('#meetup-lists').innerHTML+=`
                             <div class="single-meetup">
-                                <div><img src="../img/pexels-photo-1376960.jpeg" class="list-image" alt=""></div>
+                                <div><img src="${data.coverimage}" class="list-image" alt=""></div>
                                 <div class="list-detailss">
                                     <div> <a href="./meetup.html?id=${data.id}" class="question-header"> ${data.topic}</a></div>
                                     <div></div>
@@ -108,9 +112,10 @@
                                             ${new Date(data.happeningon).toDateString()}</span> </p>
                                     <p><span class="bold"> <i class="fa fa-map-marker-alt"></i> Location:</span><span class="brown">
                                             ${data.location}</span> </p>
+                                            
                                     <div><span class="bold"> <i class="fa fa-question-circle"></i> Question:</span> <span class="brown">
-                                            26 </span> <span class="bold"><br> <i class="fa fa-check"></i> RSVPS: </span><span
-                                            class="brown"> 34</span> </div>
+                                            ${data.qcount} </span> <span class="bold"><br> <i class="fa fa-check"></i> RSVPS: </span><span
+                                            class="brown"> ${data.rsvpcount}</span> </div>
                                 </div>
                             </div>
                             

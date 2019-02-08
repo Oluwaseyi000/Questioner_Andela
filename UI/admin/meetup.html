@@ -25,7 +25,9 @@
       <h1 class="header-logo"><a href="../index.html"><span class="q">Q</span><span class="uestioner">UESTIONER</span>
          </a> </h1>
 
-      <div class="profile"> <a href="#"><img id="dropdown" src="../img/coming (2).jpeg" alt="">Seyi</a>
+      <div class="profile"> 
+            <a id="adminStatus" class="thelogin" href="../user/index.html">USER   </a>
+         <a href="#"><img id="dropdown" src="../img/user-avatar.png" alt="">Seyi</a>
          <br> <span class="time" id="currentTime"></span>
       </div>
 
@@ -230,15 +232,15 @@
                   document.querySelector('#single-meetup-detail').innerHTML =
                      `
                         <div class="meetup-detail">
-                                    <div class="meetup-banner"> <img src="../img/unity3d.jpeg" alt="">
+                                    <div class="meetup-banner"> <img src="${data.coverimage}" alt="">
                                     </div>
                                 <div>
                                 <h1 class="h1">${data.topic}</h1>
                                 <div></div>
                                 <p ><span class="bold"><i class="far fa-calendar"></i> Date:</span>    <span class="brown"> ${new Date(data.happeningon).toDateString()}</span>    </p>
-                                <p><span class="bold"> <i class="fa fa-map-marker-alt"></i> Location:</span><span class="brown">${data.location}Lagos</span> </p>
+                                <p><span class="bold"> <i class="fa fa-map-marker-alt"></i> Location:</span><span class="brown"> ${data.location}</span> </p>
                                 <p ><span class="bold"> <i class="fa fa-user"></i> Host: </span>    <span class="brown">${data.host}</span>    </p>
-                                <div><span class="bold"> <i class="fa fa-question-circle"></i> Question:</span>  <span class="brown"> 26  </span>  <span class="bold"><br> <i class="fa fa-check"></i> RSVPS: </span><span class="brown"> 34</span> </div>
+                                <div><span class="bold"> <i class="fa fa-question-circle"></i> Question:</span>  <span class="brown"> ${data.qcount}  </span>  <span class="bold"><br> <i class="fa fa-check"></i> RSVPS: </span><span class="brown"> ${data.rsvpcount}</span> </div>
                                 </div>
                             </div>
                                                 <br>
@@ -284,7 +286,7 @@
                         setTimeout(() => {
                             window.location.href = "../admin/meetups.html";
                             
-                        }, 3000);
+                        }, 500);
 
 
                } else {
