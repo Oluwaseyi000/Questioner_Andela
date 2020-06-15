@@ -1,7 +1,8 @@
 # Questioner
 A Crowd-source questions for a meetup.
-<a href=" https://oluwaseyi000.github.io/Questioner_Andela/"> Click to view </a>
+<a href="https://oluwaseyi000.github.io/Questioner_Andela/"> Click to view </a>
 
+ https://oluwaseyi000.github.io/Questioner_Andela/
 Questioner helps the meetup organizer prioritize questions to be answered. Other users can vote on asked questions and they bubble to the top or bottom of the log.
 
 [![Build Status](https://travis-ci.com/Oluwaseyi000/Questioner_Andela.svg?branch=develop)](https://travis-ci.com/Oluwaseyi000/Questioner_Andela)
